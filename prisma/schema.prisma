@@ -1,0 +1,91 @@
+generator client {
+provider = "prisma-client-js"
+}
+
+datasource db {
+provider = "postgresql"
+url      = env("DATABASE_URL")
+}
+
+enum Role {
+PATIENT
+DOCTOR
+ADMIN
+}
+
+enum AppointmentStatus {
+PENDING
+RESERVED
+COMPLETED
+CANCELLED
+}
+
+model User {
+id             String    @id @default(cuid())
+name           String    // Nombre
+lastName       String?   // Apellido
+email          String    @unique
+password       String
+role           Role      @default(PATIENT)
+
+// Campos específicos para el registro de pacientes (Guía de Acceso Paso 2)
+dni            String?   @unique // DNI / Documento único
+phone          String?   // Teléfono de contacto
+birthDate      DateTime? // Fecha de nacimiento
+insurance      String?   // Obra Social / Prepaga (Opcional)
+avatar         String    @default("1") // Avatar selector ID
+
+createdAt      DateTime  @default(now())
+updatedAt      DateTime  @updatedAt
+
+// Relaciones
+doctorProfile  DoctorProfile?
+appointmentsAsPatient Appointment[] @relation("PatientAppointments")
+}
+
+model DoctorProfile {
+id          String   @id @default(cuid())
+userId      String   @unique
+user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+specialty   String   // Especialidad (ej: Pediatría, Cardiología, etc.)
+license     String   // Matrícula médica profesional
+bio         String?  // Breve descripción o presentación
+imageUrl    String?  // Foto del profesional
+
+createdAt   DateTime @default(now())
+updatedAt   DateTime @updatedAt
+
+// Relaciones
+appointments Appointment[] @relation("DoctorAppointments")
+}
+
+model Appointment {
+id          String            @id @default(cuid())
+
+// Relación con el Paciente (User)
+patientId   String
+patient     User              @relation("PatientAppointments", fields: [patientId], references: [id], onDelete: Cascade)
+
+// Relación con el Perfil del Médico
+doctorId    String
+doctor      DoctorProfile     @relation("DoctorAppointments", fields: [doctorId], references: [id], onDelete: Cascade)
+
+dateTime    DateTime          // Fecha y hora exacta del turno agendado
+status      AppointmentStatus @default(RESERVED) // Estado: RESERVED por defecto (Paso 7)
+
+createdAt   DateTime          @default(now())
+updatedAt   DateTime          @updatedAt
+}
+
+model ContactForm {
+id          String    @id @default(cuid())
+nombre      String
+email       String
+asunto      String
+mensaje     String    @db.Text
+leido       Boolean   @default(false)
+
+createdAt   DateTime  @default(now())
+updatedAt   DateTime  @updatedAt
+}

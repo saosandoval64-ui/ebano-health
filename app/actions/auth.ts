@@ -1,0 +1,192 @@
+"use server"
+
+import { db } from "../../lib/db"
+import bcrypt from "bcryptjs"
+import { cookies } from "next/headers"
+import { redirect } from "next/navigation"
+import { getSessionPayload } from "../../lib/auth"
+import { revalidatePath } from "next/cache"
+
+export async function registerUser(formData: FormData) {
+  const name = formData.get("nombre") as string
+  const lastName = formData.get("apellido") as string
+  const email = formData.get("email") as string
+  const password = formData.get("password") as string
+  const dni = formData.get("dni") as string
+  const phone = formData.get("telefono") as string
+  const birthDateInput = formData.get("fechaNacimiento") as string
+  const insurance = formData.get("obraSocial") as string
+
+  if (!email || !password || !name) {
+    return { success: false, message: "Faltan datos obligatorios." }
+  }
+
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10)
+
+    await db.user.create({
+      data: {
+        name,
+        lastName,
+        email,
+        password: hashedPassword,
+        dni: dni || null,
+        phone: phone || null,
+        birthDate: birthDateInput ? new Date(birthDateInput) : null,
+        insurance: insurance || null,
+        role: "PATIENT",
+      },
+    })
+
+    return { success: true, message: "Registro exitoso." }
+  } catch (error) {
+    console.error("Error al registrar:", error)
+    return { 
+      success: false, 
+      message: "Error en el servidor. El correo o DNI ya podrían estar registrados." 
+    }
+  }
+}
+
+export async function registerDoctor(formData: FormData) {
+  const name = formData.get("nombre") as string
+  const lastName = formData.get("apellido") as string
+  const email = formData.get("email") as string
+  const password = formData.get("password") as string
+  const phone = formData.get("telefono") as string
+  const matricula = formData.get("matricula") as string
+  const especialidad = formData.get("especialidad") as string
+  const bio = formData.get("consultorio") as string
+
+  if (!email || !password || !name || !matricula) {
+    return { success: false, message: "Faltan datos obligatorios." }
+  }
+
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10)
+
+    const user = await db.user.create({
+      data: {
+        name,
+        lastName,
+        email,
+        password: hashedPassword,
+        phone: phone || null,
+        role: "DOCTOR",
+      },
+    })
+
+    // Create doctor profile
+    await db.doctorProfile.create({
+      data: {
+        userId: user.id,
+        license: matricula,
+        specialty: especialidad,
+        bio: bio || null,
+      },
+    })
+
+    return { success: true, message: "Registro de médico exitoso." }
+  } catch (error) {
+    console.error("Error al registrar médico:", error)
+    return { 
+      success: false, 
+      message: "Error en el servidor. El correo o matrícula ya podrían estar registrados." 
+    }
+  }
+}
+
+export async function logoutUser() {
+  const cookieStore = await cookies()
+  cookieStore.delete("session")
+  redirect("/login")
+}
+
+export async function updatePatientProfile(formData: FormData) {
+  const session = await getSessionPayload()
+  if (!session || session.role !== "PATIENT") {
+    return { success: false, message: "No autorizado." }
+  }
+
+  const name = formData.get("nombre") as string
+  const lastName = formData.get("apellido") as string
+  const phone = formData.get("telefono") as string
+  const dni = formData.get("dni") as string
+  const insurance = formData.get("obraSocial") as string
+  const birthDateInput = formData.get("fechaNacimiento") as string
+
+  if (!name || !lastName) {
+    return { success: false, message: "Nombre y Apellido son requeridos." }
+  }
+
+  try {
+    await db.user.update({
+      where: { id: session.userId },
+      data: {
+        name,
+        lastName,
+        phone: phone || null,
+        dni: dni || null,
+        insurance: insurance || null,
+        birthDate: birthDateInput ? new Date(birthDateInput) : null,
+      },
+    })
+
+    revalidatePath("/patient/dashboard")
+    revalidatePath("/patient/profile")
+
+    return { success: true, message: "Perfil actualizado correctamente." }
+  } catch (error) {
+    console.error("Error updating profile:", error)
+    return { success: false, message: "Error al guardar los cambios en el servidor." }
+  }
+}
+
+export async function changePassword(formData: FormData) {
+  const session = await getSessionPayload()
+  if (!session) {
+    return { success: false, message: "No autorizado." }
+  }
+
+  const currentPassword = formData.get("currentPassword") as string
+  const newPassword = formData.get("newPassword") as string
+  const confirmPassword = formData.get("confirmPassword") as string
+
+  if (!currentPassword || !newPassword || !confirmPassword) {
+    return { success: false, message: "Todos los campos de contraseña son requeridos." }
+  }
+
+  if (newPassword !== confirmPassword) {
+    return { success: false, message: "La nueva contraseña y su confirmación no coinciden." }
+  }
+
+  if (newPassword.length < 6) {
+    return { success: false, message: "La nueva contraseña debe tener al menos 6 caracteres." }
+  }
+
+  try {
+    const user = await db.user.findUnique({
+      where: { id: session.userId },
+    })
+
+    if (!user) {
+      return { success: false, message: "Usuario no encontrado." }
+    }
+
+    const matches = await bcrypt.compare(currentPassword, user.password)
+    if (!matches) {
+      return { success: false, message: "La contraseña actual es incorrecta." }
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10)
+    await db.user.update({
+      where: { id: session.userId },
+      data: { password: hashedPassword },
+    })
+
+    return { success: true, message: "Contraseña cambiada exitosamente." }
+  } catch (error) {
+    console.error("Error changing password:", error)
+    return { success: false, message: "Error en el servidor al intentar cambiar la contraseña." }
+  }
+}
