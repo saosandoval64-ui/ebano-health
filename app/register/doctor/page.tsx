@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useTransition, useRef } from "react"
-import { registerDoctor } from "../../actions/auth"
+import { registerDoctor } from "../../actions/register"
 import { X, Loader2 } from "lucide-react"
 import Link from "next/link"
 
@@ -22,9 +22,8 @@ export default function DoctorRegisterPage() {
       if (result.success) {
         setSuccessMessage(result.message)
         formRef.current?.reset()
-        setTimeout(() => {
-          window.location.href = "/login?role=doctor"
-        }, 2000)
+        // Auto-redirect to dashboard con replace para evitar back-button
+        window.location.replace(result.redirectTo || "/doctor/dashboard")
       } else {
         setMessage(result.message)
       }
@@ -208,7 +207,7 @@ export default function DoctorRegisterPage() {
 
             {successMessage && (
               <p className="text-green-600 text-xs font-bold text-center bg-green-50 border border-green-100 p-3 rounded-xl animate-slideInDown">
-                ✓ {successMessage}
+                ✓ {successMessage} Redirigiendo...
               </p>
             )}
           </form>
@@ -216,7 +215,7 @@ export default function DoctorRegisterPage() {
           <div className="mt-8 pt-6 border-t border-black/5 text-center">
             <p className="text-xs font-medium text-black/50">
               ¿Ya tienes cuenta?{" "}
-              <Link href="/login?role=doctor" className="font-bold underline decoration-[#A2B676] link-transition hover:text-black">
+              <Link href="/login/doctor" className="font-bold underline decoration-[#A2B676] link-transition hover:text-black">
                 Inicia sesión
               </Link>
             </p>

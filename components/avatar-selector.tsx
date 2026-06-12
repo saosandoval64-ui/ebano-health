@@ -1,65 +1,148 @@
 "use client"
 
-import { useState } from "react"
-import { User, Users, Users2, Globe, Heart, Smile, Eye, Sun } from "lucide-react"
+import { useState, useRef } from "react"
+import { Camera, Upload } from "lucide-react"
 
 interface AvatarSelectorProps {
   onSelect: (avatar: string) => void
   currentAvatar?: string
 }
 
+/**
+ * AvatarSelector - Muestra los 4 avatares SVG de la página principal
+ * más la opción de subir una foto desde la galería.
+ * Compacto, sin iconos amontonados.
+ */
 export function AvatarSelector({ onSelect, currentAvatar }: AvatarSelectorProps) {
   const [isOpen, setIsOpen] = useState(false)
+  const [localAvatar, setLocalAvatar] = useState(currentAvatar || "avatar-1.svg")
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
-  const avatars = [
-    { id: 1, icon: User, label: "Usuario", color: "bg-blue-500" },
-    { id: 2, icon: Users, label: "Grupo", color: "bg-purple-500" },
-    { id: 3, icon: Users2, label: "Equipo", color: "bg-pink-500" },
-    { id: 4, icon: Globe, label: "Global", color: "bg-green-500" },
-    { id: 5, icon: Heart, label: "Corazón", color: "bg-red-500" },
-    { id: 6, icon: Smile, label: "Sonrisa", color: "bg-yellow-500" },
-    { id: 7, icon: Eye, label: "Ojo", color: "bg-indigo-500" },
-    { id: 8, icon: Sun, label: "Sol", color: "bg-orange-500" },
+  // Los mismos avatares que aparecen en la landing page
+  const avatarSvgs = [
+    "/avatars/avatar-1.svg",
+    "/avatars/avatar-2.svg",
+    "/avatars/avatar-3.svg",
+    "/avatars/avatar-4.svg",
   ]
 
-  const selectedAvatar = avatars.find(a => a.id.toString() === currentAvatar) || avatars[0]
-  const SelectedIcon = selectedAvatar.icon
+  const isCustomUpload = localAvatar && !avatarSvgs.includes(localAvatar) && localAvatar.startsWith("data:")
+
+  const handleSelectSvg = (src: string) => {
+    setLocalAvatar(src)
+    onSelect(src)
+    setIsOpen(false)
+  }
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    // Validar tamaño (max 2MB) y tipo
+    if (file.size > 2 * 1024 * 1024) {
+      alert("La imagen no debe superar los 2MB")
+      return
+    }
+    if (!file.type.startsWith("image/")) {
+      alert("Solo se permiten imágenes")
+      return
+    }
+
+    const reader = new FileReader()
+    reader.onload = (event) => {
+      const dataUrl = event.target?.result as string
+      setLocalAvatar(dataUrl)
+      onSelect(dataUrl)
+      setIsOpen(false)
+    }
+    reader.readAsDataURL(file)
+  }
 
   return (
-    <div className="relative">
+    <div className="relative shrink-0">
+      {/* Avatar actual - muestra el SVG o la foto subida */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`h-12 w-12 rounded-full flex items-center justify-center text-white font-bold text-lg hover:scale-110 transition-transform ${selectedAvatar.color} border-2 border-white/20`}
+        className="h-10 w-10 sm:h-12 sm:w-12 rounded-full overflow-hidden border-2 border-white/20 hover:scale-110 transition-transform bg-[#A2B676] flex items-center justify-center"
+        aria-label="Cambiar avatar"
       >
-        <SelectedIcon className="h-6 w-6" />
+        {isCustomUpload ? (
+          <img
+            src={localAvatar}
+            alt="Tu foto"
+            className="h-full w-full object-cover"
+          />
+        ) : (
+          <img
+            src={localAvatar || "/avatars/avatar-1.svg"}
+            alt="Avatar"
+            className="h-full w-full object-cover"
+          />
+        )}
       </button>
 
       {isOpen && (
-        <div className="absolute top-full mt-2 right-0 bg-white rounded-lg shadow-lg p-4 z-50">
-          <div className="grid grid-cols-4 gap-3">
-            {avatars.map(avatar => {
-              const Icon = avatar.icon
-              return (
-                <button
-                  key={avatar.id}
-                  onClick={() => {
-                    onSelect(avatar.id.toString())
-                    setIsOpen(false)
-                  }}
-                  className={`h-10 w-10 rounded-full flex items-center justify-center text-white font-bold hover:scale-110 transition-transform border-2 ${
-                    avatar.id.toString() === currentAvatar
-                      ? "border-black"
-                      : "border-transparent"
-                  } ${avatar.color}`}
-                  title={avatar.label}
-                >
-                  <Icon className="h-5 w-5" />
-                </button>
-              )
-            })}
+        <>
+          {/* Overlay */}
+          <div
+            className="fixed inset-0 z-40"
+            onClick={() => setIsOpen(false)}
+          />
+          {/* Popup selector - FIXED: now uses fixed positioning to prevent overflow */}
+          <div className="fixed z-50 bottom-4 left-1/2 -translate-x-1/2 md:absolute md:bottom-auto md:mt-2 md:left-1/2 md:-translate-x-1/2 md:top-full bg-white rounded-2xl shadow-xl border border-black/10 p-4 w-[260px] max-w-[90vw]">
+            <p className="text-[10px] uppercase font-bold tracking-widest text-black/40 text-center mb-3">
+              Elegir Avatar
+            </p>
+            
+            {/* Grid de avatares SVG - FIXED: prevent overflow */}
+            <div className="grid grid-cols-4 gap-2 mb-3">
+              {avatarSvgs.map((src) => {
+                const isSelected = localAvatar === src
+                return (
+                  <button
+                    key={src}
+                    onClick={() => handleSelectSvg(src)}
+                    className={`h-12 w-12 rounded-full overflow-hidden mx-auto transition-all shrink-0 ${
+                      isSelected
+                        ? "ring-2 ring-offset-2 ring-black scale-110"
+                        : "hover:scale-110"
+                    }`}
+                    aria-label={`Seleccionar avatar ${src}`}
+                  >
+                    <img
+                      src={src}
+                      alt="Avatar SVG"
+                      className="h-full w-full object-cover"
+                    />
+                  </button>
+                )
+              })}
+            </div>
+
+            {/* Separador */}
+            <div className="border-t border-black/5 my-2" />
+
+            {/* Subir foto desde galería */}
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              className="w-full h-9 rounded-xl flex items-center justify-center gap-2 text-[10px] uppercase font-bold tracking-wider text-black/70 hover:bg-black/5 hover:text-black transition-all"
+            >
+              <Camera className="h-3.5 w-3.5" />
+              Subir Foto
+            </button>
+
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={handleFileUpload}
+            />
           </div>
-        </div>
+        </>
       )}
     </div>
   )
 }
+
+export default AvatarSelector

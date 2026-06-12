@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useTransition, useRef } from "react"
-import { registerUser } from "../../actions/auth"
+import { registerPatient } from "../../actions/register"
 import { X, Loader2 } from "lucide-react"
 import Link from "next/link"
 
@@ -14,18 +14,16 @@ export default function PatientRegisterPage() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
-    formData.append("role", "patient")
     
     setMessage("")
     setSuccessMessage("")
     startTransition(async () => {
-      const result = await registerUser(formData)
+      const result = await registerPatient(formData)
       if (result.success) {
         setSuccessMessage(result.message)
         formRef.current?.reset()
-        setTimeout(() => {
-          window.location.href = "/login?role=patient"
-        }, 2000)
+        // Auto-redirect to dashboard con replace para evitar back-button
+        window.location.replace(result.redirectTo || "/patient/dashboard")
       } else {
         setMessage(result.message)
       }
@@ -181,7 +179,7 @@ export default function PatientRegisterPage() {
 
             {successMessage && (
               <p className="text-green-600 text-xs font-bold text-center bg-green-50 border border-green-100 p-3 rounded-xl animate-slideInDown">
-                ✓ {successMessage}
+                ✓ {successMessage} Redirigiendo...
               </p>
             )}
           </form>
@@ -189,7 +187,7 @@ export default function PatientRegisterPage() {
           <div className="mt-8 pt-6 border-t border-black/5 text-center">
             <p className="text-xs font-medium text-black/50">
               ¿Ya tienes cuenta?{" "}
-              <Link href="/login?role=patient" className="font-bold underline decoration-[#A2B676] link-transition hover:text-black">
+              <Link href="/login/patient" className="font-bold underline decoration-[#A2B676] link-transition hover:text-black">
                 Inicia sesión
               </Link>
             </p>

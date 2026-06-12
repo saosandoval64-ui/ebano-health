@@ -2,10 +2,58 @@
 
 import { db } from "../../lib/db"
 import bcrypt from "bcryptjs"
-import { cookies } from "next/headers"
-import { redirect } from "next/navigation"
 import { getSessionPayload } from "../../lib/auth"
 import { revalidatePath } from "next/cache"
+
+export async function loginUser(formData: FormData) {
+  const email = formData.get("email") as string
+  const password = formData.get("password") as string
+  const expectedRole = formData.get("expectedRole") as string | undefined
+
+  if (!email || !password) {
+    return { success: false, message: "Faltan datos obligatorios." }
+  }
+
+  try {
+    const user = await db.user.findUnique({ where: { email } })
+    if (!user) {
+      return { success: false, message: "Credenciales incorrectas." }
+    }
+
+    const isValid = await bcrypt.compare(password, user.password)
+    if (!isValid) {
+      return { success: false, message: "Credenciales incorrectas." }
+    }
+
+    if (expectedRole && user.role !== expectedRole) {
+      return { success: false, message: "No tienes acceso a este portal." }
+    }
+
+    const dashboards: Record<string, string> = {
+      PATIENT: "/patient/dashboard",
+      DOCTOR: "/doctor/dashboard",
+      ADMIN: "/admin/dashboard",
+    }
+
+    return {
+      success: true,
+      user: {
+        id: user.id,
+        name: `${user.name}${user.lastName ? ` ${user.lastName}` : ""}`,
+        email: user.email,
+        role: user.role,
+        image: user.avatar ? `/avatars/avatar-${user.avatar}.svg` : null,
+      },
+      redirectTo: dashboards[user.role] || "/patient/dashboard",
+    }
+  } catch (error) {
+    console.error("Error al iniciar sesión:", error)
+    return { 
+      success: false, 
+      message: "Error en el servidor. Intenta de nuevo." 
+    }
+  }
+}
 
 export async function registerUser(formData: FormData) {
   const name = formData.get("nombre") as string
@@ -76,7 +124,6 @@ export async function registerDoctor(formData: FormData) {
       },
     })
 
-    // Create doctor profile
     await db.doctorProfile.create({
       data: {
         userId: user.id,
@@ -97,9 +144,7 @@ export async function registerDoctor(formData: FormData) {
 }
 
 export async function logoutUser() {
-  const cookieStore = await cookies()
-  cookieStore.delete("session")
-  redirect("/login")
+  // No-op: el logout se maneja por NextAuth
 }
 
 export async function updatePatientProfile(formData: FormData) {

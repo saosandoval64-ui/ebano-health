@@ -1,16 +1,22 @@
+import { auth } from "../../../lib/auth"
 import { db } from "../../../lib/db"
-import { getCurrentUser } from "../../../lib/auth"
 import { redirect } from "next/navigation"
 import TodayAppointmentsList from "./TodayAppointmentsList"
 import { Calendar, Users, Activity, ArrowRight } from "lucide-react"
 import Link from "next/link"
 
 export default async function DoctorDashboard() {
-  const user = await getCurrentUser()
-  if (!user || user.role !== "DOCTOR") return redirect("/login")
+  const session = await auth()
+  if (!session?.user || session.user.role !== "DOCTOR") {
+    return redirect("/login?role=doctor")
+  }
+
+  const user = await db.user.findUnique({
+    where: { id: session.user.id },
+  })
 
   const doctorProfile = await db.doctorProfile.findUnique({
-    where: { userId: user.id },
+    where: { userId: session.user.id },
   })
 
   if (!doctorProfile) {
@@ -43,7 +49,7 @@ export default async function DoctorDashboard() {
     },
   })
 
-  // Estadísticas: Citas hoy, Pacientes únicos totales, Turnos totales pendientes
+  // Estadísticas
   const countToday = todayAppointments.filter((app) => app.status === "RESERVED").length
 
   const pendingTotal = await db.appointment.count({
@@ -70,7 +76,7 @@ export default async function DoctorDashboard() {
       {/* Encabezado */}
       <div className="space-y-1">
         <h1 className="text-3xl font-serif font-black tracking-tight">
-          ¡Hola, Dr. {user.name}!
+          ¡Hola, Dr. {user?.name}!
         </h1>
         <p className="text-sm font-medium text-black/60">
           Esta es la actividad programada para hoy.
@@ -79,8 +85,6 @@ export default async function DoctorDashboard() {
 
       {/* Tarjetas de Estadísticas */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        
-        {/* Citas de hoy */}
         <div className="bg-[#A2B676]/10 border border-[#A2B676]/30 p-6 rounded-[28px] flex items-center gap-4">
           <div className="w-12 h-12 rounded-2xl bg-[#A2B676] flex items-center justify-center text-white shrink-0">
             <Calendar className="h-6 w-6" />
@@ -91,7 +95,6 @@ export default async function DoctorDashboard() {
           </div>
         </div>
 
-        {/* Pacientes Activos */}
         <div className="bg-black/5 border border-black/10 p-6 rounded-[28px] flex items-center gap-4">
           <div className="w-12 h-12 rounded-2xl bg-black/10 flex items-center justify-center text-black shrink-0">
             <Users className="h-6 w-6" />
@@ -102,7 +105,6 @@ export default async function DoctorDashboard() {
           </div>
         </div>
 
-        {/* Pendientes Futuras */}
         <div className="bg-black/5 border border-black/10 p-6 rounded-[28px] flex items-center gap-4">
           <div className="w-12 h-12 rounded-2xl bg-black/10 flex items-center justify-center text-black shrink-0">
             <Activity className="h-6 w-6" />
@@ -112,7 +114,6 @@ export default async function DoctorDashboard() {
             <h3 className="text-2xl font-serif font-black">{pendingTotal}</h3>
           </div>
         </div>
-
       </div>
 
       {/* Consultas para Hoy */}

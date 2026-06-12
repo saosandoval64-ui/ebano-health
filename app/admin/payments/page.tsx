@@ -1,6 +1,6 @@
 import { getCurrentUser } from "../../../lib/auth"
 import { redirect } from "next/navigation"
-import { CreditCard, ShieldCheck } from "lucide-react"
+import { CreditCard, ShieldCheck, Settings2 } from "lucide-react"
 
 export default async function AdminPaymentsPage() {
   const user = await getCurrentUser()
@@ -29,7 +29,7 @@ export default async function AdminPaymentsPage() {
         <div className="lg:col-span-2 space-y-6">
           <div className="bg-white/40 border border-white/50 p-6 sm:p-8 rounded-[32px] shadow-sm space-y-6">
             <h3 className="text-lg font-serif font-black text-black flex items-center gap-2">
-              <Settings className="h-5 w-5 text-[#A2B676]" /> Integración de Pasarelas
+              <Settings2 className="h-5 w-5 text-[#A2B676]" /> Integración de Pasarelas
             </h3>
             
             <div className="space-y-4">

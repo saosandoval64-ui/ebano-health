@@ -22,10 +22,22 @@ export async function PUT(request: NextRequest) {
       )
     }
 
-    // Nota: Este endpoint funciona después de ejecutar las migraciones de Prisma
+    const avatarStr = String(avatar)
+
+    // Validar: si es data URL (base64), verificar tamaño < 5MB
+    if (avatarStr.startsWith("data:")) {
+      const sizeInBytes = (avatarStr.length * 3) / 4
+      if (sizeInBytes > 5 * 1024 * 1024) {
+        return NextResponse.json(
+          { success: false, message: "La imagen no debe superar los 5MB" },
+          { status: 400 }
+        )
+      }
+    }
+
     const user = await db.user.update({
       where: { id: session.userId },
-      data: { avatar: String(avatar) },
+      data: { avatar: avatarStr },
     })
 
     const typedUser = user as User & { avatar?: string }

@@ -1,11 +1,14 @@
 "use client"
 
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { 
   UserPlus, 
   ArrowDown,
   User,
-  Stethoscope
+  Stethoscope,
+  Menu,
+  X
 } from "lucide-react"
 import Link from "next/link"
 
@@ -15,6 +18,7 @@ import Link from "next/link"
 */
 
 export default function LandingPage() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   
   const pasosRegistro = [
     {
@@ -72,14 +76,16 @@ export default function LandingPage() {
           </span>
         </div>
 
+        {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-10 text-xs font-bold uppercase tracking-widest text-black/80">
           <Link href="/" className="pb-1 border-b-2 border-black transition-all">Home</Link>
           <Link href="/especialistas" className="hover:text-black transition-colors">Especialistas</Link>
-          <Link href="#contact" className="hover:text-black transition-colors">Contacto</Link>
+          <Link href="/contact" className="hover:text-black transition-colors">Contacto</Link>
         </nav>
 
-        <div className="flex items-center gap-4 sm:gap-6">
-          <Link href="/login" className="text-xs font-bold uppercase tracking-widest text-black/80 hover:text-black transition-colors">
+        {/* Desktop Actions */}
+        <div className="hidden md:flex items-center gap-4 sm:gap-6">
+          <Link href="/login/patient" className="text-xs font-bold uppercase tracking-widest text-black/80 hover:text-black transition-colors">
             Sign In
           </Link>
           <Button asChild className="rounded-full bg-[#F4C443] hover:bg-[#E5B534] text-black border border-black/10 px-4 sm:px-6 py-2 text-xs font-bold uppercase tracking-wider shadow-sm transition-transform active:scale-95">
@@ -88,7 +94,70 @@ export default function LandingPage() {
             </Link>
           </Button>
         </div>
+
+        {/* Mobile Hamburger */}
+        <button
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="md:hidden h-10 w-10 rounded-full bg-black text-[#FDF6CD] flex items-center justify-center shadow-lg border border-black/10 hover:scale-105 active:scale-95 link-transition"
+          aria-label="Abrir menú"
+        >
+          {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
       </header>
+
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+        <div className="md:hidden fixed inset-0 z-50 bg-black/40 backdrop-blur-sm tab-transition animate-fadeIn">
+          <div className="fixed top-0 right-0 h-full w-[280px] bg-[#FDF6CD] shadow-2xl border-l border-black/10 p-6 animate-slideInRight">
+            <div className="flex justify-end mb-8">
+              <button
+                onClick={() => setMobileMenuOpen(false)}
+                className="h-9 w-9 rounded-full bg-black/5 hover:bg-black/10 flex items-center justify-center text-black/70 hover:text-black border border-black/5 link-transition"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+            <nav className="flex flex-col gap-3">
+              <Link
+                href="/"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full h-11 px-4 rounded-2xl flex items-center text-xs font-bold uppercase tracking-wider text-black/75 hover:bg-black/5 hover:text-black link-transition"
+              >
+                Home
+              </Link>
+              <Link
+                href="/especialistas"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full h-11 px-4 rounded-2xl flex items-center text-xs font-bold uppercase tracking-wider text-black/75 hover:bg-black/5 hover:text-black link-transition"
+              >
+                Especialistas
+              </Link>
+              <Link
+                href="/contact"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full h-11 px-4 rounded-2xl flex items-center text-xs font-bold uppercase tracking-wider text-black/75 hover:bg-black/5 hover:text-black link-transition"
+              >
+                Contacto
+              </Link>
+              <div className="border-t border-black/10 my-4" />
+              <Link
+                href="/login/patient"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full h-11 px-4 rounded-2xl flex items-center text-xs font-bold uppercase tracking-wider text-black/75 hover:bg-black/5 hover:text-black link-transition"
+              >
+                Sign In
+              </Link>
+              <Link
+                href="/register"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full h-11 px-4 rounded-2xl flex items-center text-xs font-bold uppercase tracking-wider bg-[#F4C443] text-black hover:bg-[#E5B534] link-transition"
+              >
+                Sign Up
+              </Link>
+            </nav>
+          </div>
+        </div>
+      )}
 
       {/* ================= HERO SECTION RESPONSIVA ================= */}
       <main className="mx-auto max-w-7xl w-full px-4 sm:px-8 pt-4 pb-12 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center flex-1">
@@ -194,7 +263,7 @@ export default function LandingPage() {
         <ArrowDown className="h-3.5 w-3.5 text-black/40 animate-bounce" />
       </div>
 
-      <footer className="w-full bg-black text-white py-12 sm:py-16 mt-16 sm:mt-20">
+      <footer className="w-full bg-black text-white py-12 sm:py-16 mt-16 sm:mt-20" id="contact">
         <div className="mx-auto max-w-7xl w-full px-4 sm:px-8">
           
           {/* Main Footer Grid */}
@@ -231,7 +300,7 @@ export default function LandingPage() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/login" className="hover:text-[#A2B676] transition-colors">
+                  <Link href="/login/patient" className="hover:text-[#A2B676] transition-colors">
                     Iniciar Sesión
                   </Link>
                 </li>
@@ -321,6 +390,9 @@ export default function LandingPage() {
               </Link>
               <Link href="/contact" className="hover:text-[#A2B676] transition-colors">
                 Contacto
+              </Link>
+              <Link href="/login/admin" className="hover:text-[#A2B676] transition-colors">
+                Admin
               </Link>
             </div>
           </div>

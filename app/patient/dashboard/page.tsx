@@ -1,10 +1,15 @@
+import { auth } from "../../../lib/auth"
 import { db } from "../../../lib/db"
-import { getCurrentUser } from "../../../lib/auth"
 import Link from "next/link"
-import { Calendar, User, FileText, ArrowRight, ShieldAlert } from "lucide-react"
+import { Calendar, User, FileText, ArrowRight, ShieldAlert, Stethoscope } from "lucide-react"
 
 export default async function PatientDashboard() {
-  const user = await getCurrentUser()
+  const session = await auth()
+  if (!session?.user) return null
+
+  const user = await db.user.findUnique({
+    where: { id: session.user.id },
+  })
   if (!user) return null
 
   // Buscar citas futuras
@@ -118,6 +123,25 @@ export default async function PatientDashboard() {
           </div>
         </div>
 
+        {/* Botón de Agendar Cita */}
+        <div className="bg-black text-[#FDF6CD] p-6 sm:p-8 rounded-[32px] flex flex-col justify-between h-[220px]">
+          <div>
+            <span className="text-[10px] uppercase font-extrabold tracking-widest text-[#A2B676] block mb-3">
+              Agendar Consulta
+            </span>
+            <p className="text-sm font-medium text-white/70">
+              Busca entre nuestros especialistas y reserva tu próximo turno de forma rápida y sencilla.
+            </p>
+          </div>
+          <div className="pt-4 border-t border-white/10">
+            <Link
+              href="/especialistas"
+              className="w-full py-3 bg-[#A2B676] hover:bg-[#8F9F68] text-black text-center rounded-[18px] text-[11px] font-bold uppercase tracking-wider transition-colors inline-flex items-center justify-center gap-2"
+            >
+              <Stethoscope className="h-3.5 w-3.5" /> Agendar Cita
+            </Link>
+          </div>
+        </div>
       </div>
 
       {/* Historial o lista de turnos de la sección inferior */}

@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation"
 interface BookingSectionProps {
   doctorId: string
   isLoggedIn: boolean
+  userRole?: string | null
 }
 
 const TIME_SLOTS = [
@@ -17,7 +18,8 @@ const TIME_SLOTS = [
   "15:00", "15:30", "16:00", "16:30"
 ]
 
-export default function BookingSection({ doctorId, isLoggedIn }: BookingSectionProps) {
+export default function BookingSection({ doctorId, isLoggedIn, userRole }: BookingSectionProps) {
+  const isPatient = isLoggedIn && userRole === "PATIENT"
   const router = useRouter()
   const [selectedDate, setSelectedDate] = useState("")
   const [selectedTime, setSelectedTime] = useState("")

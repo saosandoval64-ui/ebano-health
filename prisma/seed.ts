@@ -11,13 +11,13 @@ async function main() {
   await prisma.doctorProfile.deleteMany()
   await prisma.user.deleteMany()
 
-  // 1. Create Admin
-  const adminPassword = await bcrypt.hash("adminpassword123", 10)
+  // 1. Create Admin with specified credentials
+  const adminPassword = await bcrypt.hash("Ssao2004", 10)
   const admin = await prisma.user.create({
     data: {
       name: "Admin",
       lastName: "Ébano",
-      email: "admin@ebano.com",
+      email: "perlazasandoval9@gmail.com",
       password: adminPassword,
       role: "ADMIN",
     },

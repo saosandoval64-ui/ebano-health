@@ -2,6 +2,7 @@ import { db } from "../../lib/db"
 import Link from "next/link"
 import { User, UserPlus, ArrowLeftIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { normalizeAvatar } from "./utils"
 
 export default async function EspecialistasPage() {
   const doctors = await db.user.findMany({
@@ -77,9 +78,9 @@ export default async function EspecialistasPage() {
                   {/* Avatar y nombre */}
                   <div className="flex items-center gap-4 mb-6">
                     <div className="w-16 h-16 rounded-[20px] bg-white/70 border border-white flex items-center justify-center overflow-hidden shadow-inner shrink-0">
-                      {doctor.doctorProfile?.imageUrl ? (
+                      {doctor.avatar ? (
                         <img
-                          src={doctor.doctorProfile.imageUrl}
+                          src={normalizeAvatar(doctor.avatar)}
                           alt={doctor.name}
                           className="w-full h-full object-cover"
                         />

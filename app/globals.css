@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
@@ -129,233 +128,148 @@
   }
 }
 
-/* ========== ANIMACIONES PERSONALIZADAS ========== */
+/* ========== ANIMACIONES ELEGANTES Y FLUIDAS ========== */
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes slideInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes slideInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(-24px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  from { opacity: 0; transform: translateX(-24px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes slideOutLeft {
-  from {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateX(-30px);
-  }
-}
-
-@keyframes slideOutRight {
-  from {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateX(30px);
-  }
-}
-
-@keyframes slideOutDown {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(30px);
-  }
+  from { opacity: 0; transform: translateX(24px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes fadeInScale {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 @keyframes fadeOutScale {
-  from {
-    opacity: 1;
-    transform: scale(1);
-  }
-  to {
-    opacity: 0;
-    transform: scale(0.95);
-  }
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.96); }
 }
 
 @keyframes bounce-soft {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
 }
 
 @keyframes rotate-in {
-  from {
-    opacity: 0;
-    transform: rotate(-5deg) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: rotate(0) scale(1);
-  }
+  from { opacity: 0; transform: rotate(-5deg) scale(0.95); }
+  to { opacity: 1; transform: rotate(0) scale(1); }
 }
 
-@keyframes rotate-out {
-  from {
-    opacity: 1;
-    transform: rotate(0) scale(1);
-  }
-  to {
-    opacity: 0;
-    transform: rotate(5deg) scale(0.95);
-  }
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
 }
 
-/* Clases de animación reutilizables */
+/* Clases de animación reutilizables - Curvas cúbicas suaves */
 .animate-fadeIn {
-  animation: fadeIn 0.3s ease-in-out;
+  animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity;
 }
 
 .animate-slideInUp {
-  animation: slideInUp 0.5s ease-out;
+  animation: slideInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
 }
 
 .animate-slideInDown {
-  animation: slideInDown 0.5s ease-out;
+  animation: slideInDown 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
 }
 
 .animate-slideInLeft {
-  animation: slideInLeft 0.4s ease-out;
+  animation: slideInLeft 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
 }
 
 .animate-slideInRight {
-  animation: slideInRight 0.4s ease-out;
-}
-
-.animate-slideOutLeft {
-  animation: slideOutLeft 0.4s ease-in;
-}
-
-.animate-slideOutRight {
-  animation: slideOutRight 0.4s ease-in;
-}
-
-.animate-slideOutDown {
-  animation: slideOutDown 0.3s ease-in;
+  animation: slideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
 }
 
 .animate-fadeInScale {
-  animation: fadeInScale 0.4s ease-out;
+  animation: fadeInScale 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
 }
 
 .animate-fadeOutScale {
-  animation: fadeOutScale 0.3s ease-in;
+  animation: fadeOutScale 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, opacity;
 }
 
 .animate-bounce-soft {
-  animation: bounce-soft 2s ease-in-out infinite;
+  animation: bounce-soft 1.5s ease-in-out infinite;
+  will-change: transform;
 }
 
 .animate-rotate-in {
-  animation: rotate-in 0.5s ease-out;
+  animation: rotate-in 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
 }
 
-.animate-rotate-out {
-  animation: rotate-out 0.3s ease-in;
+.animate-pulse-glow {
+  animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 /* Transiciones suaves para elementos */
 .page-enter {
-  animation: fadeInScale 0.4s ease-out;
+  animation: fadeInScale 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
 }
 
 .page-exit {
-  animation: fadeOutScale 0.3s ease-in;
-}
-
-.page-back {
-  animation: slideOutLeft 0.4s ease-in;
+  animation: fadeOutScale 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, opacity;
 }
 
 .tab-transition {
-  @apply transition-all duration-300 ease-in-out;
-}
-
-.link-transition {
   @apply transition-all duration-200 ease-out;
 }
 
+.link-transition {
+  @apply transition-all duration-150 ease-out;
+}
+
 .button-click {
-  @apply active:scale-95 transition-transform duration-150 ease-out;
+  @apply active:scale-95 transition-transform duration-100 ease-out;
+}
+
+/* Card animations */
+.card-hover {
+  @apply transition-all duration-300 ease-out hover:shadow-lg hover:-translate-y-0.5;
+}
+
+/* Modal animations */
+.modal-overlay {
+  animation: fadeIn 0.2s ease-out;
+}
+
+.modal-content {
+  animation: slideInUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Skeleton loading animation */
 .animate-pulse-slow {
   animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-/* Transición suave para cambio de página */
-html {
-  scroll-behavior: smooth;
 }
 
 /* Optimización de rendimiento */
@@ -364,16 +278,66 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Card animations */
-.card-hover {
-  @apply transition-all duration-300 ease-out hover:shadow-lg hover:scale-102;
+html {
+  scroll-behavior: smooth;
 }
 
-/* Modal animations */
-.modal-overlay {
-  animation: fadeIn 0.3s ease-out;
+*::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
-.modal-content {
-  animation: slideInUp 0.4s ease-out;
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* ========== MEJORAS DE RENDIMIENTO PARA MÓVIL ========== */
+
+@media (max-width: 768px) {
+  * {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: default;
+  }
+
+  body {
+    overscroll-behavior-y: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  input, textarea, select {
+    font-size: 16px !important;
+  }
+
+  .animate-slideInUp,
+  .animate-slideInDown,
+  .animate-slideInLeft,
+  .animate-slideInRight,
+  .animate-fadeInScale {
+    animation-duration: 0.25s !important;
+  }
+
+  .backdrop-blur-sm,
+  .backdrop-blur {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
+
+/* Contenedor con scroll optimizado */
+.overflow-y-auto {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* Scrollbar personalizado */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

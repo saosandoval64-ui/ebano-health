@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { PageTransition } from "@/components/page-transition";
+import AuthProvider from "@/components/AuthProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,8 +25,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased scroll-smooth`}>
+      <head>
+        {/* Anti-caché: evita que el botón "atrás" muestre páginas cacheadas */}
+        <meta httpEquiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta httpEquiv="Pragma" content="no-cache" />
+        <meta httpEquiv="Expires" content="0" />
+      </head>
       <body className="min-h-full flex flex-col bg-background text-foreground">
-        <PageTransition>{children}</PageTransition>
+        <AuthProvider>
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );

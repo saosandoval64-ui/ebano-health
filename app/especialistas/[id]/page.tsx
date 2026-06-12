@@ -4,6 +4,7 @@ import { notFound } from "next/navigation"
 import { ArrowLeft, Award, User } from "lucide-react"
 import Link from "next/link"
 import BookingSection from "./BookingSection"
+import { normalizeAvatar } from "../utils"
 
 interface SpecialistPageProps {
   params: Promise<{ id: string }>
@@ -22,7 +23,7 @@ export default async function DoctorPage({ params }: SpecialistPageProps) {
     notFound()
   }
 
-  // Verificar si el usuario está autenticado
+  // Verificar si el usuario está autenticado y su rol
   const session = await getSessionPayload()
   const isLoggedIn = !!session
 
@@ -43,9 +44,9 @@ export default async function DoctorPage({ params }: SpecialistPageProps) {
               
               <div className="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-6 mb-8">
                 <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-[32px] bg-white/70 border border-white flex items-center justify-center overflow-hidden shadow-inner shrink-0">
-                  {doctor.doctorProfile?.imageUrl ? (
+                  {doctor.avatar ? (
                     <img 
-                      src={doctor.doctorProfile.imageUrl} 
+                      src={normalizeAvatar(doctor.avatar)} 
                       alt={doctor.name} 
                       className="w-full h-full object-cover" 
                     />
@@ -82,7 +83,7 @@ export default async function DoctorPage({ params }: SpecialistPageProps) {
 
           {/* Columna Derecha: Reserva Interactiva */}
           <div className="md:col-span-1">
-            <BookingSection doctorId={doctor.doctorProfile.id} isLoggedIn={isLoggedIn} />
+            <BookingSection doctorId={doctor.doctorProfile.id} isLoggedIn={isLoggedIn} userRole={session?.role} />
           </div>
         </div>
       </div>

@@ -1,12 +1,7 @@
-"use client"
-
-import { useState } from "react"
 import { X, Stethoscope, User } from "lucide-react"
 import Link from "next/link"
 
 export default function RegisterPage() {
-  const [selectedRole, setSelectedRole] = useState<"patient" | "doctor" | null>(null)
-
   return (
     <div className="min-h-screen bg-[#FDF6CD] text-black font-sans antialiased flex flex-col justify-between selection:bg-[#E2CE7D]">
       {/* Close Button */}
@@ -20,82 +15,51 @@ export default function RegisterPage() {
       </div>
 
       <main className="flex-1 flex items-center justify-center px-4 py-12">
-        {!selectedRole ? (
-          <div className="w-full max-w-[600px] animate-fadeInScale">
-            <div className="text-center mb-12">
-              <span className="text-2xl font-serif font-black tracking-tight block mb-2">
-                Ébano<span className="text-[#A2B676]">.</span>
-              </span>
-              <h1 className="text-3xl font-serif font-black tracking-tight text-black mb-2">
-                Crear Cuenta
-              </h1>
-              <p className="text-sm text-black/60">
-                Selecciona tu tipo de cuenta para comenzar
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Paciente */}
-              <button
-                onClick={() => setSelectedRole("patient")}
-                className="group p-8 rounded-2xl border-2 border-black/10 bg-white/50 hover:bg-white hover:border-[#A2B676] transition-all duration-300 flex flex-col items-center justify-center gap-4 animate-slideInLeft button-click"
-              >
-                <div className="w-16 h-16 rounded-full bg-black/5 group-hover:bg-[#A2B676]/10 flex items-center justify-center transition-colors">
-                  <User className="w-8 h-8 text-black group-hover:text-[#A2B676]" />
-                </div>
-                <div>
-                  <h2 className="font-bold text-lg text-black">Soy Paciente</h2>
-                  <p className="text-xs text-black/50 mt-1">
-                    Busca y agenda citas con médicos
-                  </p>
-                </div>
-              </button>
-
-              {/* Médico */}
-              <button
-                onClick={() => setSelectedRole("doctor")}
-                className="group p-8 rounded-2xl border-2 border-black/10 bg-white/50 hover:bg-white hover:border-[#A2B676] transition-all duration-300 flex flex-col items-center justify-center gap-4 animate-slideInRight button-click"
-              >
-                <div className="w-16 h-16 rounded-full bg-black/5 group-hover:bg-[#A2B676]/10 flex items-center justify-center transition-colors">
-                  <Stethoscope className="w-8 h-8 text-black group-hover:text-[#A2B676]" />
-                </div>
-                <div>
-                  <h2 className="font-bold text-lg text-black">Soy Médico</h2>
-                  <p className="text-xs text-black/50 mt-1">
-                    Administra tu agenda y pacientes
-                  </p>
-                </div>
-              </button>
-            </div>
+        <div className="w-full max-w-[600px] animate-fadeInScale">
+          <div className="text-center mb-12">
+            <span className="text-2xl font-serif font-black tracking-tight block mb-2">
+              Ébano<span className="text-[#A2B676]">.</span>
+            </span>
+            <h1 className="text-3xl font-serif font-black tracking-tight text-black mb-2">
+              Crear Cuenta
+            </h1>
+            <p className="text-sm text-black/60">
+              Selecciona tu tipo de cuenta para guardar tus datos en el portal correcto.
+            </p>
           </div>
-        ) : (
-          <div className="w-full max-w-[440px] animate-fadeInScale">
-            <button
-              onClick={() => setSelectedRole(null)}
-              className="mb-4 text-xs font-bold text-black/60 hover:text-black transition-colors link-transition flex items-center gap-2"
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Link
+              href="/register/patient"
+              className="group p-8 rounded-2xl border-2 border-black/10 bg-white/50 hover:bg-white hover:border-[#A2B676] transition-all duration-300 flex flex-col items-center justify-center gap-4 animate-slideInLeft button-click"
             >
-              ← Volver
-            </button>
+              <div className="w-16 h-16 rounded-full bg-black/5 group-hover:bg-[#A2B676]/10 flex items-center justify-center transition-colors">
+                <User className="w-8 h-8 text-black group-hover:text-[#A2B676]" />
+              </div>
+              <div>
+                <h2 className="font-bold text-lg text-black">Soy Paciente</h2>
+                <p className="text-xs text-black/50 mt-1">
+                  Busca especialistas y agenda citas.
+                </p>
+              </div>
+            </Link>
 
-            {selectedRole === "patient" ? (
-              <div>
-                <iframe
-                  src="/register/patient"
-                  className="w-full h-screen border-0"
-                  style={{ minHeight: "800px" }}
-                />
+            <Link
+              href="/register/doctor"
+              className="group p-8 rounded-2xl border-2 border-black/10 bg-white/50 hover:bg-white hover:border-[#A2B676] transition-all duration-300 flex flex-col items-center justify-center gap-4 animate-slideInRight button-click"
+            >
+              <div className="w-16 h-16 rounded-full bg-black/5 group-hover:bg-[#A2B676]/10 flex items-center justify-center transition-colors">
+                <Stethoscope className="w-8 h-8 text-black group-hover:text-[#A2B676]" />
               </div>
-            ) : (
               <div>
-                <iframe
-                  src="/register/doctor"
-                  className="w-full h-screen border-0"
-                  style={{ minHeight: "800px" }}
-                />
+                <h2 className="font-bold text-lg text-black">Soy Médico</h2>
+                <p className="text-xs text-black/50 mt-1">
+                  Crea tu perfil profesional y administra tu agenda.
+                </p>
               </div>
-            )}
+            </Link>
           </div>
-        )}
+        </div>
       </main>
 
       <footer className="w-full py-4 text-center text-[11px] text-black/30 font-medium flex items-center justify-center gap-1.5">

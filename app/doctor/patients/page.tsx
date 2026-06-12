@@ -2,6 +2,9 @@ import { db } from "../../../lib/db"
 import { getCurrentUser } from "../../../lib/auth"
 import { redirect } from "next/navigation"
 import { Calendar, Users, Award, ShieldCheck, Mail, Phone, Heart } from "lucide-react"
+import { Prisma } from "@prisma/client"
+
+type PatientInfo = Prisma.UserGetPayload<{}> & { lastAppointment: Date }
 
 export default async function DoctorPatientsPage() {
   const user = await getCurrentUser()
@@ -33,7 +36,7 @@ export default async function DoctorPatientsPage() {
   })
 
   // Agrupar por paciente único
-  const patientMap = new Map<string, any>()
+  const patientMap = new Map<string, PatientInfo>()
   appointments.forEach((app) => {
     if (!patientMap.has(app.patientId)) {
       patientMap.set(app.patientId, {

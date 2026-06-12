@@ -17,16 +17,30 @@ const nextConfig: NextConfig = {
     ],
   },
 
-  // Optimización de fonts
+  // Optimización de fonts y paquetes
   experimental: {
-    optimizePackageImports: ["@radix-ui/react-icons", "lucide-react"],
+    optimizePackageImports: ["lucide-react"],
+    // Configuración de Server Actions para permitir el túnel en desarrollo
+    serverActions: {
+      allowedOrigins: (() => {
+        if (process.env.NODE_ENV === 'production') {
+          // En producción permite solo tu dominio real (cámbialo)
+          return ['tudominio.com', 'www.tudominio.com'];
+        } else {
+          // En desarrollo permite localhost, IP local y el túnel de devtunnels
+          return [
+            'localhost:3000',
+            '192.168.1.3:3000',          // tu IP local actual
+            '*.use.devtunnels.ms',       // cualquier túnel de VS Code
+            '*.ngrok.io',                // si usas ngrok
+          ];
+        }
+      })(),
+    },
   },
 
   // Compresión
   compress: true,
-
-  // Turbopack configuration (Next.js 16 default)
-  turbopack: {},
 };
 
 export default nextConfig;

@@ -1,12 +1,14 @@
+import { auth } from "../../../lib/auth"
 import { db } from "../../../lib/db"
-import { getCurrentUser } from "../../../lib/auth"
 import { redirect } from "next/navigation"
 import { Stethoscope, Users, Calendar, DollarSign, ArrowRight } from "lucide-react"
 import Link from "next/link"
 
 export default async function AdminDashboard() {
-  const user = await getCurrentUser()
-  if (!user || user.role !== "ADMIN") return redirect("/login")
+  const session = await auth()
+  if (!session?.user || session.user.role !== "ADMIN") {
+    return redirect("/login/admin")
+  }
 
   // Consultar métricas del sistema
   const doctorCount = await db.user.count({ where: { role: "DOCTOR" } })
@@ -85,12 +87,11 @@ export default async function AdminDashboard() {
             <h3 className="text-2xl font-serif font-black">$ {doctorCount * 49} USD/mes</h3>
           </div>
         </div>
-
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         
-        {/* Columna Izquierda: Actividad Reciente (2/3 de pantalla) */}
+        {/* Columna Izquierda: Actividad Reciente */}
         <div className="lg:col-span-2 space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-serif font-black tracking-tight">Últimas Reservas</h2>
@@ -147,7 +148,7 @@ export default async function AdminDashboard() {
           )}
         </div>
 
-        {/* Columna Derecha: Estado del Sistema (1/3 de pantalla) */}
+        {/* Columna Derecha: Estado del Sistema */}
         <div className="space-y-4">
           <h2 className="text-xl font-serif font-black tracking-tight">Estado del Sistema</h2>
           <div className="bg-black text-[#FDF6CD] p-6 rounded-[28px] shadow-lg space-y-4">
@@ -169,7 +170,6 @@ export default async function AdminDashboard() {
             </div>
           </div>
         </div>
-
       </div>
     </div>
   )
