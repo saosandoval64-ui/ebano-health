@@ -12,11 +12,6 @@ import {
 } from "lucide-react"
 import Link from "next/link"
 
-/* 
-  CORRECCIÓN: Se cambió el href="#especialistas" por "/especialistas" 
-  para que el enlace redirija a la página real de especialistas.
-*/
-
 export default function LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   
@@ -68,8 +63,8 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-[#FDF6CD] text-black font-sans antialiased flex flex-col justify-between selection:bg-[#E2CE7D]">
       
-      {/* ================= NAVBAR RESPONSIVO ================= */}
-      <header className="w-full max-w-7xl mx-auto px-4 sm:px-8 py-4 sm:py-6 flex items-center justify-between gap-4">
+      {/* ================= NAVBAR CON NUEVO DISEÑO ================= */}
+      <header className="w-full max-w-7xl mx-auto px-4 sm:px-8 py-6 sm:py-8 flex items-center justify-between gap-4 bg-white rounded-[40px] mt-6 mx-6 sm:mx-auto shadow-lg">
         <div className="flex items-center gap-1 cursor-pointer shrink-0">
           <span className="text-xl sm:text-2xl font-serif font-black tracking-tight text-black">
             Ébano<span className="text-[#A2B676]">.</span>
@@ -78,7 +73,7 @@ export default function LandingPage() {
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-10 text-xs font-bold uppercase tracking-widest text-black/80">
-          <Link href="/" className="pb-1 border-b-2 border-black transition-all">Home</Link>
+          <Link href="/" className="pb-1 border-b-2 border-black transition-colors">Home</Link>
           <Link href="/especialistas" className="hover:text-black transition-colors">Especialistas</Link>
           <Link href="/contact" className="hover:text-black transition-colors">Contacto</Link>
         </nav>
@@ -159,8 +154,8 @@ export default function LandingPage() {
         </div>
       )}
 
-      {/* ================= HERO SECTION RESPONSIVA ================= */}
-      <main className="mx-auto max-w-7xl w-full px-4 sm:px-8 pt-4 pb-12 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center flex-1">
+      {/* ================= HERO SECTION ORIGINAL ================= */}
+      <main className="mx-auto max-w-7xl w-full px-4 sm:px-8 pt-16 pb-12 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center flex-1">
         
         <div className="lg:col-span-6 flex flex-col justify-center items-center text-center lg:items-start lg:text-left space-y-6 sm:space-y-8 py-2">
           
@@ -178,13 +173,13 @@ export default function LandingPage() {
             <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
               
               <Button asChild size="lg" className="rounded-full bg-[#A2B676] hover:bg-[#8F9F68] text-white font-bold text-xs tracking-wider uppercase px-7 py-6 shadow-sm border border-black/5 transition-transform hover:-translate-y-0.5 w-full sm:w-auto flex items-center justify-center gap-2">
-                <Link href="/login?role=patient">
+                <Link href="/login/patient">
                   <User className="h-4 w-4 shrink-0" /> Acceso Pacientes
                 </Link>
               </Button>
 
               <Button asChild size="lg" variant="outline" className="rounded-full bg-transparent border-2 border-black/20 hover:border-black text-black hover:bg-black/5 font-bold text-xs tracking-wider uppercase px-7 py-6 transition-all hover:-translate-y-0.5 w-full sm:w-auto flex items-center justify-center gap-2">
-                <Link href="/login?role=doctor">
+                <Link href="/login/doctor">
                   <Stethoscope className="h-4 w-4 shrink-0" /> Acceso Médicos
                 </Link>
               </Button>
@@ -344,7 +339,7 @@ export default function LandingPage() {
                   aria-label="Instagram"
                 >
                   <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24">
-                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.645-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
                   </svg>
                 </a>
                 <a 

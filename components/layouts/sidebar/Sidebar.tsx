@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { logoutUser } from "@/app/actions/auth"
+import { signOut } from "next-auth/react"
 import { AvatarSelectorModal } from "@/components/AvatarSelectorModal"
 import { useAvatarUpdate } from "@/hooks/useAvatarUpdate"
 import { 
@@ -74,9 +74,14 @@ const Sidebar = memo(function Sidebar({ userName, userEmail, role, userAvatar = 
   }, [role])
 
   const handleLogout = async () => {
-    await logoutUser()
-    // Forzar navegación completa para que el middleware procese la cookie eliminada
-    window.location.href = "/login"
+    // Limpiar la cookie manual (si existe)
+    document.cookie = "session=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT"
+    
+    // Cerrar sesión con NextAuth y redirigir
+    await signOut({ 
+      redirect: true, 
+      redirectTo: "/" 
+    })
   }
 
   const roleLabels = {
