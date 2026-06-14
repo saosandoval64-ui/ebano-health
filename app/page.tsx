@@ -11,6 +11,7 @@ import {
   X
 } from "lucide-react"
 import Link from "next/link"
+import Logo from "@/components/Logo"
 
 export default function LandingPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -61,26 +62,22 @@ export default function LandingPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#FDF6CD] text-black font-sans antialiased flex flex-col justify-between selection:bg-[#E2CE7D]">
+    <div className="min-h-screen text-black font-sans antialiased flex flex-col justify-between selection:bg-[#E2CE7D]">
       
-      {/* ================= NAVBAR CON NUEVO DISEÑO ================= */}
-      <header className="w-full max-w-7xl mx-auto px-4 sm:px-8 py-6 sm:py-8 flex items-center justify-between gap-4 bg-white rounded-[40px] mt-6 mx-6 sm:mx-auto shadow-lg">
-        <div className="flex items-center gap-1 cursor-pointer shrink-0">
-          <span className="text-xl sm:text-2xl font-serif font-black tracking-tight text-black">
-            Ébano<span className="text-[#A2B676]">.</span>
-          </span>
-        </div>
+      {/* ================= NAVBAR RESPONSIVO ================= */}
+      <header className="w-full max-w-7xl mx-auto px-4 sm:px-8 py-4 sm:py-6 flex items-center justify-between gap-4 relative z-10">
+        <Link href="/">
+          <Logo size="sm" />
+        </Link>
 
-        {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-10 text-xs font-bold uppercase tracking-widest text-black/80">
-          <Link href="/" className="pb-1 border-b-2 border-black transition-colors">Home</Link>
+          <Link href="/" className="pb-1 border-b-2 border-black transition-all">Home</Link>
           <Link href="/especialistas" className="hover:text-black transition-colors">Especialistas</Link>
-          <Link href="/contact" className="hover:text-black transition-colors">Contacto</Link>
+          <Link href="#contact" className="hover:text-black transition-colors">Contacto</Link>
         </nav>
 
-        {/* Desktop Actions */}
-        <div className="hidden md:flex items-center gap-4 sm:gap-6">
-          <Link href="/login/patient" className="text-xs font-bold uppercase tracking-widest text-black/80 hover:text-black transition-colors">
+        <div className="flex items-center gap-4 sm:gap-6">
+          <Link href="/login" className="text-xs font-bold uppercase tracking-widest text-black/80 hover:text-black transition-colors">
             Sign In
           </Link>
           <Button asChild className="rounded-full bg-[#F4C443] hover:bg-[#E5B534] text-black border border-black/10 px-4 sm:px-6 py-2 text-xs font-bold uppercase tracking-wider shadow-sm transition-transform active:scale-95">
@@ -89,73 +86,10 @@ export default function LandingPage() {
             </Link>
           </Button>
         </div>
-
-        {/* Mobile Hamburger */}
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden h-10 w-10 rounded-full bg-black text-[#FDF6CD] flex items-center justify-center shadow-lg border border-black/10 hover:scale-105 active:scale-95 link-transition"
-          aria-label="Abrir menú"
-        >
-          {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
       </header>
 
-      {/* Mobile Menu */}
-      {mobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 z-50 bg-black/40 backdrop-blur-sm tab-transition animate-fadeIn">
-          <div className="fixed top-0 right-0 h-full w-[280px] bg-[#FDF6CD] shadow-2xl border-l border-black/10 p-6 animate-slideInRight">
-            <div className="flex justify-end mb-8">
-              <button
-                onClick={() => setMobileMenuOpen(false)}
-                className="h-9 w-9 rounded-full bg-black/5 hover:bg-black/10 flex items-center justify-center text-black/70 hover:text-black border border-black/5 link-transition"
-              >
-                <X className="h-4 w-4" />
-              </button>
-            </div>
-            <nav className="flex flex-col gap-3">
-              <Link
-                href="/"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full h-11 px-4 rounded-2xl flex items-center text-xs font-bold uppercase tracking-wider text-black/75 hover:bg-black/5 hover:text-black link-transition"
-              >
-                Home
-              </Link>
-              <Link
-                href="/especialistas"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full h-11 px-4 rounded-2xl flex items-center text-xs font-bold uppercase tracking-wider text-black/75 hover:bg-black/5 hover:text-black link-transition"
-              >
-                Especialistas
-              </Link>
-              <Link
-                href="/contact"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full h-11 px-4 rounded-2xl flex items-center text-xs font-bold uppercase tracking-wider text-black/75 hover:bg-black/5 hover:text-black link-transition"
-              >
-                Contacto
-              </Link>
-              <div className="border-t border-black/10 my-4" />
-              <Link
-                href="/login/patient"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full h-11 px-4 rounded-2xl flex items-center text-xs font-bold uppercase tracking-wider text-black/75 hover:bg-black/5 hover:text-black link-transition"
-              >
-                Sign In
-              </Link>
-              <Link
-                href="/register"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full h-11 px-4 rounded-2xl flex items-center text-xs font-bold uppercase tracking-wider bg-[#F4C443] text-black hover:bg-[#E5B534] link-transition"
-              >
-                Sign Up
-              </Link>
-            </nav>
-          </div>
-        </div>
-      )}
-
       {/* ================= HERO SECTION ORIGINAL ================= */}
-      <main className="mx-auto max-w-7xl w-full px-4 sm:px-8 pt-16 pb-12 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center flex-1">
+      <main className="mx-auto max-w-7xl w-full px-4 sm:px-8 pt-16 pb-12 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center flex-1 relative z-10">
         
         <div className="lg:col-span-6 flex flex-col justify-center items-center text-center lg:items-start lg:text-left space-y-6 sm:space-y-8 py-2">
           
@@ -251,14 +185,14 @@ export default function LandingPage() {
 
       </main>
 
-      <div className="w-full flex flex-col items-center justify-center gap-1 pb-4 text-center shrink-0">
+      <div className="w-full flex flex-col items-center justify-center gap-1 pb-4 text-center shrink-0 relative z-10">
         <span className="text-[9px] sm:text-[10px] uppercase font-bold tracking-[0.2em] text-black/40">
           Scroll down to see more
         </span>
         <ArrowDown className="h-3.5 w-3.5 text-black/40 animate-bounce" />
       </div>
 
-      <footer className="w-full bg-black text-white py-12 sm:py-16 mt-16 sm:mt-20" id="contact">
+      <footer className="w-full bg-black text-white py-12 sm:py-16 mt-16 sm:mt-20 relative z-10" id="contact">
         <div className="mx-auto max-w-7xl w-full px-4 sm:px-8">
           
           {/* Main Footer Grid */}
@@ -266,9 +200,13 @@ export default function LandingPage() {
             {/* Branding Column */}
             <div className="flex flex-col items-center md:items-start gap-4">
               <div className="flex items-center gap-2">
-                <span className="text-2xl font-serif font-black tracking-tight text-white">
-                  Ébano<span className="text-[#A2B676]">.</span>
-                </span>
+                <div className="w-10 h-10 rounded-2xl flex items-center justify-center overflow-hidden">
+                  <img src="/avatars/avatar-4.svg" alt="Ébano" className="w-9 h-9 object-cover" />
+                </div>
+                <div>
+                  <span className="text-2xl font-serif font-black tracking-tight text-white">Ébano</span>
+                  <span className="text-xs text-white/60 font-semibold tracking-wider uppercase block leading-tight">Health</span>
+                </div>
               </div>
               <p className="text-sm text-white/70 max-w-xs text-center md:text-left">
                 Conectando pacientes con médicos de confianza en una plataforma moderna y segura.

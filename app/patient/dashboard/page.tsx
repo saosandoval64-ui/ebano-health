@@ -1,7 +1,11 @@
 import { auth } from "../../../lib/auth"
 import { db } from "../../../lib/db"
+import { getFollowedDoctors } from "../../actions/appointments"
 import Link from "next/link"
-import { Calendar, User, FileText, ArrowRight, ShieldAlert, Stethoscope } from "lucide-react"
+import { Calendar, User, FileText, ArrowRight, Stethoscope, Plus, Activity, Clock, Heart, MapPin } from "lucide-react"
+import AvatarDisplay from "@/components/AvatarDisplay"
+
+const DAY_LABELS = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"]
 
 export default async function PatientDashboard() {
   const session = await auth()
@@ -12,7 +16,7 @@ export default async function PatientDashboard() {
   })
   if (!user) return null
 
-  // Buscar citas futuras
+  // Get upcoming appointments
   const appointments = await db.appointment.findMany({
     where: {
       patientId: user.id,
@@ -32,169 +36,283 @@ export default async function PatientDashboard() {
   })
 
   const nextApp = appointments[0]
+  const upcomingCount = appointments.length
 
   return (
-    <div className="space-y-8 font-sans text-black">
-      {/* Encabezado */}
-      <div className="space-y-1">
-        <h1 className="text-3xl font-serif font-black tracking-tight">
-          ¡Hola, {user.name}!
-        </h1>
-        <p className="text-sm font-medium text-black/60">
-          Bienvenido a tu portal de salud de Ébano Health.
-        </p>
+    <div className="p-4 sm:p-6 md:p-8 max-w-7xl mx-auto space-y-8 animate-slideInUp">
+      {/* Header Section */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <p className="text-sm font-semibold text-gray-500 mb-1">¡Bienvenido de vuelta!</p>
+          <h1 className="text-3xl md:text-4xl font-serif font-black text-black tracking-tight">
+            {user.name} {user.lastName}
+          </h1>
+        </div>
+        <Link
+          href="/especialistas"
+          className="inline-flex items-center gap-2 px-5 py-3 bg-black text-[#FDF6CD] rounded-2xl font-bold text-sm shadow-lg shadow-black/10 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
+        >
+          <Plus className="w-4 h-4" />
+          Agendar Turno
+        </Link>
       </div>
 
-      {/* Grid de Resumen */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        
-        {/* Próxima Cita Card */}
-        <div className="md:col-span-2 bg-[#A2B676]/10 border border-[#A2B676]/30 p-6 sm:p-8 rounded-[32px] flex flex-col justify-between h-[220px]">
-          <div>
-            <span className="text-[10px] uppercase font-extrabold tracking-widest text-[#8F9F68] block mb-2">
-              Próxima Consulta
-            </span>
+      {/* Stats Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm card-hover">
+          <div className="flex items-center justify-between mb-4">
+            <div className="w-12 h-12 rounded-2xl bg-[#A2B676]/10 flex items-center justify-center">
+              <Calendar className="w-6 h-6 text-[#A2B676]" />
+            </div>
+            <span className="text-2xl font-black text-[#A2B676]">{upcomingCount}</span>
+          </div>
+          <p className="text-sm font-bold text-black mb-1">Turnos Próximos</p>
+          <p className="text-xs text-gray-500">{upcomingCount === 1 ? "Cita programada" : "Citas programadas"}</p>
+        </div>
+
+        <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm card-hover">
+          <div className="flex items-center justify-between mb-4">
+            <div className="w-12 h-12 rounded-2xl bg-[#8B5A2B]/10 flex items-center justify-center">
+              <Stethoscope className="w-6 h-6 text-[#8B5A2B]" />
+            </div>
+            <span className="text-2xl font-black text-[#8B5A2B]">+</span>
+          </div>
+          <p className="text-sm font-bold text-black mb-1">Especialistas</p>
+          <p className="text-xs text-gray-500">Busca y agenda</p>
+        </div>
+
+        <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm card-hover">
+          <div className="flex items-center justify-between mb-4">
+            <div className="w-12 h-12 rounded-2xl bg-gray-100 flex items-center justify-center">
+              <Activity className="w-6 h-6 text-gray-600" />
+            </div>
+          </div>
+          <p className="text-sm font-bold text-black mb-1">Mi Historial</p>
+          <p className="text-xs text-gray-500">Tus consultas pasadas</p>
+        </div>
+
+        <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm card-hover">
+          <div className="flex items-center justify-between mb-4">
+            <div className="w-12 h-12 rounded-2xl bg-gray-50 flex items-center justify-center">
+              <User className="w-6 h-6 text-gray-500" />
+            </div>
+          </div>
+          <p className="text-sm font-bold text-black mb-1">Mi Perfil</p>
+          <p className="text-xs text-gray-500">Datos personales</p>
+        </div>
+      </div>
+
+      {/* Main Content Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Next Appointment Card */}
+        <div className="lg:col-span-2">
+          <div className="bg-gradient-to-br from-[#A2B676] to-[#A2B676]/90 p-6 sm:p-8 rounded-3xl text-white shadow-lg shadow-[#A2B676]/20 card-hover">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <Calendar className="w-5 h-5" />
+                <span className="text-sm font-bold uppercase tracking-wider opacity-90">Tu próxima cita</span>
+              </div>
+            </div>
+
             {nextApp ? (
-              <div className="space-y-2">
-                <h3 className="text-2xl font-serif font-black leading-tight text-black">
-                  Dr. {nextApp.doctor.user.name} {nextApp.doctor.user.lastName}
-                </h3>
-                <p className="text-xs font-bold text-[#8F9F68] uppercase tracking-wider">
-                  {nextApp.doctor.specialty}
-                </p>
-                <div className="flex items-center gap-2 text-sm text-black/70 font-semibold pt-2">
-                  <Calendar className="h-4 w-4 text-black/50" />
-                  <span>
-                    {nextApp.dateTime.toLocaleDateString("es-ES", {
-                      weekday: "long",
-                      day: "numeric",
-                      month: "long",
-                    })}
-                  </span>
-                  <span>●</span>
-                  <span>
-                    {String(nextApp.dateTime.getHours()).padStart(2, "0")}:
-                    {String(nextApp.dateTime.getMinutes()).padStart(2, "0")} hs
-                  </span>
+              <div className="space-y-4">
+                <div className="flex items-start gap-4">
+                  <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center">
+                    <Stethoscope className="w-8 h-8" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-2xl font-black">
+                      Dr. {nextApp.doctor.user.name} {nextApp.doctor.user.lastName}
+                    </h3>
+                    <p className="opacity-90 font-medium">{nextApp.doctor.specialty}</p>
+                  </div>
                 </div>
+
+                <div className="flex flex-wrap gap-3 pt-2 border-t border-white/20 mt-4">
+                  <div className="flex items-center gap-2 bg-white/10 backdrop-blur px-4 py-2 rounded-xl">
+                    <Clock className="w-4 h-4" />
+                    <span className="font-semibold">
+                      {nextApp.dateTime.toLocaleDateString("es-ES", {
+                        weekday: "long",
+                        day: "numeric",
+                        month: "long",
+                      })}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2 bg-white/10 backdrop-blur px-4 py-2 rounded-xl">
+                    <span className="text-lg font-black">
+                      {String(nextApp.dateTime.getHours()).padStart(2, "0")}:
+                      {String(nextApp.dateTime.getMinutes()).padStart(2, "0")}
+                    </span>
+                    <span className="text-sm opacity-80">hs</span>
+                  </div>
+                </div>
+
+                <Link
+                  href="/patient/appointments"
+                  className="inline-flex items-center gap-2 mt-6 px-5 py-3 bg-white text-[#A2B676] rounded-2xl font-bold text-sm hover:bg-white/90 transition-all"
+                >
+                  Ver todos los turnos
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
               </div>
             ) : (
-              <div className="space-y-1.5">
-                <h3 className="text-xl font-serif font-black text-black">No tienes citas programadas</h3>
-                <p className="text-xs text-black/50 font-medium">Reserva un turno con cualquiera de nuestros especialistas.</p>
+              <div className="text-center py-8">
+                <div className="w-20 h-20 rounded-full bg-white/20 flex items-center justify-center mx-auto mb-4">
+                  <Calendar className="w-10 h-10" />
+                </div>
+                <h3 className="text-xl font-bold mb-2">No tienes turnos programados</h3>
+                <p className="opacity-80 mb-6">Reserva tu primera cita ahora mismo</p>
+                <Link
+                  href="/especialistas"
+                  className="inline-flex items-center gap-2 px-5 py-3 bg-white text-[#A2B676] rounded-2xl font-bold text-sm hover:bg-white/90 transition-all"
+                >
+                  Buscar especialistas
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
               </div>
             )}
           </div>
-          
-          <div className="pt-4 border-t border-[#A2B676]/20 flex items-center justify-between">
-            <Link 
-              href={nextApp ? "/patient/appointments" : "/especialistas"} 
-              className="text-xs font-bold uppercase tracking-wider text-black hover:text-[#8F9F68] transition-colors inline-flex items-center gap-1"
-            >
-              {nextApp ? "Administrar citas" : "Buscar especialista"} <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
-          </div>
         </div>
 
-        {/* Resumen del Perfil Card */}
-        <div className="bg-black/5 border border-black/10 p-6 sm:p-8 rounded-[32px] flex flex-col justify-between h-[220px]">
-          <div>
-            <span className="text-[10px] uppercase font-extrabold tracking-widest text-black/40 block mb-3">
-              Datos Personales
-            </span>
-            <div className="space-y-2">
-              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-black/60">
-                <FileText className="h-3.5 w-3.5 opacity-60" />
-                <span>DNI: {user.dni || "No registrado"}</span>
+        {/* Quick Info Card */}
+        <div className="space-y-6">
+          <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm">
+            <h3 className="text-sm font-bold uppercase tracking-wider text-gray-500 mb-4">Tu información</h3>
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center">
+                  <User className="w-5 h-5 text-gray-500" />
+                </div>
+                <div>
+                  <p className="text-xs text-gray-500">DNI</p>
+                  <p className="text-sm font-bold text-black">{user.dni || "No registrado"}</p>
+                </div>
               </div>
-              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-black/60">
-                <User className="h-3.5 w-3.5 opacity-60" />
-                <span>Prepaga: {user.insurance || "No registrada"}</span>
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center">
+                  <FileText className="w-5 h-5 text-gray-500" />
+                </div>
+                <div>
+                  <p className="text-xs text-gray-500">Obra Social</p>
+                  <p className="text-sm font-bold text-black">{user.insurance || "No registrada"}</p>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="pt-4 border-t border-black/5">
-            <Link 
-              href="/patient/profile" 
-              className="text-xs font-bold uppercase tracking-wider text-black hover:opacity-70 transition-opacity inline-flex items-center gap-1"
+            <Link
+              href="/patient/profile"
+              className="inline-flex items-center gap-2 mt-6 w-full text-center justify-center px-4 py-3 bg-gray-50 text-black rounded-2xl font-bold text-sm hover:bg-gray-100 transition-all"
             >
-              Completar perfil <ArrowRight className="h-3.5 w-3.5" />
+              Editar perfil
+              <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
-        </div>
 
-        {/* Botón de Agendar Cita */}
-        <div className="bg-black text-[#FDF6CD] p-6 sm:p-8 rounded-[32px] flex flex-col justify-between h-[220px]">
-          <div>
-            <span className="text-[10px] uppercase font-extrabold tracking-widest text-[#A2B676] block mb-3">
-              Agendar Consulta
-            </span>
-            <p className="text-sm font-medium text-white/70">
-              Busca entre nuestros especialistas y reserva tu próximo turno de forma rápida y sencilla.
-            </p>
-          </div>
-          <div className="pt-4 border-t border-white/10">
+          <div className="bg-gradient-to-br from-[#1A1A1A] to-[#2D2D2D] p-6 rounded-3xl text-white shadow-lg">
+            <h3 className="text-sm font-bold uppercase tracking-wider opacity-70 mb-3">¿Necesitas ayuda?</h3>
+            <p className="text-sm opacity-80 mb-4">Nuestro equipo está disponible para ayudarte</p>
             <Link
-              href="/especialistas"
-              className="w-full py-3 bg-[#A2B676] hover:bg-[#8F9F68] text-black text-center rounded-[18px] text-[11px] font-bold uppercase tracking-wider transition-colors inline-flex items-center justify-center gap-2"
+              href="/contact"
+              className="inline-flex items-center gap-2 w-full text-center justify-center px-4 py-3 bg-white text-black rounded-2xl font-bold text-sm hover:bg-gray-100 transition-all"
             >
-              <Stethoscope className="h-3.5 w-3.5" /> Agendar Cita
+              Contactar soporte
             </Link>
           </div>
         </div>
       </div>
 
-      {/* Historial o lista de turnos de la sección inferior */}
-      <div className="space-y-4 pt-4">
-        <h2 className="text-xl font-serif font-black tracking-tight">Cronograma de Consultas</h2>
-        
-        {appointments.length === 0 ? (
-          <div className="p-8 border border-dashed border-black/10 rounded-[28px] text-center bg-white/20">
-            <p className="text-sm font-medium text-black/40">No tienes citas pendientes.</p>
-          </div>
-        ) : (
+      {/* Mis Médicos Seguidos */}
+      <PatientFollowedDoctors />
+
+      {/* Upcoming Appointments List */}
+      {appointments.length > 1 && (
+        <div>
+          <h2 className="text-xl font-bold text-black mb-4 flex items-center gap-2">
+            <Calendar className="w-5 h-5 text-[#A2B676]" />
+            Próximos turnos
+          </h2>
           <div className="space-y-3">
-            {appointments.map((app) => (
-              <div 
-                key={app.id} 
-                className="bg-white/40 border border-white/60 p-5 rounded-[24px] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 transition-all hover:bg-white/70"
+            {appointments.slice(1).map((appointment) => (
+              <div
+                key={appointment.id}
+                className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex items-center justify-between card-hover"
               >
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-2xl bg-[#A2B676]/20 border border-[#A2B676]/30 flex items-center justify-center font-bold text-[#8F9F68] shrink-0">
-                    {app.doctor.user.name.charAt(0)}
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-[#A2B676]/10 flex items-center justify-center">
+                    <Calendar className="w-6 h-6 text-[#A2B676]" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-sm text-black">
-                      Dr. {app.doctor.user.name} {app.doctor.user.lastName}
-                    </h4>
-                    <p className="text-[10px] uppercase font-bold tracking-widest text-[#8F9F68]">
-                      {app.doctor.specialty}
+                    <p className="font-bold text-black">
+                      Dr. {appointment.doctor.user.name} {appointment.doctor.user.lastName}
                     </p>
+                    <p className="text-xs text-gray-500">{appointment.doctor.specialty}</p>
                   </div>
                 </div>
-
-                <div className="flex items-center justify-between sm:justify-end gap-6">
-                  <div className="text-left sm:text-right font-medium">
-                    <p className="text-xs font-bold text-black/80">
-                      {app.dateTime.toLocaleDateString("es-ES", {
-                        day: "numeric",
-                        month: "short",
-                        year: "numeric"
-                      })}
-                    </p>
-                    <p className="text-[10px] text-black/50">
-                      {String(app.dateTime.getHours()).padStart(2, "0")}:
-                      {String(app.dateTime.getMinutes()).padStart(2, "0")} hs
-                    </p>
-                  </div>
-                  <span className="px-3 py-1.5 rounded-full text-[9px] font-extrabold uppercase tracking-widest bg-[#A2B676] text-black">
-                    Reservado
-                  </span>
+                <div className="text-right">
+                  <p className="text-sm font-bold text-black">
+                    {appointment.dateTime.toLocaleDateString("es-ES", {
+                      day: "numeric",
+                      month: "short",
+                    })}
+                  </p>
+                  <p className="text-xs text-gray-500">
+                    {String(appointment.dateTime.getHours()).padStart(2, "0")}:
+                    {String(appointment.dateTime.getMinutes()).padStart(2, "0")}
+                  </p>
                 </div>
               </div>
             ))}
           </div>
-        )}
+        </div>
+      )}
+    </div>
+  )
+}
+
+async function PatientFollowedDoctors() {
+  const followed = await getFollowedDoctors()
+  if (followed.length === 0) return null
+
+  return (
+    <div>
+      <h2 className="text-xl font-bold text-black mb-4 flex items-center gap-2">
+        <Heart className="w-5 h-5 text-red-400" />
+        Médicos que sigo
+      </h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {followed.map((doc) => (
+          <Link
+            key={doc.id}
+            href={`/especialistas/${doc.userId}`}
+            className="bg-white p-5 rounded-3xl border border-gray-100 shadow-sm card-hover block"
+          >
+            <div className="flex items-center gap-4 mb-3">
+              <div className="w-12 h-12 rounded-2xl bg-[#A2B676]/10 flex items-center justify-center overflow-hidden">
+                <AvatarDisplay avatar={doc.avatar} name={doc.name} size="sm" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="font-bold text-black text-sm truncate">{doc.name}</p>
+                <p className="text-xs text-[#A2B676] font-semibold">{doc.specialty}</p>
+              </div>
+            </div>
+            <div className="space-y-1">
+              {doc.availability.length > 0 ? (
+                doc.availability.slice(0, 3).map((a, i) => (
+                  <div key={i} className="flex items-center gap-2 text-[10px] text-gray-500">
+                    <MapPin className="h-3 w-3 text-[#A2B676]" />
+                    <span className="font-bold">{DAY_LABELS[a.dayOfWeek]}:</span>
+                    <span>{a.startTime} - {a.endTime}</span>
+                  </div>
+                ))
+              ) : (
+                <p className="text-[10px] text-gray-400 italic">Sin horarios configurados</p>
+              )}
+              {doc.availability.length > 3 && (
+                <p className="text-[10px] text-[#A2B676] font-bold">+{doc.availability.length - 3} días más</p>
+              )}
+            </div>
+          </Link>
+        ))}
       </div>
     </div>
   )

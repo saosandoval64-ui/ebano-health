@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react"
 import { X, Mail, Phone, MapPin, Send, Loader2 } from "lucide-react"
 import Link from "next/link"
+import Logo from "@/components/Logo"
 
 export default function ContactPage() {
   const [isPending, startTransition] = useTransition()
@@ -49,7 +50,7 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FDF6CD] text-black font-sans antialiased flex flex-col justify-between selection:bg-[#E2CE7D]">
+    <div className="min-h-screen text-black font-sans antialiased flex flex-col justify-between selection:bg-[#E2CE7D]">
       {/* Close Button */}
       <div className="w-full max-w-7xl mx-auto px-6 pt-6 flex items-center justify-end z-10 animate-slideInDown">
         <Link
@@ -64,9 +65,9 @@ export default function ContactPage() {
         <div className="w-full max-w-6xl">
           {/* Header */}
           <div className="text-center mb-12 animate-slideInDown">
-            <span className="text-2xl font-serif font-black tracking-tight block mb-2">
-              Ébano<span className="text-[#A2B676]">.</span>
-            </span>
+            <div className="flex justify-center mb-2">
+              <Logo size="md" />
+            </div>
             <h1 className="text-4xl font-serif font-black tracking-tight text-black mb-2">
               Contáctanos
             </h1>

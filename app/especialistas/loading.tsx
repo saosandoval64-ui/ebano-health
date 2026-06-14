@@ -1,11 +1,11 @@
+import Logo from "@/components/Logo"
+
 export default function EspecialistasLoading() {
   return (
-    <div className="min-h-screen bg-[#FDF6CD] text-black font-sans antialiased">
+    <div className="min-h-screen text-black font-sans antialiased">
       {/* Navbar */}
       <header className="w-full max-w-7xl mx-auto px-4 sm:px-8 py-4 sm:py-6 flex items-center justify-between gap-4">
-        <div className="text-xl sm:text-2xl font-serif font-black tracking-tight text-black">
-          Ébano<span className="text-[#A2B676]">.</span>
-        </div>
+        <Logo size="sm" />
         <div className="hidden md:flex items-center gap-10">
           <div className="h-3 w-16 bg-black/10 rounded-full animate-pulse" />
           <div className="h-3 w-20 bg-black/10 rounded-full animate-pulse" />

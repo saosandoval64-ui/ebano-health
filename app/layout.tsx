@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import AuthProvider from "@/components/AuthProvider";
+import PageTransition from "@/components/PageTransition";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,14 +27,23 @@ export default function RootLayout({
   return (
     <html lang="es" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased scroll-smooth`}>
       <head>
-        {/* Anti-caché: evita que el botón "atrás" muestre páginas cacheadas */}
-        <meta httpEquiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-        <meta httpEquiv="Pragma" content="no-cache" />
-        <meta httpEquiv="Expires" content="0" />
+        <link rel="icon" href="/avatars/avatar-4.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/avatars/avatar-4.svg" />
       </head>
-      <body className="min-h-full flex flex-col bg-background text-foreground">
+      <body className="min-h-full flex flex-col text-foreground"
+        style={{
+          backgroundColor: "#FDF6CD",
+          backgroundImage: "url('/fondo.png')",
+          backgroundBlendMode: "overlay",
+          backgroundAttachment: "scroll",
+          backgroundRepeat: "repeat",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}>
         <AuthProvider>
-          {children}
+          <div className="min-h-screen flex flex-col">
+            <PageTransition>{children}</PageTransition>
+          </div>
         </AuthProvider>
       </body>
     </html>

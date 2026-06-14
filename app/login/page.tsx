@@ -4,6 +4,7 @@ import { useEffect } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useSession } from "next-auth/react"
 import { Loader2 } from "lucide-react"
+import Logo from "@/components/Logo"
 
 export default function LoginPage() {
   const router = useRouter()
@@ -13,11 +14,9 @@ export default function LoginPage() {
   // Si ya está autenticado, no hacer nada - dejar que el layout redirija
   if (status === "authenticated" && session?.user?.role) {
     return (
-      <div className="min-h-screen bg-[#FDF6CD] text-black font-sans antialiased flex items-center justify-center">
+      <div className="min-h-screen text-black font-sans antialiased flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
-          <span className="text-2xl font-serif font-black tracking-tight">
-            Ébano<span className="text-[#A2B676]">.</span>
-          </span>
+          <Logo size="md" />
           <Loader2 className="h-6 w-6 animate-spin text-black/40" />
           <p className="text-sm text-black/50">Redirigiendo...</p>
         </div>
@@ -44,11 +43,9 @@ export default function LoginPage() {
 
   if (status === "loading") {
     return (
-      <div className="min-h-screen bg-[#FDF6CD] text-black font-sans antialiased flex items-center justify-center">
+      <div className="min-h-screen text-black font-sans antialiased flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
-          <span className="text-2xl font-serif font-black tracking-tight">
-            Ébano<span className="text-[#A2B676]">.</span>
-          </span>
+          <Logo size="md" />
           <Loader2 className="h-6 w-6 animate-spin text-black/40" />
           <p className="text-sm text-black/50">Redirigiendo...</p>
         </div>
@@ -57,11 +54,9 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FDF6CD] text-black font-sans antialiased flex items-center justify-center">
+    <div className="min-h-screen text-black font-sans antialiased flex items-center justify-center">
       <div className="flex flex-col items-center gap-4">
-        <span className="text-2xl font-serif font-black tracking-tight">
-          Ébano<span className="text-[#A2B676]">.</span>
-        </span>
+        <Logo size="md" />
         <Loader2 className="h-6 w-6 animate-spin text-black/40" />
         <p className="text-sm text-black/50">Redirigiendo...</p>
       </div>

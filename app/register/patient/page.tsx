@@ -4,6 +4,7 @@ import { useState, useTransition, useRef } from "react"
 import { registerPatient } from "../../actions/register"
 import { X, Loader2 } from "lucide-react"
 import Link from "next/link"
+import Logo from "@/components/Logo"
 
 export default function PatientRegisterPage() {
   const [isPending, startTransition] = useTransition()
@@ -31,7 +32,7 @@ export default function PatientRegisterPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FDF6CD] text-black font-sans antialiased flex flex-col justify-between selection:bg-[#E2CE7D] animate-fadeInScale">
+    <div className="min-h-screen text-black font-sans antialiased flex flex-col justify-between selection:bg-[#E2CE7D] animate-fadeInScale">
       {/* Close Button */}
       <div className="w-full max-w-7xl mx-auto px-6 pt-6 flex items-center justify-end z-10 animate-slideInDown">
         <Link
@@ -45,9 +46,9 @@ export default function PatientRegisterPage() {
       <main className="flex-1 flex items-center justify-center px-4 py-12">
         <div className="w-full max-w-[440px] bg-black/5 p-8 sm:p-10 rounded-[32px] border border-black/10 shadow-sm flex flex-col justify-between backdrop-blur-sm animate-slideInUp">
           <div className="text-center mb-8">
-            <span className="text-2xl font-serif font-black tracking-tight block mb-2">
-              Ébano<span className="text-[#A2B676]">.</span>
-            </span>
+            <div className="flex justify-center mb-2">
+              <Logo size="md" />
+            </div>
             <div className="inline-flex items-center gap-1.5 bg-black/5 rounded-full px-3 py-1 text-[10px] uppercase font-bold tracking-wider text-black/60 mb-4">
               👤 Portal del Paciente
             </div>

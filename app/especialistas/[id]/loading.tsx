@@ -1,6 +1,6 @@
 export default function DoctorProfileLoading() {
   return (
-    <div className="min-h-screen bg-[#FDF6CD] text-black font-sans p-6 sm:p-8 md:p-16">
+    <div className="min-h-screen text-black font-sans p-6 sm:p-8 md:p-16">
       <div className="max-w-5xl mx-auto space-y-8 animate-pulse">
         {/* Back link */}
         <div className="h-3 w-40 bg-black/10 rounded-full" />

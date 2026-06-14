@@ -7,8 +7,6 @@ export async function POST(request: NextRequest) {
     const formData = await request.formData()
     const result = await loginUser(formData)
     
-    console.log("[LOGIN API] Resultado:", result)
-    
     if (result.success && result.user) {
       // Establecer cookie de sesión manual para compatibilidad con middleware
       const sessionPayload = {
@@ -25,15 +23,12 @@ export async function POST(request: NextRequest) {
         path: "/",
       })
 
-      console.log("[LOGIN API] Cookie establecida, redirigiendo a:", result.redirectTo)
-      
       return NextResponse.json({
         success: true,
         redirectTo: result.redirectTo || "/patient/dashboard",
         user: result.user,
       })
     } else {
-      console.log("[LOGIN API] Login fallido:", result)
       return NextResponse.json(result, { status: 401 })
     }
   } catch (error) {

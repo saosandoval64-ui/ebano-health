@@ -1,6 +1,6 @@
 export default function LoginLoading() {
   return (
-    <div className="min-h-screen bg-[#FDF6CD] text-black font-sans antialiased flex flex-col justify-between selection:bg-[#E2CE7D]">
+    <div className="min-h-screen text-black font-sans antialiased flex flex-col justify-between selection:bg-[#E2CE7D]">
       <div className="w-full max-w-7xl mx-auto px-6 pt-6 flex items-center justify-between">
         <div className="flex items-center gap-2 text-[10px] uppercase font-bold tracking-widest text-black/40">
           <span>Home</span>

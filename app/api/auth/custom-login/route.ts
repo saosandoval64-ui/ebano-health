@@ -1,5 +1,9 @@
+// DEPRECATED: This endpoint validates credentials but does not create a session.
+// All login flows should use NextAuth signIn() (components/auth/LoginFormClient.tsx)
+// or the API route at /api/auth/login. Kept for backward compatibility with
+// potential legacy clients. Will be removed in a future version.
+
 import { NextRequest, NextResponse } from "next/server"
-import { auth } from "@/lib/auth"
 import { db } from "@/lib/db"
 import bcrypt from "bcryptjs"
 
@@ -32,7 +36,9 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json({ 
-      success: true, 
+      success: true,
+      deprecated: true,
+      message: "API obsoleta. Usa POST /api/auth/login o signIn() del cliente.",
       role: user.role,
       redirectTo: dashboards[user.role] || "/patient/dashboard"
     })

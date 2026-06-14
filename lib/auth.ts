@@ -4,6 +4,7 @@ import Credentials from "next-auth/providers/credentials"
 import { db } from "./db"
 import bcrypt from "bcryptjs"
 import { cookies } from "next/headers"
+import { normalizeAvatar } from "./avatar"
 
 declare module "next-auth" {
   interface Session {
@@ -40,17 +41,21 @@ export const DASHBOARD_BY_ROLE: Record<string, string> = {
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [
-    Google({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-      authorization: {
-        params: {
-          prompt: "consent",
-          access_type: "offline",
-          response_type: "code",
-        },
-      },
-    }),
+    ...(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET
+      ? [
+          Google({
+            clientId: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+            authorization: {
+              params: {
+                prompt: "consent",
+                access_type: "offline",
+                response_type: "code",
+              },
+            },
+          }),
+        ]
+      : []),
     Credentials({
       name: "credentials",
       credentials: {
@@ -80,7 +85,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           name: `${user.name}${user.lastName ? ` ${user.lastName}` : ""}`,
           email: user.email,
           role: user.role,
-          image: user.avatar ? `/avatars/avatar-${user.avatar}.svg` : null,
+          image: user.avatar ? normalizeAvatar(user.avatar) : null,
         }
       },
     }),

@@ -25,7 +25,6 @@ export default async function DoctorAvailabilityPage() {
 
   return (
     <div className="space-y-8 font-sans text-black">
-      {/* Encabezado */}
       <div className="space-y-1">
         <h1 className="text-3xl font-serif font-black tracking-tight">Disponibilidad & Perfil</h1>
         <p className="text-sm font-medium text-black/60">
@@ -33,8 +32,7 @@ export default async function DoctorAvailabilityPage() {
         </p>
       </div>
 
-      {/* Formulario de Disponibilidad y Perfil */}
-      <AvailabilityForm initialData={doctorData} />
+      <AvailabilityForm initialData={doctorData} doctorProfileId={user.doctorProfile.id} />
     </div>
   )
 }

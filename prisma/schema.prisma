@@ -44,6 +44,7 @@ model User {
   // Relaciones
   doctorProfile  DoctorProfile?
   appointmentsAsPatient Appointment[] @relation("PatientAppointments")
+  followedDoctors FavoriteDoctor[]
 }
 
 model DoctorProfile {
@@ -60,7 +61,22 @@ model DoctorProfile {
   updatedAt   DateTime @updatedAt
 
   // Relaciones
-  appointments Appointment[] @relation("DoctorAppointments")
+  appointments  Appointment[] @relation("DoctorAppointments")
+  availability  Availability[]
+  followedBy    FavoriteDoctor[]
+}
+
+model Availability {
+  id        String   @id @default(cuid())
+  doctorId  String
+  doctor    DoctorProfile @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+
+  dayOfWeek Int      // 0=Lunes, 1=Martes ... 6=Domingo
+  startTime String   // "09:00"
+  endTime   String   // "17:00"
+  isActive  Boolean  @default(true)
+
+  @@unique([doctorId, dayOfWeek])
 }
 
 model Appointment {
@@ -79,6 +95,18 @@ model Appointment {
 
   createdAt   DateTime          @default(now())
   updatedAt   DateTime          @updatedAt
+}
+
+model FavoriteDoctor {
+  id        String   @id @default(cuid())
+  patientId String
+  doctorId  String
+  createdAt DateTime @default(now())
+
+  patient User          @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  doctor  DoctorProfile @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+
+  @@unique([patientId, doctorId])
 }
 
 model ContactForm {

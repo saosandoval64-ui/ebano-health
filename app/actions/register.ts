@@ -87,7 +87,6 @@ export async function registerDoctor(formData: FormData) {
       },
     })
 
-    // Create doctor profile
     await db.doctorProfile.create({
       data: {
         userId: user.id,
@@ -97,7 +96,6 @@ export async function registerDoctor(formData: FormData) {
       },
     })
 
-    // Crear sesión con NextAuth
     await signIn("credentials", {
       email,
       password,
@@ -107,13 +105,13 @@ export async function registerDoctor(formData: FormData) {
 
     return { success: true, message: "Registro de médico exitoso.", redirectTo: "/doctor/dashboard" }
   } catch (error: any) {
+    console.error("[REGISTRO MÉDICO] ERROR COMPLETO:", error)
     if (error?.message?.includes("redirect") || error?.digest?.includes("NEXT_REDIRECT")) {
       return { success: true, message: "Registro de médico exitoso.", redirectTo: "/doctor/dashboard" }
     }
-    console.error("Error al registrar médico:", error)
     return { 
       success: false, 
-      message: "Error en el servidor. El correo o matrícula ya podrían estar registrados." 
+      message: `Error en el servidor: ${error.message || 'Error desconocido'}` 
     }
   }
 }

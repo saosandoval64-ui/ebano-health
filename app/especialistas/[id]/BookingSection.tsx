@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect, useTransition } from "react"
-import { getDoctorBookedSlots, bookAppointment } from "../../actions/appointments"
+import { getDoctorBookedSlots, bookAppointment, getDoctorAvailability } from "../../actions/appointments"
 import { Calendar, Clock, Check, Loader2 } from "lucide-react"
 import { useRouter } from "next/navigation"
 
@@ -11,12 +11,8 @@ interface BookingSectionProps {
   userRole?: string | null
 }
 
-const TIME_SLOTS = [
-  "09:00", "09:30", "10:00", "10:30", 
-  "11:00", "11:30", "12:00", "12:30", 
-  "13:00", "13:30", "14:00", "14:30", 
-  "15:00", "15:30", "16:00", "16:30"
-]
+const DAY_LABELS_SHORT = ["dom", "lun", "mar", "mié", "jue", "vie", "sáb"]
+const DAY_LABELS = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"]
 
 export default function BookingSection({ doctorId, isLoggedIn, userRole }: BookingSectionProps) {
   const isPatient = isLoggedIn && userRole === "PATIENT"
@@ -28,40 +24,74 @@ export default function BookingSection({ doctorId, isLoggedIn, userRole }: Booki
   const [isPending, startTransition] = useTransition()
   const [message, setMessage] = useState("")
   const [isSuccess, setIsSuccess] = useState(false)
-
-  // Generar los próximos 7 días laborables
   const [availableDays, setAvailableDays] = useState<{ dayName: string; dateStr: string; label: string }[]>([])
+  const [timeSlots, setTimeSlots] = useState<string[]>([])
+  const [availLoaded, setAvailLoaded] = useState(false)
+  const [hasAvailability, setHasAvailability] = useState(true)
 
+  // Cargar disponibilidad del médico
   useEffect(() => {
-    const days = []
-    const options: Intl.DateTimeFormatOptions = { weekday: "short", day: "numeric", month: "short" }
-    let count = 0
-    let current = new Date()
+    async function load() {
+      const avail = await getDoctorAvailability(doctorId)
+      const activeDays = avail.filter((a) => a.isActive)
 
-    while (count < 7) {
-      // 0: Domingo, 6: Sábado
-      const dayOfWeek = current.getDay()
-      if (dayOfWeek !== 0 && dayOfWeek !== 6) { // Solo lunes a viernes
-        const year = current.getFullYear()
-        const month = String(current.getMonth() + 1).padStart(2, "0")
-        const date = String(current.getDate()).padStart(2, "0")
-        const dateStr = `${year}-${month}-${date}`
+      if (activeDays.length === 0) {
+        setHasAvailability(false)
+        setAvailLoaded(true)
+        return
+      }
 
-        days.push({
-          dayName: current.toLocaleDateString("es-ES", { weekday: "short" }),
-          label: current.toLocaleDateString("es-ES", { day: "numeric", month: "short" }),
-          dateStr,
-        })
+      // Generar time slots desde el rango del médico
+      const slots: string[] = []
+      for (const entry of activeDays) {
+        const [startH, startM] = entry.startTime.split(":").map(Number)
+        const [endH, endM] = entry.endTime.split(":").map(Number)
+        const startMinutes = startH * 60 + startM
+        const endMinutes = endH * 60 + endM
+        for (let m = startMinutes; m + 30 <= endMinutes; m += 30) {
+          const h = String(Math.floor(m / 60)).padStart(2, "0")
+          const min = String(m % 60).padStart(2, "0")
+          const slot = `${h}:${min}`
+          if (!slots.includes(slot)) slots.push(slot)
+        }
+      }
+      slots.sort()
+      setTimeSlots(slots)
+
+      // Generar próximos días según los días activos del médico
+      const days: { dayName: string; dateStr: string; label: string }[] = []
+      const activeDayIndices = activeDays.map((a) => a.dayOfWeek)
+      let count = 0
+      let current = new Date()
+      const maxDays = 90
+
+      while (count < 14 && days.length < 14 && maxDays > 0) {
+        const dayOfWeek = current.getDay()
+        // Convertir JS Sunday=0, Monday=1... a nuestro Monday=0, Tuesday=1... Sunday=6
+        const ourDay = dayOfWeek === 0 ? 6 : dayOfWeek - 1
+        if (activeDayIndices.includes(ourDay)) {
+          const year = current.getFullYear()
+          const month = String(current.getMonth() + 1).padStart(2, "0")
+          const date = String(current.getDate()).padStart(2, "0")
+          const dateStr = `${year}-${month}-${date}`
+          days.push({
+            dayName: DAY_LABELS_SHORT[dayOfWeek],
+            label: `${current.getDate()} ${current.toLocaleDateString("es-ES", { month: "short" })}`,
+            dateStr,
+          })
+        }
+        current.setDate(current.getDate() + 1)
         count++
       }
-      current.setDate(current.getDate() + 1)
-    }
 
-    setAvailableDays(days)
-    if (days.length > 0) {
-      setSelectedDate(days[0].dateStr)
+      setAvailableDays(days)
+      if (days.length > 0) {
+        setSelectedDate(days[0].dateStr)
+      }
+      setAvailLoaded(true)
     }
-  }, [])
+    load()
+  }, [doctorId])
 
   // Buscar turnos ocupados cuando cambia la fecha
   useEffect(() => {
@@ -72,7 +102,7 @@ export default function BookingSection({ doctorId, isLoggedIn, userRole }: Booki
       const booked = await getDoctorBookedSlots(doctorId, selectedDate)
       setBookedSlots(booked)
       setLoadingSlots(false)
-      setSelectedTime("") // Reset select time
+      setSelectedTime("")
     }
 
     fetchSlots()
@@ -109,6 +139,29 @@ export default function BookingSection({ doctorId, isLoggedIn, userRole }: Booki
     })
   }
 
+  if (!availLoaded) {
+    return (
+      <div className="bg-black text-[#FDF6CD] p-6 sm:p-8 rounded-[40px] flex items-center justify-center h-full min-h-[350px]">
+        <div className="flex flex-col items-center gap-3">
+          <Loader2 className="h-6 w-6 animate-spin text-[#A2B676]" />
+          <span className="text-[10px] uppercase font-bold tracking-widest text-white/40">Cargando disponibilidad...</span>
+        </div>
+      </div>
+    )
+  }
+
+  if (!hasAvailability) {
+    return (
+      <div className="bg-black text-[#FDF6CD] p-6 sm:p-8 rounded-[40px] flex flex-col items-center justify-center text-center h-full min-h-[350px]">
+        <Calendar className="h-12 w-12 text-[#A2B676] mb-4" />
+        <h3 className="text-xl font-serif font-black mb-2">Sin Disponibilidad</h3>
+        <p className="text-sm font-medium text-[#FDF6CD]/60 max-w-xs">
+          Este profesional aún no configuró sus horarios de atención. Consultá más tarde.
+        </p>
+      </div>
+    )
+  }
+
   if (isSuccess) {
     return (
       <div className="bg-[#A2B676]/10 border-2 border-[#A2B676] text-black p-8 rounded-[40px] flex flex-col items-center justify-center text-center h-full min-h-[350px]">
@@ -129,7 +182,6 @@ export default function BookingSection({ doctorId, isLoggedIn, userRole }: Booki
           <Calendar className="h-5 w-5 text-[#A2B676]" /> Reservar Consulta
         </h2>
 
-        {/* Selector de Fecha Corrediza (Lunes a Viernes) */}
         <div className="mb-6">
           <p className="text-xs font-bold uppercase tracking-widest text-[#FDF6CD]/60 mb-3">1. Selecciona el Día</p>
           <div className="grid grid-cols-4 gap-2">
@@ -151,7 +203,6 @@ export default function BookingSection({ doctorId, isLoggedIn, userRole }: Booki
           </div>
         </div>
 
-        {/* Selector de Hora en Cuadrícula */}
         <div>
           <p className="text-xs font-bold uppercase tracking-widest text-[#FDF6CD]/60 mb-3 flex items-center gap-1.5">
             <Clock className="h-3.5 w-3.5" /> 2. Selecciona el Horario
@@ -164,7 +215,7 @@ export default function BookingSection({ doctorId, isLoggedIn, userRole }: Booki
             </div>
           ) : (
             <div className="grid grid-cols-4 gap-2 max-h-[180px] overflow-y-auto pr-1 scrollbar-none">
-              {TIME_SLOTS.map((slot) => {
+              {timeSlots.map((slot) => {
                 const isBooked = bookedSlots.includes(slot)
                 const isSelected = selectedTime === slot
 
@@ -207,9 +258,7 @@ export default function BookingSection({ doctorId, isLoggedIn, userRole }: Booki
           }`}
         >
           {isPending ? (
-            <>
-              <Loader2 className="h-4 w-4 animate-spin" /> Confirmando...
-            </>
+            <><Loader2 className="h-4 w-4 animate-spin" /> Confirmando...</>
           ) : !isLoggedIn ? (
             "Iniciar sesión para reservar"
           ) : (

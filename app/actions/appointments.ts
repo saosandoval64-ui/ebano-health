@@ -206,3 +206,190 @@ export async function updateDoctorSelfProfile(formData: FormData) {
     return { success: false, message: "Error al guardar el perfil en el servidor." }
   }
 }
+
+// Obtener la disponibilidad semanal de un médico
+export async function getDoctorAvailability(doctorId: string) {
+  try {
+    const availability = await db.availability.findMany({
+      where: { doctorId },
+      orderBy: { dayOfWeek: "asc" },
+    })
+    return availability.map((a) => ({
+      dayOfWeek: a.dayOfWeek,
+      startTime: a.startTime,
+      endTime: a.endTime,
+      isActive: a.isActive,
+    }))
+  } catch (error) {
+    console.error("Error fetching availability:", error)
+    return []
+  }
+}
+
+// Guardar disponibilidad semanal del médico
+export async function saveDoctorAvailability(formData: FormData) {
+  const session = await getSessionPayload()
+  if (!session || session.role !== "DOCTOR") {
+    return { success: false, message: "No autorizado." }
+  }
+
+  try {
+    const doctorProfile = await db.doctorProfile.findUnique({
+      where: { userId: session.userId },
+    })
+    if (!doctorProfile) {
+      return { success: false, message: "Perfil de médico no encontrado." }
+    }
+
+    const daysRaw = formData.get("days") as string
+    if (!daysRaw) {
+      return { success: false, message: "No se recibieron días." }
+    }
+
+    const days = JSON.parse(daysRaw) as {
+      dayOfWeek: number
+      startTime: string
+      endTime: string
+      isActive: boolean
+    }[]
+
+    // Eliminar entries existentes y crear nuevas (upsert no es práctico para bulk)
+    await db.availability.deleteMany({
+      where: { doctorId: doctorProfile.id },
+    })
+
+    if (days.length > 0) {
+      await db.availability.createMany({
+        data: days.map((d) => ({
+          doctorId: doctorProfile.id,
+          dayOfWeek: d.dayOfWeek,
+          startTime: d.startTime,
+          endTime: d.endTime,
+          isActive: d.isActive,
+        })),
+      })
+    }
+
+    revalidatePath("/doctor/availability")
+
+    return { success: true, message: "Disponibilidad guardada correctamente." }
+  } catch (error) {
+    console.error("Error saving availability:", error)
+    return { success: false, message: "Error al guardar disponibilidad." }
+  }
+}
+
+// --- Seguir/Dejar de seguir médicos ---
+
+export async function toggleFollowDoctor(doctorProfileId: string) {
+  const session = await getSessionPayload()
+  if (!session || session.role !== "PATIENT") {
+    return { success: false, message: "Debes iniciar sesión como paciente." }
+  }
+
+  try {
+    const existing = await db.favoriteDoctor.findUnique({
+      where: { patientId_doctorId: { patientId: session.userId, doctorId: doctorProfileId } },
+    })
+
+    if (existing) {
+      await db.favoriteDoctor.delete({ where: { id: existing.id } })
+      revalidatePath(`/especialistas/${doctorProfileId}`)
+      revalidatePath("/patient/dashboard")
+      return { success: true, following: false, message: "Dejaste de seguir a este médico." }
+    } else {
+      await db.favoriteDoctor.create({
+        data: { patientId: session.userId, doctorId: doctorProfileId },
+      })
+      revalidatePath(`/especialistas/${doctorProfileId}`)
+      revalidatePath("/patient/dashboard")
+      return { success: true, following: true, message: "Ahora sigues a este médico." }
+    }
+  } catch (error) {
+    console.error("Error toggling follow:", error)
+    return { success: false, message: "Error al seguir/dejar de seguir." }
+  }
+}
+
+export async function isFollowingDoctor(doctorProfileId: string) {
+  const session = await getSessionPayload()
+  if (!session) return false
+
+  try {
+    const existing = await db.favoriteDoctor.findUnique({
+      where: { patientId_doctorId: { patientId: session.userId, doctorId: doctorProfileId } },
+    })
+    return !!existing
+  } catch {
+    return false
+  }
+}
+
+export async function getFollowedDoctors() {
+  const session = await getSessionPayload()
+  if (!session || session.role !== "PATIENT") return []
+
+  try {
+    const favorites = await db.favoriteDoctor.findMany({
+      where: { patientId: session.userId },
+      include: {
+        doctor: {
+          include: {
+            user: { select: { name: true, lastName: true, avatar: true } },
+            availability: { where: { isActive: true }, orderBy: { dayOfWeek: "asc" } },
+          },
+        },
+      },
+      orderBy: { createdAt: "desc" },
+    })
+
+    return favorites.map((f) => ({
+      id: f.doctor.id,
+      userId: f.doctor.userId,
+      name: `${f.doctor.user.name} ${f.doctor.user.lastName || ""}`,
+      specialty: f.doctor.specialty,
+      avatar: f.doctor.user.avatar,
+      availability: f.doctor.availability.map((a) => ({
+        dayOfWeek: a.dayOfWeek,
+        startTime: a.startTime,
+        endTime: a.endTime,
+      })),
+    }))
+  } catch (error) {
+    console.error("Error fetching followed doctors:", error)
+    return []
+  }
+}
+
+export async function getDoctorFollowers() {
+  const session = await getSessionPayload()
+  if (!session || session.role !== "DOCTOR") return []
+
+  try {
+    const profile = await db.doctorProfile.findUnique({
+      where: { userId: session.userId },
+      include: {
+        followedBy: {
+          include: {
+            patient: { select: { name: true, lastName: true, avatar: true, email: true } },
+          },
+          orderBy: { createdAt: "desc" },
+        },
+      },
+    })
+
+    if (!profile) return []
+
+    return profile.followedBy.map((f) => ({
+      id: f.id,
+      patientId: f.patientId,
+      name: `${f.patient.name} ${f.patient.lastName || ""}`,
+      email: f.patient.email,
+      avatar: f.patient.avatar,
+      since: f.createdAt,
+    }))
+  } catch (error) {
+    console.error("Error fetching doctor followers:", error)
+    return []
+  }
+}

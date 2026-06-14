@@ -2,7 +2,8 @@ import { auth } from "../../../lib/auth"
 import { db } from "../../../lib/db"
 import { redirect } from "next/navigation"
 import TodayAppointmentsList from "./TodayAppointmentsList"
-import { Calendar, Users, Activity, ArrowRight } from "lucide-react"
+import { Calendar, Users, Activity, Heart, ArrowRight } from "lucide-react"
+import AvatarDisplay from "@/components/AvatarDisplay"
 import Link from "next/link"
 
 export default async function DoctorDashboard() {
@@ -71,6 +72,10 @@ export default async function DoctorDashboard() {
   })
   const patientCount = distinctPatients.length
 
+  const followersCount = await db.favoriteDoctor.count({
+    where: { doctorId: doctorProfile.id },
+  })
+
   return (
     <div className="space-y-8 font-sans text-black">
       {/* Encabezado */}
@@ -84,7 +89,7 @@ export default async function DoctorDashboard() {
       </div>
 
       {/* Tarjetas de Estadísticas */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <div className="bg-[#A2B676]/10 border border-[#A2B676]/30 p-6 rounded-[28px] flex items-center gap-4">
           <div className="w-12 h-12 rounded-2xl bg-[#A2B676] flex items-center justify-center text-white shrink-0">
             <Calendar className="h-6 w-6" />
@@ -114,6 +119,16 @@ export default async function DoctorDashboard() {
             <h3 className="text-2xl font-serif font-black">{pendingTotal}</h3>
           </div>
         </div>
+
+        <div className="bg-rose-50 border border-rose-200 p-6 rounded-[28px] flex items-center gap-4">
+          <div className="w-12 h-12 rounded-2xl bg-rose-100 flex items-center justify-center text-rose-500 shrink-0">
+            <Heart className="h-6 w-6" />
+          </div>
+          <div>
+            <p className="text-[10px] uppercase font-bold tracking-widest text-rose-400">Seguidores</p>
+            <h3 className="text-2xl font-serif font-black">{followersCount}</h3>
+          </div>
+        </div>
       </div>
 
       {/* Consultas para Hoy */}
@@ -129,6 +144,47 @@ export default async function DoctorDashboard() {
         </div>
 
         <TodayAppointmentsList initialAppointments={todayAppointments} />
+      </div>
+
+      {/* Seguidores */}
+      <DoctorFollowersSection doctorProfileId={doctorProfile.id} />
+    </div>
+  )
+}
+
+async function DoctorFollowersSection({ doctorProfileId }: { doctorProfileId: string }) {
+  const followers = await db.favoriteDoctor.findMany({
+    where: { doctorId: doctorProfileId },
+    include: {
+      patient: { select: { name: true, lastName: true, avatar: true, email: true } },
+    },
+    orderBy: { createdAt: "desc" },
+    take: 10,
+  })
+
+  if (followers.length === 0) return null
+
+  return (
+    <div className="space-y-4 pt-4">
+      <h2 className="text-xl font-serif font-black tracking-tight flex items-center gap-2">
+        <Heart className="h-5 w-5 text-rose-400" />
+        Pacientes que te siguen ({followers.length})
+      </h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        {followers.map((f) => (
+          <div
+            key={f.id}
+            className="bg-white/40 border border-white/50 p-4 rounded-2xl flex items-center gap-3"
+          >
+            <div className="w-10 h-10 rounded-xl bg-[#A2B676]/10 flex items-center justify-center overflow-hidden shrink-0">
+              <AvatarDisplay avatar={f.patient.avatar} name={`${f.patient.name} ${f.patient.lastName || ""}`} size="sm" />
+            </div>
+            <div className="min-w-0">
+              <p className="text-sm font-bold text-black truncate">{f.patient.name} {f.patient.lastName}</p>
+              <p className="text-[10px] text-black/40 truncate">{f.patient.email}</p>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   )

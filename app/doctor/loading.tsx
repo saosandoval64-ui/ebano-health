@@ -1,7 +1,6 @@
-export default function PatientLoading() {
+export default function DoctorLoading() {
   return (
     <div className="min-h-screen font-sans flex flex-col md:flex-row">
-      {/* Sidebar placeholder */}
       <div className="hidden md:flex w-[260px] h-screen bg-black/5 border-r border-black/10 flex-col justify-between py-6 px-4 shrink-0 animate-pulse">
         <div className="space-y-8">
           <div className="pl-3 pt-2 space-y-2">
@@ -26,15 +25,15 @@ export default function PatientLoading() {
         </div>
       </div>
 
-      {/* Main content placeholder */}
       <main className="flex-1 p-6 sm:p-8 md:p-12 space-y-8 animate-pulse">
         <div className="space-y-1">
           <div className="h-8 w-64 bg-black/10 rounded-2xl" />
           <div className="h-4 w-80 bg-black/8 rounded-full" />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="md:col-span-2 bg-[#A2B676]/10 border border-[#A2B676]/20 h-[220px] rounded-[32px]" />
-          <div className="bg-black/5 border border-black/10 h-[220px] rounded-[32px]" />
+          <div className="bg-[#A2B676]/10 border border-[#A2B676]/20 h-[180px] rounded-[32px]" />
+          <div className="bg-black/5 border border-black/10 h-[180px] rounded-[32px]" />
+          <div className="bg-black/5 border border-black/10 h-[180px] rounded-[32px]" />
         </div>
         <div className="space-y-3">
           <div className="h-7 w-48 bg-black/10 rounded-xl" />

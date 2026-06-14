@@ -3,6 +3,7 @@
 import { useSession } from "next-auth/react"
 import { useRouter, usePathname } from "next/navigation"
 import { useEffect } from "react"
+import Logo from "@/components/Logo"
 
 export default function LoginLayout({ children }: { children: React.ReactNode }) {
   const { data: session, status } = useSession()
@@ -26,11 +27,9 @@ export default function LoginLayout({ children }: { children: React.ReactNode })
 
   if (status === "loading") {
     return (
-      <div className="min-h-screen bg-[#FDF6CD] flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
-          <span className="text-2xl font-serif font-black tracking-tight">
-            Ébano<span className="text-[#A2B676]">.</span>
-          </span>
+          <Logo size="md" />
           <div className="w-6 h-6 border-2 border-black/20 border-t-black rounded-full animate-spin" />
         </div>
       </div>

@@ -4,23 +4,22 @@ import { useState } from "react"
 import Link from "next/link"
 import { UserPlus, Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import Logo from "@/components/Logo"
 
 export default function NavbarClient() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
     <>
-      <header className="w-full max-w-7xl mx-auto px-4 sm:px-8 py-6 sm:py-8 flex items-center justify-between gap-4 bg-white rounded-[40px] mt-6 mx-6 sm:mx-auto shadow-lg">
-        <Link href="/" className="flex items-center gap-1 cursor-pointer shrink-0">
-          <span className="text-xl sm:text-2xl font-serif font-black tracking-tight text-black">
-            Ébano<span className="text-[#A2B676]">.</span>
-          </span>
+      <header className="w-full max-w-7xl mx-auto px-4 sm:px-8 py-4 sm:py-6 flex items-center justify-between gap-4">
+        <Link href="/">
+          <Logo size="sm" />
         </Link>
 
         <nav className="hidden md:flex items-center gap-10 text-xs font-bold uppercase tracking-widest text-black/80">
           <Link href="/" className="hover:text-black transition-colors">Home</Link>
           <Link href="/especialistas" className="pb-1 border-b-2 border-black transition-all">Especialistas</Link>
-          <Link href="/contact" className="hover:text-black transition-colors">Contacto</Link>
+          <Link href="/#contact" className="hover:text-black transition-colors">Contacto</Link>
         </nav>
 
         <div className="hidden md:flex items-center gap-4 sm:gap-6">
@@ -43,7 +42,6 @@ export default function NavbarClient() {
         </button>
       </header>
 
-      {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="md:hidden fixed inset-0 z-50 bg-black/40 backdrop-blur-sm">
           <div className="fixed top-0 right-0 h-full w-[280px] bg-[#FDF6CD] shadow-2xl border-l border-black/10 p-6">
@@ -56,40 +54,20 @@ export default function NavbarClient() {
               </button>
             </div>
             <nav className="flex flex-col gap-3">
-              <Link
-                href="/"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full h-11 px-4 rounded-2xl flex items-center text-xs font-bold uppercase tracking-wider text-black/75 hover:bg-black/5 hover:text-black"
-              >
+              <Link href="/" onClick={() => setMobileMenuOpen(false)} className="w-full h-11 px-4 rounded-2xl flex items-center text-xs font-bold uppercase tracking-wider text-black/75 hover:bg-black/5 hover:text-black">
                 Home
               </Link>
-              <Link
-                href="/especialistas"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full h-11 px-4 rounded-2xl flex items-center text-xs font-bold uppercase tracking-wider text-black/75 hover:bg-black/5 hover:text-black"
-              >
+              <Link href="/especialistas" onClick={() => setMobileMenuOpen(false)} className="w-full h-11 px-4 rounded-2xl flex items-center text-xs font-bold uppercase tracking-wider text-black/75 hover:bg-black/5 hover:text-black">
                 Especialistas
               </Link>
-              <Link
-                href="/contact"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full h-11 px-4 rounded-2xl flex items-center text-xs font-bold uppercase tracking-wider text-black/75 hover:bg-black/5 hover:text-black"
-              >
+              <Link href="/#contact" onClick={() => setMobileMenuOpen(false)} className="w-full h-11 px-4 rounded-2xl flex items-center text-xs font-bold uppercase tracking-wider text-black/75 hover:bg-black/5 hover:text-black">
                 Contacto
               </Link>
               <div className="border-t border-black/10 my-4" />
-              <Link
-                href="/login/patient"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full h-11 px-4 rounded-2xl flex items-center text-xs font-bold uppercase tracking-wider text-black/75 hover:bg-black/5 hover:text-black"
-              >
+              <Link href="/login/patient" onClick={() => setMobileMenuOpen(false)} className="w-full h-11 px-4 rounded-2xl flex items-center text-xs font-bold uppercase tracking-wider text-black/75 hover:bg-black/5 hover:text-black">
                 Sign In
               </Link>
-              <Link
-                href="/register"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full h-11 px-4 rounded-2xl flex items-center text-xs font-bold uppercase tracking-wider bg-[#F4C443] text-black hover:bg-[#E5B534]"
-              >
+              <Link href="/register" onClick={() => setMobileMenuOpen(false)} className="w-full h-11 px-4 rounded-2xl flex items-center text-xs font-bold uppercase tracking-wider bg-[#F4C443] text-black hover:bg-[#E5B534]">
                 Sign Up
               </Link>
             </nav>

@@ -9,14 +9,13 @@ const DASHBOARD_BY_ROLE: Record<Role, string> = {
   ADMIN: "/admin/dashboard",
 }
 
-export default async function middleware(req: Request) {
+export default async function proxy(req: Request) {
   const url = new URL(req.url)
   const pathname = url.pathname
   
   // Obtener sesión usando NextAuth
   const session = await auth()
   const role = session?.user?.role as Role | undefined
-  console.log("[MIDDLEWARE] Sesión de NextAuth, rol:", role, "path:", pathname)
   
   const isLoggedIn = !!role
 
