@@ -34,16 +34,12 @@ export default function LoginFormClient({ role, placeholders }: LoginFormClientP
     setLoginError(false)
 
     try {
-      console.log("[LOGIN FORM] Enviando login para rol:", role, "email:", email)
-
       const result = await signIn("credentials", {
         email,
         password,
         expectedRole: role.toUpperCase(),
         redirect: false,
       })
-
-      console.log("[LOGIN FORM] Resultado de signIn:", result)
 
       if (result?.error) {
         setMessage("Credenciales incorrectas. Verifica tu email y contraseña.")
@@ -54,8 +50,7 @@ export default function LoginFormClient({ role, placeholders }: LoginFormClientP
 
       // Login exitoso - redirigir al dashboard del rol
       window.location.href = DASHBOARD_BY_ROLE[role]
-    } catch (error) {
-      console.error("[LOGIN FORM] Error:", error)
+    } catch {
       setMessage("Error de conexión. Intenta de nuevo.")
       setLoginError(true)
       setIsPending(false)

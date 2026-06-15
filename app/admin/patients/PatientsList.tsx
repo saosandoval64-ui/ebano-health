@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useTransition } from "react"
+import { useRouter } from "next/navigation"
 import { updatePatient, deleteUser } from "../../actions/admin"
 import { Loader2, Edit2, Trash2, X } from "lucide-react"
 
@@ -24,6 +25,7 @@ export default function PatientsList({ initialPatients }: PatientsListProps) {
   const [isPending, startTransition] = useTransition()
   const [message, setMessage] = useState("")
   const [isSuccess, setIsSuccess] = useState(false)
+  const router = useRouter()
 
   // Estados para el Modal/Formulario
   const [showForm, setShowForm] = useState(false)
@@ -75,9 +77,8 @@ export default function PatientsList({ initialPatients }: PatientsListProps) {
       setMessage(result.message)
       if (result.success) {
         setIsSuccess(true)
-        setTimeout(() => {
-          window.location.reload()
-        }, 1000)
+        setShowForm(false)
+        router.refresh()
       }
     })
   }

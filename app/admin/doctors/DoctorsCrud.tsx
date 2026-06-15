@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useTransition } from "react"
+import { useRouter } from "next/navigation"
 import { createDoctor, updateDoctor, deleteUser } from "../../actions/admin"
 import { Loader2, Plus, Edit2, Trash2, X } from "lucide-react"
 
@@ -28,6 +29,7 @@ export default function DoctorsCrud({ initialDoctors }: DoctorsCrudProps) {
   const [isPending, startTransition] = useTransition()
   const [message, setMessage] = useState("")
   const [isSuccess, setIsSuccess] = useState(false)
+  const router = useRouter()
 
   // Estados para el Modal/Formulario
   const [showForm, setShowForm] = useState(false)
@@ -94,11 +96,8 @@ export default function DoctorsCrud({ initialDoctors }: DoctorsCrudProps) {
       setMessage(result.message)
       if (result.success) {
         setIsSuccess(true)
-        // Recargar datos o actualizar estado localmente
-        // Para simplificar, refrescamos la ventana o actualizamos estado
-        setTimeout(() => {
-          window.location.reload()
-        }, 1000)
+        setShowForm(false)
+        router.refresh()
       }
     })
   }
