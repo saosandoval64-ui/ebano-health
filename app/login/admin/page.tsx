@@ -1,52 +1,75 @@
-import { X, ShieldCheck, Briefcase } from "lucide-react"
+import { ShieldCheck, Briefcase, ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import LoginFormClient from "../../../components/auth/LoginFormClient"
-import Logo from "@/components/Logo"
 
 export default function AdminLoginPage() {
   return (
-    <div className="min-h-screen text-black font-sans antialiased flex flex-col justify-between selection:bg-[#E2CE7D]">
-      <div className="w-full max-w-7xl mx-auto px-6 pt-6 flex items-center justify-end z-10">
-        <Link
-          href="/"
-          className="h-9 w-9 rounded-full bg-black/5 hover:bg-black/10 flex items-center justify-center text-black/70 hover:text-black border border-black/5 link-transition button-click"
-          aria-label="Volver"
-        >
-          <X className="h-4 w-4" />
-        </Link>
+    <div className="min-h-screen text-black font-sans antialiased flex flex-col bg-[#FDF6CD]">
+      {/* Yellow Hero Section */}
+      <div className="relative bg-[#F4C443] pt-8 pb-20 px-6 rounded-b-[40px]">
+        <div className="flex items-center justify-between mb-8">
+          <Link
+            href="/"
+            className="h-10 w-10 rounded-full bg-black/10 flex items-center justify-center text-black hover:bg-black/20 transition-all"
+          >
+            <ArrowLeft className="w-5 h-5" />
+          </Link>
+          <span className="text-xs font-bold uppercase tracking-wider text-black/40">
+            Admin
+          </span>
+        </div>
+
+        <div className="flex flex-col items-center text-center">
+          <div className="w-16 h-16 rounded-3xl overflow-hidden shadow-lg mb-4">
+            <img src="/avatars/avatar-4.svg" alt="Ébano" className="w-full h-full object-cover" />
+          </div>
+          <h1 className="text-3xl font-serif font-black text-black tracking-tight mb-1">
+            Panel Admin
+          </h1>
+          <p className="text-sm text-black/60 font-medium">
+            Administración Ébano Health
+          </p>
+        </div>
       </div>
 
-      <main className="flex-1 flex items-center justify-center px-4 py-12">
-        <div className="w-full max-w-[440px] bg-black/5 p-8 sm:p-10 rounded-[32px] border border-black/10 shadow-sm flex flex-col justify-between">
-          <div className="text-center mb-8">
-            <div className="flex justify-center mb-2">
-              <Logo size="md" />
+      {/* Login Form Card */}
+      <main className="flex-1 -mt-10 px-4 pb-8 relative z-10">
+        <div className="w-full max-w-md mx-auto">
+          <div className="bg-white p-6 sm:p-8 rounded-3xl shadow-xl">
+            {/* Role Badge */}
+            <div className="inline-flex items-center gap-2 bg-black/5 px-4 py-2 rounded-2xl mb-6">
+              <Briefcase className="w-4 h-4 text-[#8B5A2B]" />
+              <span className="text-xs font-bold uppercase tracking-wider text-black/70">
+                Panel Administrativo
+              </span>
             </div>
-            <div className="inline-flex items-center gap-1.5 bg-black/5 rounded-full px-3 py-1 text-[10px] uppercase font-bold tracking-wider text-black/60 mb-4">
-              <Briefcase className="h-3 w-3 text-[#A2B676]" />
-              Panel Admin
+
+            <LoginFormClient
+              role="admin"
+              placeholders={{ email: "admin@ebano.com" }}
+            />
+
+            {/* Forgot Password */}
+            <div className="mt-4 text-right">
+              <Link href="#" className="text-xs font-medium text-black/50 hover:text-black transition-colors">
+                ¿Olvidaste tu contraseña?
+              </Link>
             </div>
-            <h1 className="text-2xl font-serif font-black tracking-tight text-black">
-              Panel de Administración
-            </h1>
           </div>
 
-          <LoginFormClient
-            role="admin"
-            placeholders={{ email: "admin@ebano.com" }}
-          />
-
-          <div className="mt-8 pt-6 border-t border-black/5 text-center">
-            <p className="text-xs font-medium text-black/50">
+          {/* Info */}
+          <div className="mt-6 text-center">
+            <p className="text-xs text-black/40 font-medium">
               Acceso administrativo separado del portal principal.
             </p>
           </div>
         </div>
       </main>
 
-      <footer className="w-full py-4 shrink-0 flex flex-col items-center justify-center gap-1 text-[11px] text-black/30 font-medium">
-        <div className="flex items-center justify-center gap-1.5">
-          <ShieldCheck className="h-3.5 w-3.5" /> Encriptación de datos de salud
+      <footer className="w-full py-4 text-center">
+        <div className="flex items-center justify-center gap-2 text-xs text-black/30 font-medium">
+          <ShieldCheck className="w-4 h-4" />
+          Encriptación de datos de salud
         </div>
       </footer>
     </div>

@@ -49,39 +49,39 @@
 
 :root {
   /* ===== COLORES PRINCIPALES DEL SISTEMA ===== */
-  --background: #FDF6CD; /* Fondo crema cálido */
-  --foreground: #1A1A1A; /* Negro principal */
-  --card: #FFFFFF; /* Blanco limpio para cards */
+  --background: #FDF6CD;
+  --foreground: #1A1A1A;
+  --card: #FFFFFF;
   --card-foreground: #1A1A1A;
   --popover: #FFFFFF;
   --popover-foreground: #1A1A1A;
-  --primary: #1A1A1A; /* Negro como color principal */
+  --primary: #1A1A1A;
   --primary-foreground: #FDF6CD;
-  --secondary: #A2B676; /* Verde salud como acento */
-  --secondary-foreground: #FFFFFF;
+  --secondary: #F4C443;
+  --secondary-foreground: #1A1A1A;
   --muted: #F5F5F0;
   --muted-foreground: #6B7280;
-  --accent: #8B5A2B; /* Café cálido como acento secundario */
+  --accent: #8B5A2B;
   --accent-foreground: #FFFFFF;
   --destructive: #EF4444;
   --destructive-foreground: #FFFFFF;
   --border: #E5E7EB;
-  --input: #E5E7EB;
-  --ring: #A2B676; /* Ring verde */
-  --chart-1: #A2B676;
+  --input: #F0F0F0;
+  --ring: #F4C443;
+  --chart-1: #F4C443;
   --chart-2: #8B5A2B;
   --chart-3: #1A1A1A;
   --chart-4: #6B7280;
   --chart-5: #D1D5DB;
   --radius: 1rem;
-  --sidebar: #FFFFFF;
+  --sidebar: #F4C443;
   --sidebar-foreground: #1A1A1A;
   --sidebar-primary: #1A1A1A;
-  --sidebar-primary-foreground: #FDF6CD;
-  --sidebar-accent: #A2B676;
-  --sidebar-accent-foreground: #FFFFFF;
-  --sidebar-border: #E5E7EB;
-  --sidebar-ring: #A2B676;
+  --sidebar-primary-foreground: #F4C443;
+  --sidebar-accent: #F4C443;
+  --sidebar-accent-foreground: #1A1A1A;
+  --sidebar-border: rgba(0,0,0,0.08);
+  --sidebar-ring: #F4C443;
 }
 
 .dark {
@@ -93,7 +93,7 @@
   --popover-foreground: #FDF6CD;
   --primary: #FDF6CD;
   --primary-foreground: #1A1A1A;
-  --secondary: #A2B676;
+  --secondary: #F4C443;
   --secondary-foreground: #1A1A1A;
   --muted: #2D2D2D;
   --muted-foreground: #9CA3AF;
@@ -103,15 +103,15 @@
   --destructive-foreground: #FFFFFF;
   --border: #374151;
   --input: #374151;
-  --ring: #A2B676;
+  --ring: #F4C443;
   --sidebar: #262626;
   --sidebar-foreground: #FDF6CD;
-  --sidebar-primary: #A2B676;
+  --sidebar-primary: #F4C443;
   --sidebar-primary-foreground: #1A1A1A;
   --sidebar-accent: #374151;
   --sidebar-accent-foreground: #FDF6CD;
   --sidebar-border: #374151;
-  --sidebar-ring: #A2B676;
+  --sidebar-ring: #F4C443;
 }
 
 @layer base {
@@ -134,33 +134,53 @@
 }
 
 @keyframes slideInUp {
-  from { opacity: 0; transform: translateY(30px); }
+  from { opacity: 0; transform: translateY(16px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes slideInDown {
-  from { opacity: 0; transform: translateY(-30px); }
+  from { opacity: 0; transform: translateY(-16px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes slideInLeft {
-  from { opacity: 0; transform: translateX(-30px); }
+  from { opacity: 0; transform: translateX(-16px); }
   to { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes slideInRight {
-  from { opacity: 0; transform: translateX(30px); }
+  from { opacity: 0; transform: translateX(16px); }
   to { opacity: 1; transform: translateX(0); }
 }
 
+@keyframes slideOutRight {
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 0; transform: translateX(16px); }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
 @keyframes fadeInScale {
-  from { opacity: 0; transform: scale(0.94); }
+  from { opacity: 0; transform: scale(0.97); }
   to { opacity: 1; transform: scale(1); }
 }
 
 @keyframes fadeOutScale {
   from { opacity: 1; transform: scale(1); }
-  to { opacity: 0; transform: scale(0.94); }
+  to { opacity: 0; transform: scale(0.97); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 @keyframes bounce-soft {
@@ -174,37 +194,57 @@
 }
 
 .animate-fadeIn {
-  animation: fadeIn 0.4s ease-out;
+  animation: fadeIn 0.3s ease-out;
   will-change: opacity;
 }
 
 .animate-slideInUp {
-  animation: slideInUp 0.6s ease-out;
+  animation: slideInUp 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform, opacity;
 }
 
 .animate-slideInDown {
-  animation: slideInDown 0.5s ease-out;
+  animation: slideInDown 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform, opacity;
 }
 
 .animate-slideInLeft {
-  animation: slideInLeft 0.5s ease-out;
+  animation: slideInLeft 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform, opacity;
 }
 
 .animate-slideInRight {
-  animation: slideInRight 0.5s ease-out;
+  animation: slideInRight 0.3s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform, opacity;
 }
 
+.animate-slideOutRight {
+  animation: slideOutRight 0.2s ease-in;
+  will-change: transform, opacity;
+}
+
+.animate-fadeOut {
+  animation: fadeOut 0.2s ease-in;
+  will-change: opacity;
+}
+
 .animate-fadeInScale {
-  animation: fadeInScale 0.5s ease-out;
+  animation: fadeInScale 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform, opacity;
 }
 
 .animate-fadeOutScale {
-  animation: fadeOutScale 0.25s ease-out;
+  animation: fadeOutScale 0.2s ease-in;
+  will-change: transform, opacity;
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity;
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform, opacity;
 }
 
@@ -293,4 +333,8 @@ html {
 .scrollbar-none {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
