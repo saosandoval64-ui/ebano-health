@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { signOut } from "next-auth/react"
 import {
   Home,
   Search,
@@ -11,42 +12,49 @@ import {
   Clock,
   Stethoscope,
   Heart,
-  CreditCard,
   Settings,
   Plus,
-  LayoutDashboard,
+  LogOut,
 } from "lucide-react"
 
-const publicTabs = [
-  { name: "Home", href: "/", icon: Home },
+type Tab = {
+  name: string
+  href: string
+  icon: typeof Home
+  isAction?: boolean
+  isLogout?: boolean
+}
+
+const publicTabs: Tab[] = [
+  { name: "Inicio", href: "/", icon: Home },
   { name: "Especialistas", href: "/especialistas", icon: Search },
   { name: "Agendar", href: "/especialistas", icon: Plus, isAction: true },
   { name: "Contacto", href: "/#contact", icon: Heart },
-  { name: "Sign In", href: "/login/patient", icon: User },
+  { name: "Mi Cuenta", href: "/login/patient", icon: User },
 ]
 
-const patientTabs = [
+const patientTabs: Tab[] = [
   { name: "Inicio", href: "/patient/dashboard", icon: Home },
   { name: "Buscar", href: "/especialistas", icon: Search },
   { name: "Agendar", href: "/especialistas", icon: Plus, isAction: true },
   { name: "Turnos", href: "/patient/appointments", icon: Calendar },
-  { name: "Perfil", href: "/patient/profile", icon: User },
+  { name: "Salir", href: "/", icon: LogOut, isLogout: true },
 ]
 
-const doctorTabs = [
+const doctorTabs: Tab[] = [
   { name: "Inicio", href: "/doctor/dashboard", icon: Home },
   { name: "Pacientes", href: "/doctor/patients", icon: Users },
   { name: "Turnos", href: "/doctor/appointments", icon: Calendar, isAction: true },
   { name: "Horarios", href: "/doctor/availability", icon: Clock },
-  { name: "Perfil", href: "/doctor/profile", icon: User },
+  { name: "Salir", href: "/", icon: LogOut, isLogout: true },
 ]
 
-const adminTabs = [
+const adminTabs: Tab[] = [
   { name: "Inicio", href: "/admin/dashboard", icon: Home },
   { name: "Médicos", href: "/admin/doctors", icon: Stethoscope },
   { name: "Turnos", href: "/admin/appointments", icon: Calendar, isAction: true },
   { name: "Pacientes", href: "/admin/patients", icon: Users },
-  { name: "Config", href: "/admin/settings", icon: Settings },
+  { name: "Salir", href: "/", icon: LogOut, isLogout: true },
 ]
 
 function getTabsForPath(pathname: string) {
@@ -66,32 +74,41 @@ export default function GlobalBottomBar() {
   const tabs = getTabsForPath(pathname)
 
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-white/95 backdrop-blur-xl border-t border-gray-100 z-40 flex items-center justify-around px-2 safe-area-bottom">
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-white border-t border-gray-200 z-50 flex items-center justify-around px-1 safe-area-bottom shadow-[0_-2px_10px_rgba(0,0,0,0.05)]">
       {tabs.map((tab) => {
-        const isActive = pathname === tab.href || (tab.href !== "/" && pathname.startsWith(tab.href) && !tab.isAction)
-        return (
+        const isActive = !tab.isLogout && (pathname === tab.href || (tab.href !== "/" && pathname.startsWith(tab.href) && !tab.isAction))
+        return tab.isLogout ? (
+          <button
+            key={tab.name}
+            onClick={() => signOut({ redirect: true, redirectTo: "/" })}
+            className="flex flex-col items-center justify-center gap-0.5 flex-1 py-2 text-gray-400 hover:text-red-500 active:scale-95 transition-all"
+          >
+            <tab.icon className="w-5 h-5" />
+            <span className="text-[9px] font-bold">{tab.name}</span>
+          </button>
+        ) : (
           <Link
             key={tab.name}
             href={tab.href}
             className={`
               flex flex-col items-center justify-center gap-0.5
-              transition-all duration-200 relative
-              ${tab.isAction ? "w-12 h-12 -mt-4" : "flex-1 py-2"}
+              transition-all duration-150 relative
+              ${tab.isAction ? "w-12 h-12 -mt-5" : "flex-1 py-2"}
             `}
           >
             {tab.isAction ? (
-              <div className="w-12 h-12 rounded-full bg-[#F4C443] flex items-center justify-center shadow-lg shadow-[#F4C443]/30 hover:scale-105 active:scale-95 transition-transform">
+              <div className="w-12 h-12 rounded-full bg-[#F4C443] flex items-center justify-center shadow-lg shadow-[#F4C443]/30 active:scale-90 transition-transform">
                 <tab.icon className="w-6 h-6 text-black" />
               </div>
             ) : (
               <>
                 <tab.icon
-                  className={`w-5 h-5 transition-colors ${
+                  className={`w-5 h-5 transition-colors duration-150 ${
                     isActive ? "text-[#F4C443]" : "text-gray-400"
                   }`}
                 />
                 <span
-                  className={`text-[9px] font-bold transition-colors ${
+                  className={`text-[9px] font-bold transition-colors duration-150 ${
                     isActive ? "text-[#F4C443]" : "text-gray-400"
                   }`}
                 >

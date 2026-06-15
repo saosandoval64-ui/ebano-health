@@ -119,7 +119,7 @@ export default function Sidebar({ userName, userEmail, role, userAvatar }: Sideb
         {/* Home */}
         <Link
           href="/"
-          title="Inicio"
+          title="Volver al inicio"
           className="w-11 h-11 rounded-xl flex items-center justify-center text-black/60 hover:bg-black/10 hover:text-black transition-all mb-2"
         >
           <Home className="w-5 h-5" />

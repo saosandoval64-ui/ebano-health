@@ -1,38 +1,24 @@
 "use client"
 
 import { usePathname } from "next/navigation"
-import { useState, useEffect, useRef } from "react"
+import { useEffect, useState } from "react"
 
 export default function PageTransition({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
-  const prevPathname = useRef(pathname)
   const [displayChildren, setDisplayChildren] = useState(children)
-  const [phase, setPhase] = useState<"enter" | "exit">("enter")
-  const [animKey, setAnimKey] = useState(0)
+  const [fadeKey, setFadeKey] = useState(0)
 
   useEffect(() => {
-    if (pathname === prevPathname.current) return
-    prevPathname.current = pathname
-
-    setPhase("exit")
-
-    const timer = setTimeout(() => {
-      setDisplayChildren(children)
-      setPhase("enter")
-      setAnimKey((k) => k + 1)
-    }, 250)
-
-    return () => clearTimeout(timer)
+    setDisplayChildren(children)
+    setFadeKey((k) => k + 1)
   }, [pathname])
 
   useEffect(() => {
-    if (phase === "enter") {
-      setDisplayChildren(children)
-    }
-  }, [children, phase])
+    setDisplayChildren(children)
+  }, [children])
 
   return (
-    <div key={animKey} className={phase === "enter" ? "animate-slideInUp" : "animate-fadeOutScale"}>
+    <div key={fadeKey} className="animate-pageFadeIn">
       {displayChildren}
     </div>
   )
