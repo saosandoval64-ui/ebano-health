@@ -50,15 +50,15 @@ export default async function MyDoctorsPage() {
           {followed.map((doc) => (
             <div
               key={doc.id}
-              className="group bg-white border border-gray-100 p-6 rounded-[32px] shadow-sm hover:shadow-lg hover:border-[#A2B676]/30 transition-all duration-300 flex flex-col"
+              className="group bg-white border border-gray-100 p-6 rounded-[32px] shadow-sm hover:shadow-lg hover:border-[#F4C443]/30 transition-all duration-300 flex flex-col"
             >
               <div className="flex items-center gap-4 mb-5">
-                <div className="w-14 h-14 rounded-2xl bg-[#A2B676]/10 flex items-center justify-center overflow-hidden">
+                <div className="w-14 h-14 rounded-2xl bg-[#F4C443]/10 flex items-center justify-center overflow-hidden">
                   <AvatarDisplay avatar={doc.avatar} name={doc.name} size="md" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <h3 className="font-bold text-black text-base truncate">{doc.name}</h3>
-                  <p className="text-xs text-[#A2B676] font-bold uppercase tracking-wider">{doc.specialty}</p>
+                  <p className="text-xs text-[#F4C443] font-bold uppercase tracking-wider">{doc.specialty}</p>
                 </div>
                 <span className="flex items-center gap-1 text-[10px] text-red-400 font-bold">
                   <Heart className="h-3 w-3 fill-red-400 text-red-400" /> Siguiendo
@@ -69,7 +69,7 @@ export default async function MyDoctorsPage() {
                 {doc.availability.length > 0 ? (
                   doc.availability.map((a, i) => (
                     <div key={i} className="flex items-center gap-2 text-xs text-black/60">
-                      <MapPin className="h-3 w-3 text-[#A2B676] shrink-0" />
+                      <MapPin className="h-3 w-3 text-[#F4C443] shrink-0" />
                       <span className="font-bold text-black/70">{DAY_LABELS[a.dayOfWeek]}:</span>
                       <span>{a.startTime} - {a.endTime}</span>
                     </div>
@@ -81,7 +81,7 @@ export default async function MyDoctorsPage() {
 
               <Link
                 href={`/especialistas/${doc.userId}`}
-                className="w-full py-3 bg-black text-[#FDF6CD] text-center rounded-[18px] text-[11px] font-bold uppercase tracking-wider hover:bg-[#A2B676] hover:text-black transition-all"
+                className="w-full py-3 bg-black text-[#FDF6CD] text-center rounded-[18px] text-[11px] font-bold uppercase tracking-wider hover:bg-[#F4C443] hover:text-black transition-all"
               >
                 Ver perfil y agendar
               </Link>

@@ -137,8 +137,8 @@ export function AvatarSelectorModal({
                       disabled={isSelected}
                       className={`relative group h-20 w-20 md:h-24 md:w-24 rounded-2xl overflow-hidden mx-auto transition-all duration-200 border-4 ${
                         isSelected
-                          ? "border-[#A2B676] ring-2 ring-[#A2B676] ring-offset-2 scale-105"
-                          : "border-transparent hover:border-[#A2B676]/50"
+                          ? "border-[#F4C443] ring-2 ring-[#F4C443] ring-offset-2 scale-105"
+                          : "border-transparent hover:border-[#F4C443]/50"
                       }`}
                       aria-label={`Seleccionar avatar ${src}`}
                       aria-pressed={isSelected}
@@ -172,7 +172,7 @@ export function AvatarSelectorModal({
               <button
                 onClick={() => fileInputRef.current?.click()}
                 disabled={isUploading}
-                className="w-full h-14 rounded-2xl border-2 border-dashed border-black/20 hover:border-[#A2B676] hover:bg-[#A2B676]/5 flex items-center justify-center gap-3 text-sm font-bold uppercase tracking-wider text-black/60 hover:text-[#A2B676] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full h-14 rounded-2xl border-2 border-dashed border-black/20 hover:border-[#F4C443] hover:bg-[#F4C443]/5 flex items-center justify-center gap-3 text-sm font-bold uppercase tracking-wider text-black/60 hover:text-[#F4C443] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <Camera className="h-5 w-5" />
                 {isUploading ? (

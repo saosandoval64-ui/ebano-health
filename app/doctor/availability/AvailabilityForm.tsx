@@ -120,38 +120,38 @@ export default function AvailabilityForm({ initialData, doctorProfileId }: Avail
           <div className="space-y-1.5">
             <label className="text-xs font-bold uppercase tracking-wider text-black/70 pl-1 block">Nombre</label>
             <input name="name" type="text" required defaultValue={initialData.name}
-              className="w-full rounded-xl border border-black/10 bg-white/60 focus:bg-white text-black h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#A2B676] transition-all" />
+              className="w-full rounded-xl border border-black/10 bg-white/60 focus:bg-white text-black h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all" />
           </div>
           <div className="space-y-1.5">
             <label className="text-xs font-bold uppercase tracking-wider text-black/70 pl-1 block">Apellido</label>
             <input name="lastName" type="text" required defaultValue={initialData.lastName || ""}
-              className="w-full rounded-xl border border-black/10 bg-white/60 focus:bg-white text-black h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#A2B676] transition-all" />
+              className="w-full rounded-xl border border-black/10 bg-white/60 focus:bg-white text-black h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all" />
           </div>
           <div className="space-y-1.5">
             <label className="text-xs font-bold uppercase tracking-wider text-black/70 pl-1 block">Especialidad</label>
             <input name="specialty" type="text" required defaultValue={initialData.specialty}
-              className="w-full rounded-xl border border-black/10 bg-white/60 focus:bg-white text-black h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#A2B676] transition-all" />
+              className="w-full rounded-xl border border-black/10 bg-white/60 focus:bg-white text-black h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all" />
           </div>
           <div className="space-y-1.5">
             <label className="text-xs font-bold uppercase tracking-wider text-black/70 pl-1 block">Matrícula</label>
             <input name="license" type="text" required defaultValue={initialData.license}
-              className="w-full rounded-xl border border-black/10 bg-white/60 focus:bg-white text-black h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#A2B676] transition-all" />
+              className="w-full rounded-xl border border-black/10 bg-white/60 focus:bg-white text-black h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all" />
           </div>
           <div className="space-y-1.5">
             <label className="text-xs font-bold uppercase tracking-wider text-black/70 pl-1 block">Teléfono</label>
             <input name="phone" type="tel" defaultValue={initialData.phone || ""}
-              className="w-full rounded-xl border border-black/10 bg-white/60 focus:bg-white text-black h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#A2B676] transition-all" />
+              className="w-full rounded-xl border border-black/10 bg-white/60 focus:bg-white text-black h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all" />
           </div>
         </div>
 
         <div className="space-y-1.5">
           <label className="text-xs font-bold uppercase tracking-wider text-black/70 pl-1 block">Biografía</label>
           <textarea name="bio" rows={3} defaultValue={initialData.bio || ""}
-            className="w-full rounded-xl border border-black/10 bg-white/60 focus:bg-white text-black p-4 text-sm outline-none focus:ring-2 focus:ring-[#A2B676] transition-all resize-none" />
+            className="w-full rounded-xl border border-black/10 bg-white/60 focus:bg-white text-black p-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all resize-none" />
         </div>
 
         {message && (
-          <p className={`text-xs font-bold text-center ${isSuccess ? "text-[#8F9F68]" : "text-red-500"}`}>{message}</p>
+          <p className={`text-xs font-bold text-center ${isSuccess ? "text-[#E5B534]" : "text-red-500"}`}>{message}</p>
         )}
       </form>
 
@@ -160,7 +160,7 @@ export default function AvailabilityForm({ initialData, doctorProfileId }: Avail
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
             <h3 className="text-xl font-serif font-black text-black flex items-center gap-2">
-              <Clock className="h-5 w-5 text-[#A2B676]" /> Disponibilidad Horaria
+              <Clock className="h-5 w-5 text-[#F4C443]" /> Disponibilidad Horaria
             </h3>
             <p className="text-sm text-black/50 font-medium mt-1">
               {activeDaysCount > 0
@@ -172,13 +172,13 @@ export default function AvailabilityForm({ initialData, doctorProfileId }: Avail
             type="button"
             onClick={handleSaveAvailability}
             disabled={savingAvail}
-            className="px-6 rounded-full bg-[#A2B676] hover:bg-black hover:text-[#FDF6CD] text-black font-bold text-xs uppercase tracking-widest h-10 shadow-sm transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+            className="px-6 rounded-full bg-[#F4C443] hover:bg-black hover:text-[#FDF6CD] text-black font-bold text-xs uppercase tracking-widest h-10 shadow-sm transition-all active:scale-[0.98] flex items-center justify-center gap-2">
             {savingAvail ? <><Loader2 className="h-4 w-4 animate-spin" /> Guardando...</> : <><Save className="h-4 w-4" /> Guardar Disponibilidad</>}
           </button>
         </div>
 
         {availMessage && (
-          <p className="text-sm font-bold text-center text-[#8F9F68] bg-[#A2B676]/10 py-2 rounded-xl">{availMessage}</p>
+          <p className="text-sm font-bold text-center text-[#E5B534] bg-[#F4C443]/10 py-2 rounded-xl">{availMessage}</p>
         )}
 
         {/* Grilla Semanal */}
@@ -190,14 +190,14 @@ export default function AvailabilityForm({ initialData, doctorProfileId }: Avail
                 key={i}
                 className={`rounded-2xl border-2 transition-all overflow-hidden ${
                   day.isActive
-                    ? "border-[#A2B676] bg-[#A2B676]/10 shadow-sm"
+                    ? "border-[#F4C443] bg-[#F4C443]/10 shadow-sm"
                     : "border-black/10 bg-white/40 opacity-60"
                 }`}
               >
                 {/* Cabecera del día */}
                 <div
                   className={`flex items-center justify-between px-4 py-3 ${
-                    day.isActive ? "bg-[#A2B676]" : "bg-black/5"
+                    day.isActive ? "bg-[#F4C443]" : "bg-black/5"
                   }`}
                 >
                   <div className="flex items-center gap-2">
@@ -228,7 +228,7 @@ export default function AvailabilityForm({ initialData, doctorProfileId }: Avail
                         <select
                           value={day.startTime}
                           onChange={(e) => updateDay(i, "startTime", e.target.value)}
-                          className="w-full h-10 rounded-xl border border-[#A2B676]/30 bg-white text-black text-sm font-bold px-3 outline-none focus:ring-2 focus:ring-[#A2B676] transition-all cursor-pointer"
+                          className="w-full h-10 rounded-xl border border-[#F4C443]/30 bg-white text-black text-sm font-bold px-3 outline-none focus:ring-2 focus:ring-[#F4C443] transition-all cursor-pointer"
                         >
                           {TIME_SLOTS.map((t) => (
                             <option key={t} value={t}>{t}</option>
@@ -240,7 +240,7 @@ export default function AvailabilityForm({ initialData, doctorProfileId }: Avail
                         <select
                           value={day.endTime}
                           onChange={(e) => updateDay(i, "endTime", e.target.value)}
-                          className="w-full h-10 rounded-xl border border-[#A2B676]/30 bg-white text-black text-sm font-bold px-3 outline-none focus:ring-2 focus:ring-[#A2B676] transition-all cursor-pointer"
+                          className="w-full h-10 rounded-xl border border-[#F4C443]/30 bg-white text-black text-sm font-bold px-3 outline-none focus:ring-2 focus:ring-[#F4C443] transition-all cursor-pointer"
                         >
                           {TIME_SLOTS.map((t) => (
                             <option key={t} value={t}>{t}</option>
@@ -264,7 +264,7 @@ export default function AvailabilityForm({ initialData, doctorProfileId }: Avail
         </div>
 
         <div className="flex items-start gap-2 text-xs text-black/40 leading-relaxed font-medium pt-2 border-t border-black/10">
-          <ShieldCheck className="h-4 w-4 text-[#A2B676] shrink-0" />
+          <ShieldCheck className="h-4 w-4 text-[#F4C443] shrink-0" />
           <span>Los pacientes solo podrán agendar citas en los días y horarios marcados como activos.</span>
         </div>
       </div>

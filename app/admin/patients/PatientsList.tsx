@@ -105,7 +105,7 @@ export default function PatientsList({ initialPatients }: PatientsListProps) {
       </div>
 
       {message && !showForm && (
-        <p className="text-xs font-bold text-[#8F9F68] bg-[#A2B676]/10 border border-[#A2B676]/25 p-3 rounded-xl">
+        <p className="text-xs font-bold text-[#E5B534] bg-[#F4C443]/10 border border-[#F4C443]/25 p-3 rounded-xl">
           {message}
         </p>
       )}
@@ -166,7 +166,7 @@ export default function PatientsList({ initialPatients }: PatientsListProps) {
 
               <div className="pt-2">
                 {message && (
-                  <p className={`text-xs font-bold text-center mb-3 ${isSuccess ? "text-[#8F9F68]" : "text-red-500"}`}>
+                  <p className={`text-xs font-bold text-center mb-3 ${isSuccess ? "text-[#E5B534]" : "text-red-500"}`}>
                     {message}
                   </p>
                 )}
@@ -218,7 +218,7 @@ export default function PatientsList({ initialPatients }: PatientsListProps) {
                     <td className="py-4 px-6 font-semibold text-xs">
                       {pat.dni || "N/R"}
                     </td>
-                    <td className="py-4 px-6 text-xs text-[#8F9F68] font-bold">
+                    <td className="py-4 px-6 text-xs text-[#E5B534] font-bold">
                       {pat.insurance || "Ninguna"}
                     </td>
                     <td className="py-4 px-6 text-xs text-black/75 font-semibold">

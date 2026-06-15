@@ -77,7 +77,7 @@ export default function LoginFormClient({ role, placeholders }: LoginFormClientP
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full rounded-xl border border-black/10 bg-white/50 focus:bg-white text-black h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#A2B676]"
+            className="w-full rounded-xl border border-black/10 bg-white/50 focus:bg-white text-black h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443]"
             autoComplete="email"
             inputMode="email"
           />
@@ -95,7 +95,7 @@ export default function LoginFormClient({ role, placeholders }: LoginFormClientP
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full rounded-xl border border-black/10 bg-white/50 focus:bg-white text-black h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#A2B676]"
+            className="w-full rounded-xl border border-black/10 bg-white/50 focus:bg-white text-black h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443]"
             autoComplete="current-password"
           />
         </div>

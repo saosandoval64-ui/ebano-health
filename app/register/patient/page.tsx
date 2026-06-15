@@ -2,9 +2,8 @@
 
 import { useState, useTransition, useRef } from "react"
 import { registerPatient } from "../../actions/register"
-import { X, Loader2 } from "lucide-react"
+import { ArrowLeft, Loader2, User, ShieldCheck } from "lucide-react"
 import Link from "next/link"
-import Logo from "@/components/Logo"
 
 export default function PatientRegisterPage() {
   const [isPending, startTransition] = useTransition()
@@ -23,7 +22,6 @@ export default function PatientRegisterPage() {
       if (result.success) {
         setSuccessMessage(result.message)
         formRef.current?.reset()
-        // Auto-redirect to dashboard con replace para evitar back-button
         window.location.replace(result.redirectTo || "/patient/dashboard")
       } else {
         setMessage(result.message)
@@ -32,172 +30,182 @@ export default function PatientRegisterPage() {
   }
 
   return (
-    <div className="min-h-screen text-black font-sans antialiased flex flex-col justify-between selection:bg-[#E2CE7D] animate-fadeInScale">
-      {/* Close Button */}
-      <div className="w-full max-w-7xl mx-auto px-6 pt-6 flex items-center justify-end z-10 animate-slideInDown">
-        <Link
-          href="/register"
-          className="h-9 w-9 rounded-full bg-black/5 hover:bg-black/10 flex items-center justify-center text-black/70 hover:text-black border border-black/5 link-transition button-click"
-        >
-          <X className="h-4 w-4" />
-        </Link>
+    <div className="min-h-screen text-black font-sans antialiased flex flex-col bg-[#FDF6CD]">
+      {/* Yellow Hero Section */}
+      <div className="relative bg-[#F4C443] pt-8 pb-16 px-6 rounded-b-[40px]">
+        <div className="flex items-center justify-between mb-6">
+          <Link
+            href="/register"
+            className="h-10 w-10 rounded-full bg-black/10 flex items-center justify-center text-black hover:bg-black/20 transition-all"
+          >
+            <ArrowLeft className="w-5 h-5" />
+          </Link>
+        </div>
+
+        <div className="flex flex-col items-center text-center">
+          <div className="w-14 h-14 rounded-2xl bg-black/10 flex items-center justify-center mb-3">
+            <User className="w-7 h-7 text-black" />
+          </div>
+          <h1 className="text-2xl font-serif font-black text-black tracking-tight mb-1">
+            Registro de Paciente
+          </h1>
+          <p className="text-sm text-black/60 font-medium">
+            Portal del Paciente Ébano Health
+          </p>
+        </div>
       </div>
 
-      <main className="flex-1 flex items-center justify-center px-4 py-12">
-        <div className="w-full max-w-[440px] bg-black/5 p-8 sm:p-10 rounded-[32px] border border-black/10 shadow-sm flex flex-col justify-between backdrop-blur-sm animate-slideInUp">
-          <div className="text-center mb-8">
-            <div className="flex justify-center mb-2">
-              <Logo size="md" />
-            </div>
-            <div className="inline-flex items-center gap-1.5 bg-black/5 rounded-full px-3 py-1 text-[10px] uppercase font-bold tracking-wider text-black/60 mb-4">
-              👤 Portal del Paciente
-            </div>
-            <h1 className="text-2xl font-serif font-black tracking-tight text-black">Crea tu cuenta</h1>
-          </div>
+      {/* Form Card */}
+      <main className="flex-1 -mt-8 px-4 pb-8 relative z-10">
+        <div className="w-full max-w-md mx-auto">
+          <div className="bg-white p-6 sm:p-8 rounded-3xl shadow-xl">
+            <form onSubmit={handleSubmit} ref={formRef} className="space-y-4">
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-black/50 block">
+                    Nombre
+                  </label>
+                  <input
+                    name="nombre"
+                    type="text"
+                    required
+                    placeholder="Juan"
+                    className="w-full rounded-xl border border-gray-200 bg-gray-50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all"
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-black/50 block">
+                    Apellido
+                  </label>
+                  <input
+                    name="apellido"
+                    type="text"
+                    required
+                    placeholder="Pérez"
+                    className="w-full rounded-xl border border-gray-200 bg-gray-50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all"
+                  />
+                </div>
+              </div>
 
-          <form onSubmit={handleSubmit} ref={formRef} className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <label className="text-xs font-bold uppercase tracking-wider text-black/70 pl-1 block">
-                  Nombre
+                <label className="text-[10px] font-bold uppercase tracking-wider text-black/50 block">
+                  Correo Electrónico
                 </label>
                 <input
-                  name="nombre"
-                  type="text"
+                  name="email"
+                  type="email"
                   required
-                  placeholder="Juan"
-                  className="w-full rounded-xl border border-black/10 bg-white/50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#A2B676] tab-transition"
+                  placeholder="tu@email.com"
+                  className="w-full rounded-xl border border-gray-200 bg-gray-50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all"
                 />
               </div>
+
               <div className="space-y-1.5">
-                <label className="text-xs font-bold uppercase tracking-wider text-black/70 pl-1 block">
-                  Apellido
+                <label className="text-[10px] font-bold uppercase tracking-wider text-black/50 block">
+                  Contraseña
                 </label>
                 <input
-                  name="apellido"
-                  type="text"
+                  name="password"
+                  type="password"
                   required
-                  placeholder="Pérez"
-                  className="w-full rounded-xl border border-black/10 bg-white/50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#A2B676] tab-transition"
+                  placeholder="••••••••"
+                  className="w-full rounded-xl border border-gray-200 bg-gray-50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all"
                 />
               </div>
-            </div>
 
-            <div className="space-y-1.5">
-              <label className="text-xs font-bold uppercase tracking-wider text-black/70 pl-1 block">
-                Correo Electrónico
-              </label>
-              <input
-                name="email"
-                type="email"
-                required
-                placeholder="tu@email.com"
-                className="w-full rounded-xl border border-black/10 bg-white/50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#A2B676] tab-transition"
-              />
-            </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-black/50 block">
+                    DNI
+                  </label>
+                  <input
+                    name="dni"
+                    type="text"
+                    placeholder="12345678"
+                    className="w-full rounded-xl border border-gray-200 bg-gray-50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all"
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-black/50 block">
+                    Teléfono
+                  </label>
+                  <input
+                    name="telefono"
+                    type="tel"
+                    placeholder="+54 9 11 1234"
+                    className="w-full rounded-xl border border-gray-200 bg-gray-50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all"
+                  />
+                </div>
+              </div>
 
-            <div className="space-y-1.5">
-              <label className="text-xs font-bold uppercase tracking-wider text-black/70 pl-1 block">
-                Contraseña
-              </label>
-              <input
-                name="password"
-                type="password"
-                required
-                placeholder="••••••••"
-                className="w-full rounded-xl border border-black/10 bg-white/50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#A2B676] tab-transition"
-              />
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <label className="text-xs font-bold uppercase tracking-wider text-black/70 pl-1 block">
-                  DNI
+                <label className="text-[10px] font-bold uppercase tracking-wider text-black/50 block">
+                  Fecha de Nacimiento
                 </label>
                 <input
-                  name="dni"
+                  name="fechaNacimiento"
+                  type="date"
+                  className="w-full rounded-xl border border-gray-200 bg-gray-50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all"
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-[10px] font-bold uppercase tracking-wider text-black/50 block">
+                  Obra Social (Opcional)
+                </label>
+                <input
+                  name="obraSocial"
                   type="text"
-                  placeholder="12345678"
-                  className="w-full rounded-xl border border-black/10 bg-white/50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#A2B676] tab-transition"
+                  placeholder="OSDE, Swiss Medical, etc"
+                  className="w-full rounded-xl border border-gray-200 bg-gray-50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all"
                 />
               </div>
-              <div className="space-y-1.5">
-                <label className="text-xs font-bold uppercase tracking-wider text-black/70 pl-1 block">
-                  Teléfono
-                </label>
-                <input
-                  name="telefono"
-                  type="tel"
-                  placeholder="+54 9 11 1234"
-                  className="w-full rounded-xl border border-black/10 bg-white/50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#A2B676] tab-transition"
-                />
-              </div>
-            </div>
 
-            <div className="space-y-1.5">
-              <label className="text-xs font-bold uppercase tracking-wider text-black/70 pl-1 block">
-                Fecha de Nacimiento
-              </label>
-              <input
-                name="fechaNacimiento"
-                type="date"
-                className="w-full rounded-xl border border-black/10 bg-white/50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#A2B676] tab-transition"
-              />
-            </div>
+              <button
+                type="submit"
+                disabled={isPending}
+                className="w-full rounded-full bg-black hover:bg-black/80 text-[#FDF6CD] font-bold text-xs tracking-wider uppercase h-11 mt-2 disabled:opacity-60 flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
+              >
+                {isPending ? (
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    Registrando...
+                  </>
+                ) : (
+                  "Crear Cuenta"
+                )}
+              </button>
 
-            <div className="space-y-1.5">
-              <label className="text-xs font-bold uppercase tracking-wider text-black/70 pl-1 block">
-                Obra Social (Opcional)
-              </label>
-              <input
-                name="obraSocial"
-                type="text"
-                placeholder="OSDE, Swiss Medical, etc"
-                className="w-full rounded-xl border border-black/10 bg-white/50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#A2B676] tab-transition"
-              />
-            </div>
-
-            <button
-              type="submit"
-              disabled={isPending}
-              className="w-full rounded-full bg-black hover:bg-black/80 text-[#FDF6CD] font-bold text-xs tracking-wider uppercase h-11 mt-4 disabled:opacity-60 flex items-center justify-center gap-2 link-transition button-click"
-            >
-              {isPending ? (
-                <>
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                  Registrando...
-                </>
-              ) : (
-                "Registrar Cuenta"
+              {message && (
+                <p className="text-red-500 text-xs font-bold text-center bg-red-50 border border-red-100 p-3 rounded-xl">
+                  {message}
+                </p>
               )}
-            </button>
 
-            {message && (
-              <p className="text-red-500 text-xs font-bold text-center bg-red-50 border border-red-100 p-3 rounded-xl animate-slideInDown">
-                {message}
+              {successMessage && (
+                <p className="text-green-600 text-xs font-bold text-center bg-green-50 border border-green-100 p-3 rounded-xl">
+                  ✓ {successMessage} Redirigiendo...
+                </p>
+              )}
+            </form>
+
+            <div className="mt-6 pt-4 border-t border-gray-100 text-center">
+              <p className="text-xs text-black/50">
+                ¿Ya tienes cuenta?{" "}
+                <Link href="/login/patient" className="font-bold text-black hover:text-[#F4C443] transition-colors">
+                  Inicia sesión
+                </Link>
               </p>
-            )}
-
-            {successMessage && (
-              <p className="text-green-600 text-xs font-bold text-center bg-green-50 border border-green-100 p-3 rounded-xl animate-slideInDown">
-                ✓ {successMessage} Redirigiendo...
-              </p>
-            )}
-          </form>
-
-          <div className="mt-8 pt-6 border-t border-black/5 text-center">
-            <p className="text-xs font-medium text-black/50">
-              ¿Ya tienes cuenta?{" "}
-              <Link href="/login/patient" className="font-bold underline decoration-[#A2B676] link-transition hover:text-black">
-                Inicia sesión
-              </Link>
-            </p>
+            </div>
           </div>
         </div>
       </main>
 
-      <footer className="w-full py-4 text-center text-[11px] text-black/30 font-medium flex items-center justify-center gap-1.5">
-        <span>🔒</span> Encriptación de datos de salud
+      <footer className="w-full py-4 text-center">
+        <div className="flex items-center justify-center gap-2 text-xs text-black/30 font-medium">
+          <ShieldCheck className="w-4 h-4" />
+          Datos seguros y encriptados
+        </div>
       </footer>
     </div>
   )

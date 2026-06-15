@@ -24,7 +24,7 @@ export default async function AdminSettingsPage() {
           {/* Google Calendar Sync */}
           <div className="bg-white/40 border border-white/50 p-6 sm:p-8 rounded-[32px] shadow-sm space-y-6">
             <h3 className="text-lg font-serif font-black text-black flex items-center gap-2">
-              <Calendar className="h-5 w-5 text-[#A2B676]" /> Integración con Google Calendar
+              <Calendar className="h-5 w-5 text-[#F4C443]" /> Integración con Google Calendar
             </h3>
             <p className="text-xs text-black/50 font-medium leading-relaxed">
               Sincroniza automáticamente los turnos de Ébano Health con los calendarios de los médicos. Cada vez que un paciente reserva o cancela, se actualizará el calendario del doctor en tiempo real.
@@ -42,7 +42,7 @@ export default async function AdminSettingsPage() {
                 </div>
               </div>
               <div className="flex items-center justify-between pt-2">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-[#8F9F68] bg-[#A2B676]/10 border border-[#A2B676]/20 px-3 py-1 rounded-full">Sincronización Activa</span>
+                <span className="text-[10px] font-bold uppercase tracking-widest text-[#E5B534] bg-[#F4C443]/10 border border-[#F4C443]/20 px-3 py-1 rounded-full">Sincronización Activa</span>
                 <button className="h-9 px-4 rounded-xl text-[10px] font-bold uppercase tracking-widest bg-black text-[#FDF6CD] hover:opacity-85 transition-all flex items-center gap-1 active:scale-95">
                   <RefreshCw className="h-3 w-3 animate-spin" /> Probar Conexión
                 </button>
@@ -53,7 +53,7 @@ export default async function AdminSettingsPage() {
           {/* Configuración del Sistema */}
           <div className="bg-white/40 border border-white/50 p-6 sm:p-8 rounded-[32px] shadow-sm space-y-6">
             <h3 className="text-lg font-serif font-black text-black flex items-center gap-2">
-              <Server className="h-5 w-5 text-[#A2B676]" /> Configuración del Servidor
+              <Server className="h-5 w-5 text-[#F4C443]" /> Configuración del Servidor
             </h3>
             <div className="grid grid-cols-2 gap-4 text-xs font-semibold text-black/60">
               <div className="border border-black/5 bg-white/30 p-4 rounded-2xl">
@@ -73,7 +73,7 @@ export default async function AdminSettingsPage() {
         <div className="space-y-6">
           <div className="bg-black text-[#FDF6CD] p-6 rounded-[32px] shadow-2xl space-y-6">
             <h3 className="text-lg font-serif font-black text-[#FDF6CD] flex items-center gap-2">
-              <Database className="h-5 w-5 text-[#A2B676]" /> Base de Datos & Backups
+              <Database className="h-5 w-5 text-[#F4C443]" /> Base de Datos & Backups
             </h3>
             
             <div className="space-y-4">
@@ -81,7 +81,7 @@ export default async function AdminSettingsPage() {
                 <p className="text-[10px] uppercase font-bold tracking-widest text-[#FDF6CD]/60 mb-2">Salud de la DB</p>
                 <div className="bg-white/5 border border-white/10 p-4 rounded-2xl flex items-center justify-between text-xs font-bold uppercase tracking-wider">
                   <span>Conexiones Activas</span>
-                  <span className="text-[#A2B676]">Saludable (4)</span>
+                  <span className="text-[#F4C443]">Saludable (4)</span>
                 </div>
               </div>
 
@@ -90,19 +90,19 @@ export default async function AdminSettingsPage() {
                 <div className="bg-white/5 border border-white/10 p-4 rounded-2xl text-xs font-bold uppercase tracking-wider space-y-1">
                   <div className="flex items-center justify-between">
                     <span>Automático</span>
-                    <span className="text-[#A2B676]">Completado</span>
+                    <span className="text-[#F4C443]">Completado</span>
                   </div>
                   <p className="text-[9px] text-[#FDF6CD]/40 normal-case">Hace 6 horas (Backup_Ebano_2026-06-03.sql)</p>
                 </div>
               </div>
             </div>
 
-            <button className="w-full py-4 text-xs font-black uppercase tracking-widest bg-[#A2B676] hover:bg-white text-black rounded-[20px] shadow-lg transition-all active:scale-[0.98]">
+            <button className="w-full py-4 text-xs font-black uppercase tracking-widest bg-[#F4C443] hover:bg-white text-black rounded-[20px] shadow-lg transition-all active:scale-[0.98]">
               Crear Backup Ahora
             </button>
 
             <div className="pt-6 border-t border-white/10 flex items-center gap-1.5 text-[9px] text-[#FDF6CD]/30 font-semibold uppercase tracking-wider">
-              <ShieldCheck className="h-4 w-4 text-[#A2B676]" /> Encriptación AES-256 en reposo
+              <ShieldCheck className="h-4 w-4 text-[#F4C443]" /> Encriptación AES-256 en reposo
             </div>
           </div>
         </div>

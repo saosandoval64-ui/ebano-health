@@ -62,7 +62,7 @@ export default function ClientAppointmentsList({ initialAppointments }: ClientAp
     if (new Date(app.dateTime) < new Date()) {
       return <span className="px-2.5 py-1 rounded-full text-[9px] font-extrabold uppercase tracking-widest bg-gray-150 text-gray-500">Pasado</span>
     }
-    return <span className="px-2.5 py-1 rounded-full text-[9px] font-extrabold uppercase tracking-widest bg-[#A2B676] text-black">Reservado</span>
+    return <span className="px-2.5 py-1 rounded-full text-[9px] font-extrabold uppercase tracking-widest bg-[#F4C443] text-black">Reservado</span>
   }
 
   const renderAppList = (list: AppointmentData[]) => {
@@ -87,14 +87,14 @@ export default function ClientAppointmentsList({ initialAppointments }: ClientAp
               className="bg-white/40 border border-white/50 p-6 rounded-[28px] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 transition-all hover:bg-white/60"
             >
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-[20px] bg-[#A2B676]/20 border border-[#A2B676]/30 flex items-center justify-center font-bold text-black shrink-0">
+                <div className="w-12 h-12 rounded-[20px] bg-[#F4C443]/20 border border-[#F4C443]/30 flex items-center justify-center font-bold text-black shrink-0">
                   {app.doctor.user.name.charAt(0)}
                 </div>
                 <div className="space-y-1">
                   <h4 className="font-bold text-base text-black">
                     Dr. {app.doctor.user.name} {app.doctor.user.lastName}
                   </h4>
-                  <p className="text-[10px] uppercase font-bold tracking-widest text-[#8F9F68]">
+                  <p className="text-[10px] uppercase font-bold tracking-widest text-[#E5B534]">
                     {app.doctor.specialty}
                   </p>
                   <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-black/60 pt-1 font-medium">

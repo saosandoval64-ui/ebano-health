@@ -93,7 +93,7 @@ export default function TodayAppointmentsList({ initialAppointments }: TodayAppo
 
             <div className="flex items-center justify-between sm:justify-end gap-6">
               <div className="text-left sm:text-right font-medium">
-                <p className="text-sm font-bold text-[#8F9F68]">
+                <p className="text-sm font-bold text-[#E5B534]">
                   {String(appDate.getHours()).padStart(2, "0")}:{String(appDate.getMinutes()).padStart(2, "0")} hs
                 </p>
                 <p className="text-[9px] text-black/40 font-bold uppercase tracking-widest">
@@ -106,7 +106,7 @@ export default function TodayAppointmentsList({ initialAppointments }: TodayAppo
                   disabled={isPending}
                   onClick={() => handleComplete(app.id)}
                   title="Finalizar consulta"
-                  className="h-8 w-8 rounded-xl bg-[#A2B676] hover:bg-[#8F9F68] text-white flex items-center justify-center transition-all active:scale-90 disabled:opacity-50"
+                  className="h-8 w-8 rounded-xl bg-[#F4C443] hover:bg-[#E5B534] text-white flex items-center justify-center transition-all active:scale-90 disabled:opacity-50"
                 >
                   <Check className="h-4 w-4" />
                 </button>

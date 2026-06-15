@@ -60,7 +60,7 @@ export default function ProfileForm({ initialData }: ProfileFormProps) {
             type="text"
             required
             defaultValue={initialData.name}
-            className="w-full rounded-xl border border-black/10 bg-white/60 focus:bg-white text-black h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#A2B676] transition-all"
+            className="w-full rounded-xl border border-black/10 bg-white/60 focus:bg-white text-black h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all"
           />
         </div>
 
@@ -74,7 +74,7 @@ export default function ProfileForm({ initialData }: ProfileFormProps) {
             type="text"
             required
             defaultValue={initialData.lastName || ""}
-            className="w-full rounded-xl border border-black/10 bg-white/60 focus:bg-white text-black h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#A2B676] transition-all"
+            className="w-full rounded-xl border border-black/10 bg-white/60 focus:bg-white text-black h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all"
           />
         </div>
       </div>
@@ -102,7 +102,7 @@ export default function ProfileForm({ initialData }: ProfileFormProps) {
             name="dni"
             type="text"
             defaultValue={initialData.dni || ""}
-            className="w-full rounded-xl border border-black/10 bg-white/60 focus:bg-white text-black h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#A2B676] transition-all"
+            className="w-full rounded-xl border border-black/10 bg-white/60 focus:bg-white text-black h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all"
           />
         </div>
 
@@ -115,7 +115,7 @@ export default function ProfileForm({ initialData }: ProfileFormProps) {
             name="telefono"
             type="tel"
             defaultValue={initialData.phone || ""}
-            className="w-full rounded-xl border border-black/10 bg-white/60 focus:bg-white text-black h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#A2B676] transition-all"
+            className="w-full rounded-xl border border-black/10 bg-white/60 focus:bg-white text-black h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all"
           />
         </div>
       </div>
@@ -130,7 +130,7 @@ export default function ProfileForm({ initialData }: ProfileFormProps) {
             name="fechaNacimiento"
             type="date"
             defaultValue={formatDate(initialData.birthDate)}
-            className="w-full rounded-xl border border-black/10 bg-white/60 focus:bg-white text-black h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#A2B676] transition-all"
+            className="w-full rounded-xl border border-black/10 bg-white/60 focus:bg-white text-black h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all"
           />
         </div>
 
@@ -143,14 +143,14 @@ export default function ProfileForm({ initialData }: ProfileFormProps) {
             name="obraSocial"
             type="text"
             defaultValue={initialData.insurance || ""}
-            className="w-full rounded-xl border border-black/10 bg-white/60 focus:bg-white text-black h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#A2B676] transition-all"
+            className="w-full rounded-xl border border-black/10 bg-white/60 focus:bg-white text-black h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all"
           />
         </div>
       </div>
 
       <div className="pt-2">
         {message && (
-          <p className={`text-xs font-bold text-center mb-4 ${isSuccess ? "text-[#8F9F68]" : "text-red-500"}`}>
+          <p className={`text-xs font-bold text-center mb-4 ${isSuccess ? "text-[#E5B534]" : "text-red-500"}`}>
             {message}
           </p>
         )}

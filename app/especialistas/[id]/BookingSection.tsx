@@ -143,7 +143,7 @@ export default function BookingSection({ doctorId, isLoggedIn, userRole }: Booki
     return (
       <div className="bg-black text-[#FDF6CD] p-6 sm:p-8 rounded-[40px] flex items-center justify-center h-full min-h-[350px]">
         <div className="flex flex-col items-center gap-3">
-          <Loader2 className="h-6 w-6 animate-spin text-[#A2B676]" />
+          <Loader2 className="h-6 w-6 animate-spin text-[#F4C443]" />
           <span className="text-[10px] uppercase font-bold tracking-widest text-white/40">Cargando disponibilidad...</span>
         </div>
       </div>
@@ -153,7 +153,7 @@ export default function BookingSection({ doctorId, isLoggedIn, userRole }: Booki
   if (!hasAvailability) {
     return (
       <div className="bg-black text-[#FDF6CD] p-6 sm:p-8 rounded-[40px] flex flex-col items-center justify-center text-center h-full min-h-[350px]">
-        <Calendar className="h-12 w-12 text-[#A2B676] mb-4" />
+        <Calendar className="h-12 w-12 text-[#F4C443] mb-4" />
         <h3 className="text-xl font-serif font-black mb-2">Sin Disponibilidad</h3>
         <p className="text-sm font-medium text-[#FDF6CD]/60 max-w-xs">
           Este profesional aún no configuró sus horarios de atención. Consultá más tarde.
@@ -164,13 +164,13 @@ export default function BookingSection({ doctorId, isLoggedIn, userRole }: Booki
 
   if (isSuccess) {
     return (
-      <div className="bg-[#A2B676]/10 border-2 border-[#A2B676] text-black p-8 rounded-[40px] flex flex-col items-center justify-center text-center h-full min-h-[350px]">
-        <div className="w-16 h-16 rounded-full bg-[#A2B676] flex items-center justify-center text-white mb-4 animate-bounce">
+      <div className="bg-[#F4C443]/10 border-2 border-[#F4C443] text-black p-8 rounded-[40px] flex flex-col items-center justify-center text-center h-full min-h-[350px]">
+        <div className="w-16 h-16 rounded-full bg-[#F4C443] flex items-center justify-center text-white mb-4 animate-bounce">
           <Check className="h-8 w-8" />
         </div>
         <h3 className="text-2xl font-serif font-black mb-2">¡Reserva Confirmada!</h3>
         <p className="text-sm font-medium text-black/60 max-w-xs">{message}</p>
-        <p className="text-xs text-[#A2B676] font-bold uppercase tracking-widest mt-6 animate-pulse">Redirigiendo a tus citas...</p>
+        <p className="text-xs text-[#F4C443] font-bold uppercase tracking-widest mt-6 animate-pulse">Redirigiendo a tus citas...</p>
       </div>
     )
   }
@@ -179,7 +179,7 @@ export default function BookingSection({ doctorId, isLoggedIn, userRole }: Booki
     <div className="bg-black text-[#FDF6CD] p-6 sm:p-8 rounded-[40px] flex flex-col justify-between shadow-2xl h-full">
       <div>
         <h2 className="text-xl sm:text-2xl font-serif font-black mb-6 flex items-center gap-2">
-          <Calendar className="h-5 w-5 text-[#A2B676]" /> Reservar Consulta
+          <Calendar className="h-5 w-5 text-[#F4C443]" /> Reservar Consulta
         </h2>
 
         <div className="mb-6">
@@ -191,7 +191,7 @@ export default function BookingSection({ doctorId, isLoggedIn, userRole }: Booki
                 onClick={() => setSelectedDate(day.dateStr)}
                 className={`py-2 px-1 rounded-2xl flex flex-col items-center justify-center transition-all border outline-none active:scale-95 ${
                   selectedDate === day.dateStr
-                    ? "bg-[#A2B676] border-[#A2B676] text-black font-bold"
+                    ? "bg-[#F4C443] border-[#F4C443] text-black font-bold"
                     : "bg-[#FDF6CD]/5 border-[#FDF6CD]/10 hover:border-[#FDF6CD]/30 text-[#FDF6CD]"
                 }`}
               >
@@ -210,7 +210,7 @@ export default function BookingSection({ doctorId, isLoggedIn, userRole }: Booki
 
           {loadingSlots ? (
             <div className="py-12 flex flex-col items-center justify-center gap-2 text-white/40">
-              <Loader2 className="h-6 w-6 animate-spin text-[#A2B676]" />
+              <Loader2 className="h-6 w-6 animate-spin text-[#F4C443]" />
               <span className="text-[10px] uppercase font-bold tracking-widest">Buscando horarios...</span>
             </div>
           ) : (
@@ -229,7 +229,7 @@ export default function BookingSection({ doctorId, isLoggedIn, userRole }: Booki
                         ? "bg-white/5 border-white/5 text-[#FDF6CD]/25 line-through cursor-not-allowed"
                         : isSelected
                         ? "bg-[#FDF6CD] border-[#FDF6CD] text-black font-black"
-                        : "bg-transparent border-[#FDF6CD]/20 text-[#FDF6CD] hover:border-[#A2B676] hover:text-[#A2B676]"
+                        : "bg-transparent border-[#FDF6CD]/20 text-[#FDF6CD] hover:border-[#F4C443] hover:text-[#F4C443]"
                     }`}
                   >
                     {slot}
@@ -251,10 +251,10 @@ export default function BookingSection({ doctorId, isLoggedIn, userRole }: Booki
           disabled={isPending || (!selectedTime && isLoggedIn)}
           className={`w-full py-4 text-xs font-black uppercase tracking-widest rounded-[20px] shadow-lg transition-all active:scale-[0.98] flex items-center justify-center gap-2 ${
             isPending
-              ? "bg-[#A2B676]/50 text-black/50 cursor-wait"
+              ? "bg-[#F4C443]/50 text-black/50 cursor-wait"
               : !isLoggedIn
               ? "bg-[#F4C443] hover:bg-[#E5B534] text-black"
-              : "bg-[#A2B676] hover:bg-white text-black"
+              : "bg-[#F4C443] hover:bg-white text-black"
           }`}
         >
           {isPending ? (

@@ -79,8 +79,8 @@ export default function ContactPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
             {/* Contact Info Cards */}
             <div className="bg-black/5 rounded-2xl border border-black/10 p-8 animate-slideInLeft">
-              <div className="w-12 h-12 rounded-full bg-[#A2B676]/20 flex items-center justify-center mb-4">
-                <Mail className="w-6 h-6 text-[#A2B676]" />
+              <div className="w-12 h-12 rounded-full bg-[#F4C443]/20 flex items-center justify-center mb-4">
+                <Mail className="w-6 h-6 text-[#F4C443]" />
               </div>
               <h3 className="font-bold text-lg mb-2">Email</h3>
               <p className="text-black/60 text-sm">
@@ -89,8 +89,8 @@ export default function ContactPage() {
             </div>
 
             <div className="bg-black/5 rounded-2xl border border-black/10 p-8 animate-slideInUp">
-              <div className="w-12 h-12 rounded-full bg-[#A2B676]/20 flex items-center justify-center mb-4">
-                <Phone className="w-6 h-6 text-[#A2B676]" />
+              <div className="w-12 h-12 rounded-full bg-[#F4C443]/20 flex items-center justify-center mb-4">
+                <Phone className="w-6 h-6 text-[#F4C443]" />
               </div>
               <h3 className="font-bold text-lg mb-2">Teléfono</h3>
               <p className="text-black/60 text-sm">
@@ -99,8 +99,8 @@ export default function ContactPage() {
             </div>
 
             <div className="bg-black/5 rounded-2xl border border-black/10 p-8 animate-slideInRight">
-              <div className="w-12 h-12 rounded-full bg-[#A2B676]/20 flex items-center justify-center mb-4">
-                <MapPin className="w-6 h-6 text-[#A2B676]" />
+              <div className="w-12 h-12 rounded-full bg-[#F4C443]/20 flex items-center justify-center mb-4">
+                <MapPin className="w-6 h-6 text-[#F4C443]" />
               </div>
               <h3 className="font-bold text-lg mb-2">Ubicación</h3>
               <p className="text-black/60 text-sm">
@@ -124,7 +124,7 @@ export default function ContactPage() {
                     placeholder="Tu nombre"
                     value={formData.nombre}
                     onChange={handleChange}
-                    className="w-full rounded-xl border border-black/10 bg-white/50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#A2B676] tab-transition"
+                    className="w-full rounded-xl border border-black/10 bg-white/50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] tab-transition"
                   />
                 </div>
 
@@ -139,7 +139,7 @@ export default function ContactPage() {
                     placeholder="tu@email.com"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full rounded-xl border border-black/10 bg-white/50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#A2B676] tab-transition"
+                    className="w-full rounded-xl border border-black/10 bg-white/50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] tab-transition"
                   />
                 </div>
               </div>
@@ -155,7 +155,7 @@ export default function ContactPage() {
                   placeholder="¿En qué podemos ayudarte?"
                   value={formData.asunto}
                   onChange={handleChange}
-                  className="w-full rounded-xl border border-black/10 bg-white/50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#A2B676] tab-transition"
+                  className="w-full rounded-xl border border-black/10 bg-white/50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] tab-transition"
                 />
               </div>
 
@@ -170,7 +170,7 @@ export default function ContactPage() {
                   rows={6}
                   value={formData.mensaje}
                   onChange={handleChange}
-                  className="w-full rounded-xl border border-black/10 bg-white/50 focus:bg-white px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-[#A2B676] tab-transition resize-none"
+                  className="w-full rounded-xl border border-black/10 bg-white/50 focus:bg-white px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] tab-transition resize-none"
                 />
               </div>
 

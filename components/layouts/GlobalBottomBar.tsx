@@ -76,14 +76,14 @@ export default function GlobalBottomBar() {
   const tabs = getTabsForPath(pathname)
 
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-white border-t border-gray-200 z-50 flex items-center justify-around px-1 safe-area-bottom shadow-[0_-2px_10px_rgba(0,0,0,0.05)]">
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-black/90 backdrop-blur-xl z-50 flex items-center justify-around px-1 safe-area-bottom border-t border-white/10">
       {tabs.map((tab) => {
         const isActive = !tab.isLogout && !tab.isAction && (pathname === tab.href || (tab.href !== "/" && pathname.startsWith(tab.href)))
         return tab.isLogout ? (
           <button
             key={tab.name}
             onClick={() => signOut({ redirect: true, redirectTo: "/" })}
-            className="flex flex-col items-center justify-center gap-0.5 flex-1 py-2 text-gray-400 hover:text-red-500 active:scale-95 transition-all"
+            className="flex flex-col items-center justify-center gap-0.5 flex-1 py-2 text-white/50 hover:text-red-400 active:scale-95 transition-all"
           >
             <tab.icon className="w-5 h-5" />
             <span className="text-[9px] font-bold">{tab.name}</span>
@@ -97,7 +97,7 @@ export default function GlobalBottomBar() {
             <div className="w-10 h-10 rounded-full bg-[#F4C443] flex items-center justify-center shadow-md active:scale-90 transition-transform">
               <tab.icon className="w-5 h-5 text-black" />
             </div>
-            <span className="text-[9px] font-bold text-gray-400 mt-0.5">{tab.name}</span>
+            <span className="text-[9px] font-bold text-white/50 mt-0.5">{tab.name}</span>
           </Link>
         ) : (
           <Link
@@ -107,12 +107,12 @@ export default function GlobalBottomBar() {
           >
             <tab.icon
               className={`w-5 h-5 transition-colors duration-150 ${
-                isActive ? "text-[#F4C443]" : "text-gray-400"
+                isActive ? "text-[#F4C443]" : "text-white/50"
               }`}
             />
             <span
               className={`text-[9px] font-bold transition-colors duration-150 ${
-                isActive ? "text-[#F4C443]" : "text-gray-400"
+                isActive ? "text-[#F4C443]" : "text-white/50"
               }`}
             >
               {tab.name}

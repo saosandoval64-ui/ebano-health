@@ -29,7 +29,7 @@ export default async function AdminPaymentsPage() {
         <div className="lg:col-span-2 space-y-6">
           <div className="bg-white/40 border border-white/50 p-6 sm:p-8 rounded-[32px] shadow-sm space-y-6">
             <h3 className="text-lg font-serif font-black text-black flex items-center gap-2">
-              <Settings2 className="h-5 w-5 text-[#A2B676]" /> Integración de Pasarelas
+              <Settings2 className="h-5 w-5 text-[#F4C443]" /> Integración de Pasarelas
             </h3>
             
             <div className="space-y-4">
@@ -102,7 +102,7 @@ export default async function AdminPaymentsPage() {
         <div className="space-y-6">
           <div className="bg-black text-[#FDF6CD] p-6 rounded-[32px] shadow-2xl space-y-6">
             <h3 className="text-lg font-serif font-black text-[#FDF6CD] flex items-center gap-2">
-              <CreditCard className="h-5 w-5 text-[#A2B676]" /> Transacciones
+              <CreditCard className="h-5 w-5 text-[#F4C443]" /> Transacciones
             </h3>
 
             <div className="space-y-4">
@@ -116,7 +116,7 @@ export default async function AdminPaymentsPage() {
                   <div className="text-right">
                     <p className="text-xs font-black text-[#FDF6CD]">$ {pay.amount.toFixed(2)}</p>
                     <p className="text-[9px] text-[#FDF6CD]/40">{pay.date}</p>
-                    <span className={`text-[8px] font-extrabold uppercase tracking-widest ${pay.status === "Aprobado" ? "text-[#A2B676]" : "text-red-400"}`}>
+                    <span className={`text-[8px] font-extrabold uppercase tracking-widest ${pay.status === "Aprobado" ? "text-[#F4C443]" : "text-red-400"}`}>
                       {pay.status}
                     </span>
                   </div>
@@ -125,7 +125,7 @@ export default async function AdminPaymentsPage() {
             </div>
 
             <div className="pt-6 border-t border-white/10 flex items-center gap-1.5 text-[9px] text-[#FDF6CD]/30 font-semibold uppercase tracking-wider">
-              <ShieldCheck className="h-4 w-4 text-[#A2B676]" /> Cumple con PCI-DSS y GDPR
+              <ShieldCheck className="h-4 w-4 text-[#F4C443]" /> Cumple con PCI-DSS y GDPR
             </div>
           </div>
         </div>

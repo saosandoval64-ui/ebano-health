@@ -49,7 +49,7 @@ export default async function DoctorFollowersPage() {
               key={f.id}
               className="bg-white border border-gray-100 p-5 rounded-3xl shadow-sm hover:shadow-md transition-all flex items-center gap-4"
             >
-              <div className="w-12 h-12 rounded-2xl bg-[#A2B676]/10 flex items-center justify-center overflow-hidden shrink-0">
+              <div className="w-12 h-12 rounded-2xl bg-[#F4C443]/10 flex items-center justify-center overflow-hidden shrink-0">
                 <AvatarDisplay avatar={f.patient.avatar} name={`${f.patient.name} ${f.patient.lastName || ""}`} size="sm" />
               </div>
               <div className="flex-1 min-w-0">

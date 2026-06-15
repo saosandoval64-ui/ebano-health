@@ -2,12 +2,27 @@
 
 import { useState, useTransition } from "react"
 import { changePassword } from "../../actions/auth"
-import { Lock, ShieldAlert, Loader2 } from "lucide-react"
+import { Lock, ShieldAlert, Loader2, Camera } from "lucide-react"
+import { AvatarSelectorModal } from "@/components/AvatarSelectorModal"
+import { useAvatarUpdate } from "@/hooks/useAvatarUpdate"
+import { normalizeAvatar } from "@/lib/avatar"
+import AvatarDisplay from "@/components/AvatarDisplay"
 
 export default function PatientSettingsPage() {
   const [isPending, startTransition] = useTransition()
   const [message, setMessage] = useState("")
   const [isSuccess, setIsSuccess] = useState(false)
+  const [isAvatarModalOpen, setIsAvatarModalOpen] = useState(false)
+  const [avatar, setAvatar] = useState<string | undefined>(undefined)
+  const { updateAvatar } = useAvatarUpdate()
+
+  const handleAvatarSelect = async (selectedAvatar: string) => {
+    const success = await updateAvatar(selectedAvatar)
+    if (success) {
+      setAvatar(selectedAvatar)
+    }
+    setIsAvatarModalOpen(false)
+  }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -21,35 +36,63 @@ export default function PatientSettingsPage() {
       setMessage(result.message)
       if (result.success) {
         setIsSuccess(true)
-        // Reset form
         ;(e.target as HTMLFormElement).reset()
       }
     })
   }
 
   return (
-    <div className="space-y-8 font-sans text-black">
-      {/* Encabezado */}
+    <div className="max-w-2xl mx-auto space-y-8 font-sans text-black">
+      {/* Header */}
       <div className="space-y-1">
         <h1 className="text-3xl font-serif font-black tracking-tight">Ajustes de Cuenta</h1>
         <p className="text-sm font-medium text-black/60">
-          Administra la seguridad y credenciales de tu cuenta.
+          Administra tu perfil y seguridad.
         </p>
       </div>
 
-      <div className="max-w-xl bg-white/40 border border-white/50 p-8 sm:p-10 rounded-[32px] shadow-sm space-y-6">
+      {/* Avatar Section */}
+      <div className="bg-white/40 border border-white/50 p-6 sm:p-8 rounded-3xl shadow-sm">
+        <h3 className="text-sm font-bold uppercase tracking-widest text-black/40 mb-4">Mi Avatar</h3>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => setIsAvatarModalOpen(true)}
+            className="relative group shrink-0"
+          >
+            <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#F4C443] to-[#F9A825] flex items-center justify-center overflow-hidden border-2 border-white shadow-lg group-hover:shadow-xl transition-shadow">
+              <AvatarDisplay avatar={avatar} name="" size="lg" />
+            </div>
+            <div className="absolute inset-0 bg-black/30 rounded-2xl opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+              <Camera className="w-6 h-6 text-white" />
+            </div>
+          </button>
+          <div className="flex-1">
+            <p className="text-sm font-bold text-black">Cambiar avatar</p>
+            <p className="text-xs text-black/50 mt-0.5">Elige un avatar predefinido o sube tu propia foto</p>
+            <button
+              onClick={() => setIsAvatarModalOpen(true)}
+              className="mt-2 text-xs font-bold text-[#F4C443] hover:text-[#E5B534] transition-colors"
+            >
+              Seleccionar avatar →
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Password Section */}
+      <div className="bg-white/40 border border-white/50 p-6 sm:p-8 rounded-3xl shadow-sm space-y-5">
         <div>
-          <h3 className="text-lg font-serif font-black text-black mb-1 flex items-center gap-2">
-            <Lock className="h-4.5 w-4.5 text-[#A2B676]" /> Seguridad y Contraseña
+          <h3 className="text-sm font-bold uppercase tracking-widest text-black/40 mb-1 flex items-center gap-2">
+            <Lock className="w-4 h-4 text-[#F4C443]" /> Seguridad y Contraseña
           </h3>
           <p className="text-xs text-black/50 font-medium">
             Es recomendable usar una contraseña única para mantener la confidencialidad de tus datos médicos.
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4 pt-2">
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-1.5">
-            <label htmlFor="currentPassword" className="text-xs font-bold uppercase tracking-wider text-black/70 pl-1 block">
+            <label htmlFor="currentPassword" className="text-[10px] font-bold uppercase tracking-wider text-black/50 block">
               Contraseña Actual
             </label>
             <input
@@ -58,12 +101,12 @@ export default function PatientSettingsPage() {
               type="password"
               required
               placeholder="••••••••"
-              className="w-full rounded-xl border border-black/10 bg-white/60 focus:bg-white text-black h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#A2B676] transition-all"
+              className="w-full rounded-xl border border-gray-200 bg-gray-50 focus:bg-white text-black h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all"
             />
           </div>
 
           <div className="space-y-1.5">
-            <label htmlFor="newPassword" className="text-xs font-bold uppercase tracking-wider text-black/70 pl-1 block">
+            <label htmlFor="newPassword" className="text-[10px] font-bold uppercase tracking-wider text-black/50 block">
               Nueva Contraseña
             </label>
             <input
@@ -72,12 +115,12 @@ export default function PatientSettingsPage() {
               type="password"
               required
               placeholder="••••••••"
-              className="w-full rounded-xl border border-black/10 bg-white/60 focus:bg-white text-black h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#A2B676] transition-all"
+              className="w-full rounded-xl border border-gray-200 bg-gray-50 focus:bg-white text-black h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all"
             />
           </div>
 
           <div className="space-y-1.5">
-            <label htmlFor="confirmPassword" className="text-xs font-bold uppercase tracking-wider text-black/70 pl-1 block">
+            <label htmlFor="confirmPassword" className="text-[10px] font-bold uppercase tracking-wider text-black/50 block">
               Confirmar Nueva Contraseña
             </label>
             <input
@@ -86,13 +129,13 @@ export default function PatientSettingsPage() {
               type="password"
               required
               placeholder="••••••••"
-              className="w-full rounded-xl border border-black/10 bg-white/60 focus:bg-white text-black h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#A2B676] transition-all"
+              className="w-full rounded-xl border border-gray-200 bg-gray-50 focus:bg-white text-black h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all"
             />
           </div>
 
-          <div className="pt-2">
+          <div className="pt-1">
             {message && (
-              <p className={`text-xs font-bold text-center mb-4 ${isSuccess ? "text-[#8F9F68]" : "text-red-500"}`}>
+              <p className={`text-xs font-bold text-center mb-3 ${isSuccess ? "text-green-600" : "text-red-500"}`}>
                 {message}
               </p>
             )}
@@ -100,7 +143,7 @@ export default function PatientSettingsPage() {
             <button
               type="submit"
               disabled={isPending}
-              className="w-full sm:w-auto px-8 rounded-full bg-black hover:bg-black/80 text-[#FDF6CD] font-bold text-xs uppercase tracking-widest h-11 shadow-sm transition-transform active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-50"
+              className="w-full px-8 rounded-full bg-black hover:bg-black/80 text-[#FDF6CD] font-bold text-xs uppercase tracking-widest h-11 shadow-sm transition-all active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-50"
             >
               {isPending ? (
                 <>
@@ -113,13 +156,20 @@ export default function PatientSettingsPage() {
           </div>
         </form>
 
-        <div className="pt-6 border-t border-black/5 flex items-start gap-2 text-[10px] text-black/40 font-medium leading-relaxed">
-          <ShieldAlert className="h-4 w-4 text-[#A2B676] shrink-0" />
+        <div className="pt-4 border-t border-black/5 flex items-start gap-2 text-[10px] text-black/40 font-medium leading-relaxed">
+          <ShieldAlert className="h-4 w-4 text-[#F4C443] shrink-0" />
           <span>
-            Si sospechas que alguien ha tenido acceso a tus credenciales, cámbialas inmediatamente o comunícate con soporte de Ébano Health.
+            Si sospechas que alguien ha tenido acceso a tus credenciales, cámbialas inmediatamente o comunícate con soporte.
           </span>
         </div>
       </div>
+
+      <AvatarSelectorModal
+        isOpen={isAvatarModalOpen}
+        onClose={() => setIsAvatarModalOpen(false)}
+        onSelect={handleAvatarSelect}
+        currentAvatar={avatar}
+      />
     </div>
   )
 }

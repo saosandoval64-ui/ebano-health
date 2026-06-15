@@ -71,7 +71,7 @@ export default async function DoctorPage({ params }: SpecialistPageProps) {
                   <h1 className="text-3xl sm:text-4xl font-serif font-black text-black leading-tight">
                     Dr. {doctor.name} {doctor.lastName}
                   </h1>
-                  <p className="text-[11px] uppercase tracking-[0.2em] text-[#A2B676] font-extrabold">
+                  <p className="text-[11px] uppercase tracking-[0.2em] text-[#F4C443] font-extrabold">
                     {doctor.doctorProfile.specialty}
                   </p>
                 </div>
@@ -92,7 +92,7 @@ export default async function DoctorPage({ params }: SpecialistPageProps) {
               </div>
 
               <div className="mt-8 pt-6 border-t border-black/5 flex items-center gap-3 text-black/50 text-xs font-bold uppercase tracking-widest">
-                <Award className="h-4 w-4 text-[#A2B676]" /> 
+                <Award className="h-4 w-4 text-[#F4C443]" /> 
                 <span>Matrícula Profesional: {doctor.doctorProfile.license}</span>
                 <span className="ml-auto flex items-center gap-1.5">
                   <Heart className="h-3.5 w-3.5 text-red-400" />

@@ -1,70 +1,83 @@
-import { X, Stethoscope, User } from "lucide-react"
+import { ArrowLeft, ShieldCheck, User, Stethoscope } from "lucide-react"
 import Link from "next/link"
-import Logo from "@/components/Logo"
 
 export default function RegisterPage() {
   return (
-    <div className="min-h-screen text-black font-sans antialiased flex flex-col justify-between selection:bg-[#E2CE7D]">
-      {/* Close Button */}
-      <div className="w-full max-w-7xl mx-auto px-6 pt-6 flex items-center justify-end z-10 animate-slideInDown">
-        <Link
-          href="/"
-          className="h-9 w-9 rounded-full bg-black/5 hover:bg-black/10 flex items-center justify-center text-black/70 hover:text-black border border-black/5 link-transition button-click"
-        >
-          <X className="h-4 w-4" />
-        </Link>
+    <div className="min-h-screen text-black font-sans antialiased flex flex-col bg-[#FDF6CD]">
+      {/* Yellow Hero Section */}
+      <div className="relative bg-[#F4C443] pt-8 pb-20 px-6 rounded-b-[40px]">
+        <div className="flex items-center justify-between mb-8">
+          <Link
+            href="/"
+            className="h-10 w-10 rounded-full bg-black/10 flex items-center justify-center text-black hover:bg-black/20 transition-all"
+          >
+            <ArrowLeft className="w-5 h-5" />
+          </Link>
+          <Link
+            href="/login/patient"
+            className="text-xs font-bold uppercase tracking-wider text-black/70 hover:text-black transition-colors"
+          >
+            Sign In
+          </Link>
+        </div>
+
+        <div className="flex flex-col items-center text-center">
+          <div className="w-16 h-16 rounded-3xl overflow-hidden shadow-lg mb-4">
+            <img src="/avatars/avatar-4.svg" alt="Ébano" className="w-full h-full object-cover" />
+          </div>
+          <h1 className="text-3xl font-serif font-black text-black tracking-tight mb-1">
+            Crear Cuenta
+          </h1>
+          <p className="text-sm text-black/60 font-medium">
+            Selecciona tu tipo de cuenta
+          </p>
+        </div>
       </div>
 
-      <main className="flex-1 flex items-center justify-center px-4 py-12">
-        <div className="w-full max-w-[600px] animate-fadeInScale">
-          <div className="text-center mb-12">
-            <div className="flex justify-center mb-2">
-              <Logo size="md" />
-            </div>
-            <h1 className="text-3xl font-serif font-black tracking-tight text-black mb-2">
-              Crear Cuenta
-            </h1>
-            <p className="text-sm text-black/60">
-              Selecciona tu tipo de cuenta para guardar tus datos en el portal correcto.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Link
-              href="/register/patient"
-              className="group p-8 rounded-2xl border-2 border-black/10 bg-white/50 hover:bg-white hover:border-[#A2B676] transition-all duration-300 flex flex-col items-center justify-center gap-4 animate-slideInLeft button-click"
-            >
-              <div className="w-16 h-16 rounded-full bg-black/5 group-hover:bg-[#A2B676]/10 flex items-center justify-center transition-colors">
-                <User className="w-8 h-8 text-black group-hover:text-[#A2B676]" />
+      {/* Cards */}
+      <main className="flex-1 -mt-10 px-4 pb-8 relative z-10">
+        <div className="w-full max-w-md mx-auto space-y-4">
+          <Link
+            href="/register/patient"
+            className="block bg-white p-6 rounded-3xl shadow-xl hover:shadow-2xl transition-all active:scale-[0.98]"
+          >
+            <div className="flex items-center gap-4">
+              <div className="w-14 h-14 rounded-2xl bg-[#F4C443]/15 flex items-center justify-center shrink-0">
+                <User className="w-7 h-7 text-[#F4C443]" />
               </div>
-              <div>
+              <div className="flex-1">
                 <h2 className="font-bold text-lg text-black">Soy Paciente</h2>
-                <p className="text-xs text-black/50 mt-1">
-                  Busca especialistas y agenda citas.
+                <p className="text-xs text-black/50 mt-0.5">
+                  Busca especialistas y agenda citas médicas.
                 </p>
               </div>
-            </Link>
+            </div>
+          </Link>
 
-            <Link
-              href="/register/doctor"
-              className="group p-8 rounded-2xl border-2 border-black/10 bg-white/50 hover:bg-white hover:border-[#A2B676] transition-all duration-300 flex flex-col items-center justify-center gap-4 animate-slideInRight button-click"
-            >
-              <div className="w-16 h-16 rounded-full bg-black/5 group-hover:bg-[#A2B676]/10 flex items-center justify-center transition-colors">
-                <Stethoscope className="w-8 h-8 text-black group-hover:text-[#A2B676]" />
+          <Link
+            href="/register/doctor"
+            className="block bg-white p-6 rounded-3xl shadow-xl hover:shadow-2xl transition-all active:scale-[0.98]"
+          >
+            <div className="flex items-center gap-4">
+              <div className="w-14 h-14 rounded-2xl bg-[#8B5A2B]/10 flex items-center justify-center shrink-0">
+                <Stethoscope className="w-7 h-7 text-[#8B5A2B]" />
               </div>
-              <div>
+              <div className="flex-1">
                 <h2 className="font-bold text-lg text-black">Soy Médico</h2>
-                <p className="text-xs text-black/50 mt-1">
+                <p className="text-xs text-black/50 mt-0.5">
                   Crea tu perfil profesional y administra tu agenda.
                 </p>
               </div>
-            </Link>
-          </div>
+            </div>
+          </Link>
         </div>
       </main>
 
-      <footer className="w-full py-4 text-center text-[11px] text-black/30 font-medium flex items-center justify-center gap-1.5">
-        <span>🔒</span> Encriptación de datos de salud
+      <footer className="w-full py-4 text-center">
+        <div className="flex items-center justify-center gap-2 text-xs text-black/30 font-medium">
+          <ShieldCheck className="w-4 h-4" />
+          Datos seguros y encriptados
+        </div>
       </footer>
     </div>
   )

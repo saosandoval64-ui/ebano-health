@@ -63,7 +63,7 @@ export default function AvatarDisplay({
           />
           {!imgLoaded && (
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-8 h-8 border-2 border-[#A2B676] border-t-transparent rounded-full animate-spin"></div>
+              <div className="w-8 h-8 border-2 border-[#F4C443] border-t-transparent rounded-full animate-spin"></div>
             </div>
           )}
         </>

@@ -63,7 +63,7 @@ export function AvatarSelector({ onSelect, currentAvatar }: AvatarSelectorProps)
       {/* Avatar actual - muestra el SVG o la foto subida */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="h-10 w-10 sm:h-12 sm:w-12 rounded-full overflow-hidden border-2 border-white/20 hover:scale-110 transition-transform bg-[#A2B676] flex items-center justify-center"
+        className="h-10 w-10 sm:h-12 sm:w-12 rounded-full overflow-hidden border-2 border-white/20 hover:scale-110 transition-transform bg-[#F4C443] flex items-center justify-center"
         aria-label="Cambiar avatar"
       >
         {isCustomUpload ? (

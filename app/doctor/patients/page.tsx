@@ -79,7 +79,7 @@ export default async function DoctorPatientsPage() {
                     <h3 className="font-bold text-base text-black leading-tight">
                       {patient.name} {patient.lastName}
                     </h3>
-                    <span className="text-[9px] uppercase font-bold tracking-widest text-[#8F9F68]">
+                    <span className="text-[9px] uppercase font-bold tracking-widest text-[#E5B534]">
                       Paciente Activo
                     </span>
                   </div>
@@ -103,7 +103,7 @@ export default async function DoctorPatientsPage() {
                     </div>
                   )}
                   <div className="flex items-center gap-2">
-                    <Heart className="h-3.5 w-3.5 opacity-60 text-[#8F9F68]" />
+                    <Heart className="h-3.5 w-3.5 opacity-60 text-[#E5B534]" />
                     <span>Prepaga: {patient.insurance || "Ninguna"}</span>
                   </div>
                   <div className="flex items-center gap-2">

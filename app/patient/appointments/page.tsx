@@ -36,7 +36,7 @@ export default async function PatientAppointmentsPage() {
           </p>
         </div>
 
-        <Button asChild className="rounded-full bg-[#A2B676] hover:bg-[#8F9F68] text-white border border-black/5 px-6 py-4 font-bold text-xs uppercase tracking-wider shadow-sm transition-transform active:scale-95 sm:self-center self-start">
+        <Button asChild className="rounded-full bg-[#F4C443] hover:bg-[#E5B534] text-white border border-black/5 px-6 py-4 font-bold text-xs uppercase tracking-wider shadow-sm transition-transform active:scale-95 sm:self-center self-start">
           <Link href="/especialistas" className="flex items-center gap-1.5">
             <Plus className="h-4 w-4" /> Reservar Turno
           </Link>

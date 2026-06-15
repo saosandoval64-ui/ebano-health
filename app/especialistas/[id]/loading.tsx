@@ -14,7 +14,7 @@ export default function DoctorProfileLoading() {
                 <div className="space-y-3 flex-1">
                   <div className="h-3 w-32 bg-black/8 rounded-full" />
                   <div className="h-8 w-64 bg-black/10 rounded-2xl" />
-                  <div className="h-3 w-40 bg-[#A2B676]/30 rounded-full" />
+                  <div className="h-3 w-40 bg-[#F4C443]/30 rounded-full" />
                 </div>
               </div>
               <div className="bg-white/30 p-6 rounded-[28px] space-y-2">
@@ -24,7 +24,7 @@ export default function DoctorProfileLoading() {
                 <div className="h-3 w-4/6 bg-black/8 rounded-full" />
               </div>
               <div className="flex items-center gap-3">
-                <div className="h-4 w-4 bg-[#A2B676]/40 rounded-full" />
+                <div className="h-4 w-4 bg-[#F4C443]/40 rounded-full" />
                 <div className="h-3 w-48 bg-black/10 rounded-full" />
               </div>
             </div>
@@ -41,7 +41,7 @@ export default function DoctorProfileLoading() {
                 ))}
               </div>
             </div>
-            <div className="h-14 w-full bg-[#A2B676]/30 rounded-[20px] mt-4" />
+            <div className="h-14 w-full bg-[#F4C443]/30 rounded-[20px] mt-4" />
           </div>
         </div>
       </div>

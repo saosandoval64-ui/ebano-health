@@ -122,7 +122,7 @@ export default function DoctorAppointmentsList({ initialAppointments }: DoctorAp
                     <button
                       disabled={isPending}
                       onClick={() => handleComplete(app.id)}
-                      className="h-9 px-4 rounded-xl text-[10px] font-bold uppercase tracking-widest bg-[#A2B676] hover:bg-[#8F9F68] text-black hover:text-white transition-all flex items-center gap-1 active:scale-95 disabled:opacity-50"
+                      className="h-9 px-4 rounded-xl text-[10px] font-bold uppercase tracking-widest bg-[#F4C443] hover:bg-[#E5B534] text-black hover:text-white transition-all flex items-center gap-1 active:scale-95 disabled:opacity-50"
                     >
                       {isPending ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Check className="h-3.5 w-3.5" />}
                       Finalizar

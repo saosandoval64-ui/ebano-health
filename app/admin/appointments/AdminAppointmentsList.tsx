@@ -55,7 +55,7 @@ export default function AdminAppointmentsList({ initialAppointments }: AdminAppo
     if (new Date(appDate) < new Date()) {
       return <span className="px-2.5 py-1 rounded-full text-[9px] font-extrabold uppercase tracking-widest bg-gray-100 text-gray-500 font-bold">Pasado</span>
     }
-    return <span className="px-2.5 py-1 rounded-full text-[9px] font-extrabold uppercase tracking-widest bg-[#A2B676] text-black font-bold">Reservado</span>
+    return <span className="px-2.5 py-1 rounded-full text-[9px] font-extrabold uppercase tracking-widest bg-[#F4C443] text-black font-bold">Reservado</span>
   }
 
   return (

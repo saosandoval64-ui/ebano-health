@@ -5,7 +5,7 @@ export default function DoctorLoading() {
         <div className="space-y-8">
           <div className="pl-3 pt-2 space-y-2">
             <div className="h-7 w-24 bg-black/10 rounded-full" />
-            <div className="h-3 w-16 bg-[#A2B676]/30 rounded-full" />
+            <div className="h-3 w-16 bg-[#F4C443]/30 rounded-full" />
           </div>
           <div className="space-y-2">
             {Array.from({ length: 4 }).map((_, i) => (
@@ -31,7 +31,7 @@ export default function DoctorLoading() {
           <div className="h-4 w-80 bg-black/8 rounded-full" />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-[#A2B676]/10 border border-[#A2B676]/20 h-[180px] rounded-[32px]" />
+          <div className="bg-[#F4C443]/10 border border-[#F4C443]/20 h-[180px] rounded-[32px]" />
           <div className="bg-black/5 border border-black/10 h-[180px] rounded-[32px]" />
           <div className="bg-black/5 border border-black/10 h-[180px] rounded-[32px]" />
         </div>

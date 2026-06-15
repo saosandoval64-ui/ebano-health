@@ -34,7 +34,7 @@ export default function EspecialistasLoading() {
                 <div className="w-16 h-16 rounded-full bg-black/10 shrink-0" />
                 <div className="space-y-2 flex-1">
                   <div className="h-5 w-3/4 bg-black/10 rounded-full" />
-                  <div className="h-3 w-1/2 bg-[#A2B676]/30 rounded-full" />
+                  <div className="h-3 w-1/2 bg-[#F4C443]/30 rounded-full" />
                 </div>
               </div>
               <div className="h-10 w-full bg-black/10 rounded-[18px]" />

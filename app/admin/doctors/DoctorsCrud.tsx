@@ -122,14 +122,14 @@ export default function DoctorsCrud({ initialDoctors }: DoctorsCrudProps) {
         <h2 className="text-xl font-serif font-black tracking-tight">Registro de Especialistas</h2>
         <button
           onClick={handleOpenCreate}
-          className="h-10 px-5 rounded-full bg-[#A2B676] hover:bg-[#8F9F68] text-white font-bold text-xs uppercase tracking-wider shadow-sm transition-transform active:scale-95 flex items-center gap-1.5 cursor-pointer"
+          className="h-10 px-5 rounded-full bg-[#F4C443] hover:bg-[#E5B534] text-white font-bold text-xs uppercase tracking-wider shadow-sm transition-transform active:scale-95 flex items-center gap-1.5 cursor-pointer"
         >
           <Plus className="h-4 w-4" /> Registrar Médico
         </button>
       </div>
 
       {message && !showForm && (
-        <p className="text-xs font-bold text-[#8F9F68] bg-[#A2B676]/10 border border-[#A2B676]/25 p-3 rounded-xl">
+        <p className="text-xs font-bold text-[#E5B534] bg-[#F4C443]/10 border border-[#F4C443]/25 p-3 rounded-xl">
           {message}
         </p>
       )}
@@ -202,7 +202,7 @@ export default function DoctorsCrud({ initialDoctors }: DoctorsCrudProps) {
 
               <div className="pt-2">
                 {message && (
-                  <p className={`text-xs font-bold text-center mb-3 ${isSuccess ? "text-[#8F9F68]" : "text-red-500"}`}>
+                  <p className={`text-xs font-bold text-center mb-3 ${isSuccess ? "text-[#E5B534]" : "text-red-500"}`}>
                     {message}
                   </p>
                 )}
@@ -254,7 +254,7 @@ export default function DoctorsCrud({ initialDoctors }: DoctorsCrudProps) {
                     <td className="py-4 px-6 font-semibold">
                       {doc.doctorProfile?.specialty || "General"}
                     </td>
-                    <td className="py-4 px-6 text-xs font-bold uppercase tracking-wider text-[#8F9F68]">
+                    <td className="py-4 px-6 text-xs font-bold uppercase tracking-wider text-[#E5B534]">
                       {doc.doctorProfile?.license || "N/A"}
                     </td>
                     <td className="py-4 px-6 text-xs text-black/75 font-semibold">

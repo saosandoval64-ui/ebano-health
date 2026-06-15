@@ -66,7 +66,7 @@ export default function DoctorRegisterPage() {
                   type="text"
                   required
                   placeholder="Dr. Juan"
-                  className="w-full rounded-xl border border-black/10 bg-white/50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#A2B676] tab-transition"
+                  className="w-full rounded-xl border border-black/10 bg-white/50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] tab-transition"
                 />
               </div>
               <div className="space-y-1.5">
@@ -78,7 +78,7 @@ export default function DoctorRegisterPage() {
                   type="text"
                   required
                   placeholder="Pérez"
-                  className="w-full rounded-xl border border-black/10 bg-white/50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#A2B676] tab-transition"
+                  className="w-full rounded-xl border border-black/10 bg-white/50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] tab-transition"
                 />
               </div>
             </div>
@@ -92,7 +92,7 @@ export default function DoctorRegisterPage() {
                 type="email"
                 required
                 placeholder="dr.juan@ebano.com"
-                className="w-full rounded-xl border border-black/10 bg-white/50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#A2B676] tab-transition"
+                className="w-full rounded-xl border border-black/10 bg-white/50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] tab-transition"
               />
             </div>
 
@@ -105,7 +105,7 @@ export default function DoctorRegisterPage() {
                 type="password"
                 required
                 placeholder="••••••••"
-                className="w-full rounded-xl border border-black/10 bg-white/50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#A2B676] tab-transition"
+                className="w-full rounded-xl border border-black/10 bg-white/50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] tab-transition"
               />
             </div>
 
@@ -119,7 +119,7 @@ export default function DoctorRegisterPage() {
                   type="text"
                   required
                   placeholder="MP 123456"
-                  className="w-full rounded-xl border border-black/10 bg-white/50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#A2B676] tab-transition"
+                  className="w-full rounded-xl border border-black/10 bg-white/50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] tab-transition"
                 />
               </div>
               <div className="space-y-1.5">
@@ -129,7 +129,7 @@ export default function DoctorRegisterPage() {
                 <select
                   name="especialidad"
                   required
-                  className="w-full rounded-xl border border-black/10 bg-white/50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#A2B676] tab-transition"
+                  className="w-full rounded-xl border border-black/10 bg-white/50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] tab-transition"
                 >
                   <option value="">Seleccionar...</option>
                   <option value="Cardiólogo">Cardiólogo</option>
@@ -157,7 +157,7 @@ export default function DoctorRegisterPage() {
                 type="tel"
                 required
                 placeholder="+54 9 11 1234"
-                className="w-full rounded-xl border border-black/10 bg-white/50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#A2B676] tab-transition"
+                className="w-full rounded-xl border border-black/10 bg-white/50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] tab-transition"
               />
             </div>
 
@@ -169,7 +169,7 @@ export default function DoctorRegisterPage() {
                 name="consultorio"
                 type="text"
                 placeholder="Clínica San Juan"
-                className="w-full rounded-xl border border-black/10 bg-white/50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#A2B676] tab-transition"
+                className="w-full rounded-xl border border-black/10 bg-white/50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] tab-transition"
               />
             </div>
 
@@ -181,7 +181,7 @@ export default function DoctorRegisterPage() {
                 name="direccion"
                 type="text"
                 placeholder="Av. Principal 123"
-                className="w-full rounded-xl border border-black/10 bg-white/50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#A2B676] tab-transition"
+                className="w-full rounded-xl border border-black/10 bg-white/50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] tab-transition"
               />
             </div>
 
@@ -216,7 +216,7 @@ export default function DoctorRegisterPage() {
           <div className="mt-8 pt-6 border-t border-black/5 text-center">
             <p className="text-xs font-medium text-black/50">
               ¿Ya tienes cuenta?{" "}
-              <Link href="/login/doctor" className="font-bold underline decoration-[#A2B676] link-transition hover:text-black">
+              <Link href="/login/doctor" className="font-bold underline decoration-[#F4C443] link-transition hover:text-black">
                 Inicia sesión
               </Link>
             </p>
