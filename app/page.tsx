@@ -57,7 +57,7 @@ export default function LandingPage() {
   ];
 
   return (
-    <div className="min-h-screen text-black font-sans antialiased flex flex-col justify-between selection:bg-[#E2CE7D]">
+    <div className="min-h-screen text-black font-sans antialiased flex flex-col justify-between selection:bg-[#E2CE7D] pb-20 md:pb-0">
       
       {/* ================= NAVBAR RESPONSIVO ================= */}
       <header className="w-full max-w-7xl mx-auto px-4 sm:px-8 py-4 sm:py-6 flex items-center justify-between gap-4 relative z-10">
@@ -92,7 +92,7 @@ export default function LandingPage() {
           
           <h1 className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-serif font-black tracking-tight text-black leading-[1.1] lg:leading-[1.05]">
             Tu salud,<br className="hidden sm:inline" />
-            crece desde aquí<span className="text-[#A2B676]">.</span>
+            crece desde aquí<span className="text-[#F4C443]">.</span>
           </h1>
           
           <p className="text-sm sm:text-base md:text-lg text-black/70 leading-relaxed max-w-md font-medium">
@@ -103,7 +103,7 @@ export default function LandingPage() {
             
             <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
               
-              <Button asChild size="lg" className="rounded-full bg-[#A2B676] hover:bg-[#8F9F68] text-white font-bold text-xs tracking-wider uppercase px-7 py-6 shadow-sm border border-black/5 transition-transform hover:-translate-y-0.5 w-full sm:w-auto flex items-center justify-center gap-2">
+              <Button asChild size="lg" className="rounded-full bg-[#F4C443] hover:bg-[#E5B534] text-black font-bold text-xs tracking-wider uppercase px-7 py-6 shadow-sm border border-black/5 transition-transform hover:-translate-y-0.5 w-full sm:w-auto flex items-center justify-center gap-2">
                 <Link href="/login/patient">
                   <User className="h-4 w-4 shrink-0" /> Acceso Pacientes
                 </Link>
@@ -130,7 +130,7 @@ export default function LandingPage() {
                 ))}
               </div>
               <p className="text-xs sm:text-sm font-bold text-black/70 tracking-wide max-w-[240px] sm:max-w-none leading-tight">
-                Únete a más de <span className="text-black font-black font-serif text-sm sm:text-base text-[#A2B676]">+500 pacientes</span> que ya confían en Ébano
+                Únete a más de <span className="text-black font-black font-serif text-sm sm:text-base text-[#F4C443]">+500 pacientes</span> que ya confían en Ébano
               </p>
             </div>
           </div>
@@ -154,7 +154,7 @@ export default function LandingPage() {
                 <div key={idx} className="flex items-start gap-4 sm:gap-5 group">
                   
                   <div className="flex flex-col items-center justify-start min-w-[32px] sm:min-w-[36px] pt-0.5">
-                    <span className="text-xl sm:text-2xl font-serif font-black text-[#A2B676]">
+                    <span className="text-xl sm:text-2xl font-serif font-black text-[#F4C443]">
                       {paso.num}
                     </span>
                   </div>
@@ -174,7 +174,7 @@ export default function LandingPage() {
 
             <div className="pt-3 sm:pt-4 border-t border-black/10 flex items-center justify-between text-[10px] sm:text-xs font-bold text-black/40 uppercase tracking-widest shrink-0">
               <span>Ébano Health SaaS</span>
-              <span className="text-[#A2B676]">● Activo</span>
+              <span className="text-[#F4C443]">● Activo</span>
             </div>
 
           </div>
@@ -215,22 +215,22 @@ export default function LandingPage() {
               <h4 className="font-bold text-sm uppercase tracking-wider">Plataforma</h4>
               <ul className="space-y-2 text-sm text-white/60 text-center md:text-left">
                 <li>
-                  <Link href="/" className="hover:text-[#A2B676] transition-colors">
+                  <Link href="/" className="hover:text-[#F4C443] transition-colors">
                     Inicio
                   </Link>
                 </li>
                 <li>
-                  <Link href="/especialistas" className="hover:text-[#A2B676] transition-colors">
+                  <Link href="/especialistas" className="hover:text-[#F4C443] transition-colors">
                     Especialistas
                   </Link>
                 </li>
                 <li>
-                  <Link href="/register" className="hover:text-[#A2B676] transition-colors">
+                  <Link href="/register" className="hover:text-[#F4C443] transition-colors">
                     Registrarse
                   </Link>
                 </li>
                 <li>
-                  <Link href="/login/patient" className="hover:text-[#A2B676] transition-colors">
+                  <Link href="/login/patient" className="hover:text-[#F4C443] transition-colors">
                     Iniciar Sesión
                   </Link>
                 </li>
@@ -242,17 +242,17 @@ export default function LandingPage() {
               <h4 className="font-bold text-sm uppercase tracking-wider">Información</h4>
               <ul className="space-y-2 text-sm text-white/60 text-center md:text-left">
                 <li>
-                  <Link href="/contact" className="hover:text-[#A2B676] transition-colors">
+                  <Link href="/contact" className="hover:text-[#F4C443] transition-colors">
                     Contacto
                   </Link>
                 </li>
                 <li>
-                  <a href="mailto:contacto@ebano.com" className="hover:text-[#A2B676] transition-colors">
+                  <a href="mailto:contacto@ebano.com" className="hover:text-[#F4C443] transition-colors">
                     Email: contacto@ebano.com
                   </a>
                 </li>
                 <li>
-                  <a href="tel:+541100000000" className="hover:text-[#A2B676] transition-colors">
+                  <a href="tel:+541100000000" className="hover:text-[#F4C443] transition-colors">
                     Teléfono: +54 11 0000-0000
                   </a>
                 </li>
@@ -270,7 +270,7 @@ export default function LandingPage() {
                   href="https://instagram.com" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="h-10 w-10 rounded-full bg-white/10 hover:bg-[#A2B676] flex items-center justify-center text-white transition-colors"
+                  className="h-10 w-10 rounded-full bg-white/10 hover:bg-[#F4C443] flex items-center justify-center text-white transition-colors"
                   aria-label="Instagram"
                 >
                   <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24">
@@ -281,7 +281,7 @@ export default function LandingPage() {
                   href="https://facebook.com" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="h-10 w-10 rounded-full bg-white/10 hover:bg-[#A2B676] flex items-center justify-center text-white transition-colors"
+                  className="h-10 w-10 rounded-full bg-white/10 hover:bg-[#F4C443] flex items-center justify-center text-white transition-colors"
                   aria-label="Facebook"
                 >
                   <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24">
@@ -292,7 +292,7 @@ export default function LandingPage() {
                   href="https://linkedin.com" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="h-10 w-10 rounded-full bg-white/10 hover:bg-[#A2B676] flex items-center justify-center text-white transition-colors"
+                  className="h-10 w-10 rounded-full bg-white/10 hover:bg-[#F4C443] flex items-center justify-center text-white transition-colors"
                   aria-label="LinkedIn"
                 >
                   <svg className="h-5 w-5 fill-current" viewBox="0 0 24 24">
@@ -312,16 +312,16 @@ export default function LandingPage() {
               <p>© {new Date().getFullYear()} Ébano Health. Todos los derechos reservados.</p>
             </div>
             <div className="flex items-center gap-6 text-sm text-white/60">
-              <Link href="#" className="hover:text-[#A2B676] transition-colors">
+              <Link href="#" className="hover:text-[#F4C443] transition-colors">
                 Política de Privacidad
               </Link>
-              <Link href="#" className="hover:text-[#A2B676] transition-colors">
+              <Link href="#" className="hover:text-[#F4C443] transition-colors">
                 Términos de Servicio
               </Link>
-              <Link href="/contact" className="hover:text-[#A2B676] transition-colors">
+              <Link href="/contact" className="hover:text-[#F4C443] transition-colors">
                 Contacto
               </Link>
-              <Link href="/login/admin" className="hover:text-[#A2B676] transition-colors">
+              <Link href="/login/admin" className="hover:text-[#F4C443] transition-colors">
                 Admin
               </Link>
             </div>

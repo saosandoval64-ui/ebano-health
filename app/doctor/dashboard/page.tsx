@@ -76,7 +76,7 @@ export default async function DoctorDashboard() {
             </h1>
             <p className="text-sm text-black/50 font-medium mt-0.5">Actividad de hoy</p>
           </div>
-          <Link href="/patient/profile" className="shrink-0">
+          <Link href="/doctor/availability" className="shrink-0">
             <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#F4C443] to-[#F9A825] flex items-center justify-center overflow-hidden border-2 border-white shadow-lg hover:scale-105 active:scale-95 transition-transform">
               <AvatarDisplay avatar={user?.avatar} name={user?.name || ""} size="sm" />
             </div>
@@ -212,7 +212,7 @@ export default async function DoctorDashboard() {
 
         {/* Profile Card - Mobile */}
         <div className="md:hidden">
-          <Link href="/patient/profile" className="block bg-white p-5 rounded-3xl border border-gray-100 shadow-sm">
+          <Link href="/doctor/availability" className="block bg-white p-5 rounded-3xl border border-gray-100 shadow-sm">
             <div className="flex items-center gap-4">
               <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#F4C443] to-[#F9A825] flex items-center justify-center overflow-hidden shrink-0">
                 <AvatarDisplay avatar={user?.avatar} name={user?.name || ""} size="sm" />
@@ -260,7 +260,7 @@ export default async function DoctorDashboard() {
               </div>
             </div>
             <Link
-              href="/patient/profile"
+              href="/doctor/availability"
               className="inline-flex items-center justify-center gap-2 w-full px-4 py-3 bg-black/5 text-black rounded-2xl font-bold text-sm hover:bg-black/10 transition-all"
             >
               Editar perfil
