@@ -40,7 +40,6 @@ export default function BottomTabBar({ role }: BottomTabBarProps) {
           { name: "Pacientes", href: "/doctor/patients", icon: Users },
           { name: "Turnos", href: "/doctor/appointments", icon: Calendar, isAction: true },
           { name: "Horarios", href: "/doctor/availability", icon: Clock },
-          { name: "Perfil", href: "/doctor/profile", icon: User },
         ]
       case "ADMIN":
         return [
