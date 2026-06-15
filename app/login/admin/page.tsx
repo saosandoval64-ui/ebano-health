@@ -49,12 +49,7 @@ export default function AdminLoginPage() {
               placeholders={{ email: "admin@ebano.com" }}
             />
 
-            {/* Forgot Password */}
-            <div className="mt-4 text-right">
-              <Link href="#" className="text-xs font-medium text-black/50 hover:text-black transition-colors">
-                ¿Olvidaste tu contraseña?
-              </Link>
-            </div>
+
           </div>
 
           {/* Info */}

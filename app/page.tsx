@@ -321,9 +321,6 @@ export default function LandingPage() {
               <Link href="/contact" className="hover:text-[#F4C443] transition-colors">
                 Contacto
               </Link>
-              <Link href="/login/admin" className="hover:text-[#F4C443] transition-colors">
-                Admin
-              </Link>
             </div>
           </div>
 

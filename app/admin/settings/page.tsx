@@ -1,6 +1,6 @@
 import { getCurrentUser } from "../../../lib/auth"
 import { redirect } from "next/navigation"
-import { ShieldCheck, Database, Calendar, Server, RefreshCw } from "lucide-react"
+import { ShieldCheck, Database, Calendar, Server } from "lucide-react"
 
 export default async function AdminSettingsPage() {
   const user = await getCurrentUser()
@@ -43,9 +43,6 @@ export default async function AdminSettingsPage() {
               </div>
               <div className="flex items-center justify-between pt-2">
                 <span className="text-[10px] font-bold uppercase tracking-widest text-[#E5B534] bg-[#F4C443]/10 border border-[#F4C443]/20 px-3 py-1 rounded-full">Sincronización Activa</span>
-                <button className="h-9 px-4 rounded-xl text-[10px] font-bold uppercase tracking-widest bg-black text-[#FDF6CD] hover:opacity-85 transition-all flex items-center gap-1 active:scale-95">
-                  <RefreshCw className="h-3 w-3 animate-spin" /> Probar Conexión
-                </button>
               </div>
             </div>
           </div>
@@ -96,10 +93,6 @@ export default async function AdminSettingsPage() {
                 </div>
               </div>
             </div>
-
-            <button className="w-full py-4 text-xs font-black uppercase tracking-widest bg-[#F4C443] hover:bg-white text-black rounded-[20px] shadow-lg transition-all active:scale-[0.98]">
-              Crear Backup Ahora
-            </button>
 
             <div className="pt-6 border-t border-white/10 flex items-center gap-1.5 text-[9px] text-[#FDF6CD]/30 font-semibold uppercase tracking-wider">
               <ShieldCheck className="h-4 w-4 text-[#F4C443]" /> Encriptación AES-256 en reposo
