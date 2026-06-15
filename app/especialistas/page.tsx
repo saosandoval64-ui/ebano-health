@@ -23,7 +23,7 @@ export default async function EspecialistasPage() {
   })
 
   return (
-    <div className="min-h-screen text-black font-sans antialiased selection:bg-[#E2CE7D] pb-16 md:pb-0">
+    <div className="min-h-screen text-black font-sans antialiased selection:bg-[#E2CE7D] pb-20 md:pb-0">
       <NavbarClient />
 
       <main className="mx-auto max-w-7xl w-full px-4 sm:px-8 py-16 space-y-10 relative z-10">
