@@ -83,6 +83,7 @@ export default function Sidebar({ userName, userEmail, role, userAvatar }: Sideb
           { name: "Seguidores", href: "/doctor/followers", icon: Heart },
           { name: "Disponibilidad", href: "/doctor/availability", icon: Clock },
           { name: "Telemedicina", href: "/doctor/telemedicine", icon: Video },
+          { name: "Configuración", href: "/doctor/settings", icon: Settings },
         ]
       case "ADMIN":
         return [

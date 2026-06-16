@@ -44,7 +44,6 @@ export default function ClinicDoctorsClient({ initialDoctors }: ClinicDoctorsCli
   const [specialty, setSpecialty] = useState("")
   const [license, setLicense] = useState("")
   const [bio, setBio] = useState("")
-  const [imageUrl, setImageUrl] = useState("")
 
   const handleOpenCreate = () => {
     setName("")
@@ -55,7 +54,6 @@ export default function ClinicDoctorsClient({ initialDoctors }: ClinicDoctorsCli
     setSpecialty("")
     setLicense("")
     setBio("")
-    setImageUrl("")
     setEditMode(false)
     setShowForm(true)
     setMessage("")
@@ -70,7 +68,6 @@ export default function ClinicDoctorsClient({ initialDoctors }: ClinicDoctorsCli
     setSpecialty(doc.doctorProfile?.specialty || "")
     setLicense(doc.doctorProfile?.license || "")
     setBio(doc.doctorProfile?.bio || "")
-    setImageUrl(doc.doctorProfile?.imageUrl || "")
     setSelectedDoctorId(doc.id)
     setEditMode(true)
     setShowForm(true)
@@ -185,11 +182,6 @@ export default function ClinicDoctorsClient({ initialDoctors }: ClinicDoctorsCli
                   <label className="text-[10px] font-bold uppercase tracking-wider text-black/60 pl-1 block">Matrícula (MN)</label>
                   <input name="license" type="text" required value={license} onChange={(e) => setLicense(e.target.value)} placeholder="Ej: MN-39482" className="w-full rounded-xl border border-black/10 bg-white/60 focus:bg-white text-black h-10 px-3 text-sm outline-none" />
                 </div>
-              </div>
-
-              <div className="space-y-1">
-                <label className="text-[10px] font-bold uppercase tracking-wider text-black/60 pl-1 block">URL de la foto de perfil (Opcional)</label>
-                <input name="imageUrl" type="text" value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} placeholder="Ej: /avatars/avatar-3.svg" className="w-full rounded-xl border border-black/10 bg-white/60 focus:bg-white text-black h-10 px-3 text-sm outline-none" />
               </div>
 
               <div className="space-y-1">

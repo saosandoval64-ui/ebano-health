@@ -50,7 +50,7 @@ const doctorTabs: Tab[] = [
   { name: "Inicio", href: "/doctor/dashboard", icon: LayoutDashboard },
   { name: "Pacientes", href: "/doctor/patients", icon: Users },
   { name: "Turnos", href: "/doctor/appointments", icon: Calendar },
-  { name: "Telemedicina", href: "/doctor/telemedicine", icon: Video },
+  { name: "Config", href: "/doctor/settings", icon: Settings },
   { name: "Salir", href: "/", icon: LogOut, isLogout: true },
 ]
 
