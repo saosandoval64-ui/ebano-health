@@ -59,44 +59,44 @@ export default async function PatientDashboard() {
       </div>
 
       {/* Quick Actions Grid */}
-      <div className="grid grid-cols-4 gap-4 mb-10">
-        <Link href="/patient/appointments" className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center gap-3 text-center hover:shadow-md transition-shadow active:scale-[0.98]">
-          <div className="w-12 h-12 rounded-xl bg-[#F4C443]/15 flex items-center justify-center">
-            <Calendar className="w-6 h-6 text-[#F4C443]" />
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+        <Link href="/patient/appointments" className="bg-white p-6 md:p-5 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center gap-3 text-center hover:shadow-md transition-shadow active:scale-[0.98] overflow-hidden">
+          <div className="w-14 h-14 md:w-12 md:h-12 rounded-xl bg-[#F4C443]/15 flex items-center justify-center shrink-0">
+            <Calendar className="w-7 h-7 md:w-6 md:h-6 text-[#F4C443]" />
           </div>
-          <div>
-            <p className="text-lg font-black text-black">{upcomingCount}</p>
-            <p className="text-[11px] font-semibold text-black/50">Turnos</p>
-          </div>
-        </Link>
-
-        <Link href="/especialistas" className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center gap-3 text-center hover:shadow-md transition-shadow active:scale-[0.98]">
-          <div className="w-12 h-12 rounded-xl bg-[#8B5A2B]/10 flex items-center justify-center">
-            <Stethoscope className="w-6 h-6 text-[#8B5A2B]" />
-          </div>
-          <div>
-            <p className="text-lg font-black text-black">Buscar</p>
-            <p className="text-[11px] font-semibold text-black/50">Especialistas</p>
+          <div className="min-w-0">
+            <p className="text-xl md:text-lg font-black text-black">{upcomingCount}</p>
+            <p className="text-xs md:text-[11px] font-semibold text-black/50 truncate">Turnos</p>
           </div>
         </Link>
 
-        <Link href="/patient/my-doctors" className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center gap-3 text-center hover:shadow-md transition-shadow active:scale-[0.98]">
-          <div className="w-12 h-12 rounded-xl bg-rose-50 flex items-center justify-center">
-            <Heart className="w-6 h-6 text-rose-400" />
+        <Link href="/especialistas" className="bg-white p-6 md:p-5 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center gap-3 text-center hover:shadow-md transition-shadow active:scale-[0.98] overflow-hidden">
+          <div className="w-14 h-14 md:w-12 md:h-12 rounded-xl bg-[#8B5A2B]/10 flex items-center justify-center shrink-0">
+            <Stethoscope className="w-7 h-7 md:w-6 md:h-6 text-[#8B5A2B]" />
           </div>
-          <div>
-            <p className="text-lg font-black text-black">Mis</p>
-            <p className="text-[11px] font-semibold text-black/50">Médicos</p>
+          <div className="min-w-0">
+            <p className="text-xl md:text-lg font-black text-black truncate">Buscar</p>
+            <p className="text-xs md:text-[11px] font-semibold text-black/50 truncate">Especialistas</p>
           </div>
         </Link>
 
-        <Link href="/patient/profile" className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center gap-3 text-center hover:shadow-md transition-shadow active:scale-[0.98]">
-          <div className="w-12 h-12 rounded-xl bg-black/5 flex items-center justify-center">
-            <User className="w-6 h-6 text-black/50" />
+        <Link href="/patient/my-doctors" className="bg-white p-6 md:p-5 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center gap-3 text-center hover:shadow-md transition-shadow active:scale-[0.98] overflow-hidden">
+          <div className="w-14 h-14 md:w-12 md:h-12 rounded-xl bg-rose-50 flex items-center justify-center shrink-0">
+            <Heart className="w-7 h-7 md:w-6 md:h-6 text-rose-400" />
           </div>
-          <div>
-            <p className="text-lg font-black text-black">Mi</p>
-            <p className="text-[11px] font-semibold text-black/50">Perfil</p>
+          <div className="min-w-0">
+            <p className="text-xl md:text-lg font-black text-black">Mis</p>
+            <p className="text-xs md:text-[11px] font-semibold text-black/50 truncate">Médicos</p>
+          </div>
+        </Link>
+
+        <Link href="/patient/profile" className="bg-white p-6 md:p-5 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center gap-3 text-center hover:shadow-md transition-shadow active:scale-[0.98] overflow-hidden">
+          <div className="w-14 h-14 md:w-12 md:h-12 rounded-xl bg-black/5 flex items-center justify-center shrink-0">
+            <User className="w-7 h-7 md:w-6 md:h-6 text-black/50" />
+          </div>
+          <div className="min-w-0">
+            <p className="text-xl md:text-lg font-black text-black">Mi</p>
+            <p className="text-xs md:text-[11px] font-semibold text-black/50 truncate">Perfil</p>
           </div>
         </Link>
       </div>
@@ -110,14 +110,14 @@ export default async function PatientDashboard() {
               <span className="text-xs font-bold uppercase tracking-wider opacity-70">Tu próxima cita</span>
             </div>
             <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center overflow-hidden shrink-0">
-                <AvatarDisplay avatar={nextApp.doctor.user.avatar} name={`${nextApp.doctor.user.name} ${nextApp.doctor.user.lastName || ""}`} size="sm" />
+              <div className="w-16 h-16 md:w-14 md:h-14 rounded-2xl bg-white/20 flex items-center justify-center overflow-hidden shrink-0">
+                <AvatarDisplay avatar={nextApp.doctor.user.avatar} name={`${nextApp.doctor.user.name} ${nextApp.doctor.user.lastName || ""}`} size="md" />
               </div>
               <div className="flex-1 min-w-0">
                 <h3 className="text-xl font-black truncate">
                   Dr. {nextApp.doctor.user.name} {nextApp.doctor.user.lastName}
                 </h3>
-                <p className="opacity-70 font-medium text-sm">{nextApp.doctor.specialty}</p>
+                <p className="opacity-70 font-medium text-sm truncate">{nextApp.doctor.specialty}</p>
               </div>
             </div>
             <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-black/10">
@@ -146,7 +146,7 @@ export default async function PatientDashboard() {
       )}
 
       {/* Bottom Info Grid */}
-      <div className="grid grid-cols-3 gap-4 pb-10">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pb-10">
         {/* Info Card */}
         <div className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm">
           <h3 className="text-xs font-bold uppercase tracking-widest text-black/40 mb-4">Tu información</h3>

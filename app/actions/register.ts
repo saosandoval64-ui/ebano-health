@@ -4,7 +4,7 @@ import { db } from "../../lib/db"
 import bcrypt from "bcryptjs"
 import { signIn } from "../../lib/auth"
 
-type RoleType = "PATIENT" | "DOCTOR"
+type RoleType = "PATIENT" | "DOCTOR" | "SECRETARY"
 
 export async function registerPatient(formData: FormData) {
   const name = formData.get("nombre") as string
@@ -112,6 +112,51 @@ export async function registerDoctor(formData: FormData) {
     return { 
       success: false, 
       message: `Error en el servidor: ${error.message || 'Error desconocido'}` 
+    }
+  }
+}
+
+export async function registerSecretary(formData: FormData) {
+  const name = formData.get("nombre") as string
+  const lastName = formData.get("apellido") as string
+  const email = formData.get("email") as string
+  const password = formData.get("password") as string
+  const phone = formData.get("telefono") as string
+
+  if (!email || !password || !name) {
+    return { success: false, message: "Faltan datos obligatorios." }
+  }
+
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10)
+
+    await db.user.create({
+      data: {
+        name,
+        lastName,
+        email,
+        password: hashedPassword,
+        phone: phone || null,
+        role: "SECRETARY",
+      },
+    })
+
+    await signIn("credentials", {
+      email,
+      password,
+      expectedRole: "SECRETARY",
+      redirect: false,
+    })
+
+    return { success: true, message: "Registro de secretaria exitoso.", redirectTo: "/admin/dashboard" }
+  } catch (error: any) {
+    if (error?.message?.includes("redirect") || error?.digest?.includes("NEXT_REDIRECT")) {
+      return { success: true, message: "Registro de secretaria exitoso.", redirectTo: "/admin/dashboard" }
+    }
+    console.error("Error al registrar secretaria:", error)
+    return {
+      success: false,
+      message: "Error en el servidor. El correo ya podría estar registrado."
     }
   }
 }

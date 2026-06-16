@@ -39,52 +39,52 @@ export default async function AdminDashboard() {
       </div>
 
       {/* Metrics Grid */}
-      <div className="grid grid-cols-4 gap-4 mb-8">
-        <div className="bg-[#F4C443]/15 p-5 rounded-2xl flex items-center gap-3">
-          <div className="w-12 h-12 rounded-xl bg-[#F4C443] flex items-center justify-center text-black shrink-0">
-            <Stethoscope className="h-6 w-6" />
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div className="bg-[#F4C443]/15 p-6 md:p-5 rounded-2xl flex items-center gap-3 overflow-hidden">
+          <div className="w-14 h-14 md:w-12 md:h-12 rounded-xl bg-[#F4C443] flex items-center justify-center text-black shrink-0">
+            <Stethoscope className="h-7 w-7 md:h-6 md:w-6" />
           </div>
-          <div>
+          <div className="min-w-0">
             <p className="text-[10px] uppercase font-bold tracking-widest text-black/50">Especialistas</p>
             <h3 className="text-2xl font-serif font-black">{doctorCount}</h3>
           </div>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-gray-100 flex items-center gap-3">
-          <div className="w-12 h-12 rounded-xl bg-black/5 flex items-center justify-center shrink-0">
-            <Users className="h-6 w-6 text-black/60" />
+        <div className="bg-white p-6 md:p-5 rounded-2xl border border-gray-100 flex items-center gap-3 overflow-hidden">
+          <div className="w-14 h-14 md:w-12 md:h-12 rounded-xl bg-black/5 flex items-center justify-center shrink-0">
+            <Users className="h-7 w-7 md:h-6 md:w-6 text-black/60" />
           </div>
-          <div>
+          <div className="min-w-0">
             <p className="text-[10px] uppercase font-bold tracking-widest text-black/50">Pacientes</p>
             <h3 className="text-2xl font-serif font-black">{patientCount}</h3>
           </div>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-gray-100 flex items-center gap-3">
-          <div className="w-12 h-12 rounded-xl bg-black/5 flex items-center justify-center shrink-0">
-            <Calendar className="h-6 w-6 text-black/60" />
+        <div className="bg-white p-6 md:p-5 rounded-2xl border border-gray-100 flex items-center gap-3 overflow-hidden">
+          <div className="w-14 h-14 md:w-12 md:h-12 rounded-xl bg-black/5 flex items-center justify-center shrink-0">
+            <Calendar className="h-7 w-7 md:h-6 md:w-6 text-black/60" />
           </div>
-          <div>
+          <div className="min-w-0">
             <p className="text-[10px] uppercase font-bold tracking-widest text-black/50">Turnos</p>
             <h3 className="text-2xl font-serif font-black">{appointmentCount}</h3>
           </div>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-gray-100 flex items-center gap-3">
-          <div className="w-12 h-12 rounded-xl bg-black/5 flex items-center justify-center shrink-0">
-            <DollarSign className="h-6 w-6 text-black/60" />
+        <div className="bg-white p-6 md:p-5 rounded-2xl border border-gray-100 flex items-center gap-3 overflow-hidden">
+          <div className="w-14 h-14 md:w-12 md:h-12 rounded-xl bg-black/5 flex items-center justify-center shrink-0">
+            <DollarSign className="h-7 w-7 md:h-6 md:w-6 text-black/60" />
           </div>
-          <div>
+          <div className="min-w-0">
             <p className="text-[10px] uppercase font-bold tracking-widest text-black/50">SaaS</p>
-            <h3 className="text-lg font-serif font-black">${doctorCount * 49}/mes</h3>
+            <h3 className="text-lg font-serif font-black truncate">${doctorCount * 49}/mes</h3>
           </div>
         </div>
       </div>
 
       {/* Content Grid */}
-      <div className="grid grid-cols-3 gap-4 pb-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pb-8">
         {/* Recent Appointments */}
-        <div className="col-span-2 bg-white p-5 rounded-2xl border border-gray-100 shadow-sm">
+        <div className="md:col-span-2 bg-white p-5 rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-sm font-serif font-black tracking-tight">Últimas Reservas</h2>
             <Link

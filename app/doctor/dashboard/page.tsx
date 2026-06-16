@@ -88,42 +88,42 @@ export default async function DoctorDashboard() {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-4 gap-4 mb-10">
-        <div className="bg-[#F4C443]/15 p-5 rounded-2xl flex items-center gap-3">
-          <div className="w-12 h-12 rounded-xl bg-[#F4C443] flex items-center justify-center text-black shrink-0">
-            <Calendar className="h-6 w-6" />
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+        <div className="bg-[#F4C443]/15 p-6 md:p-5 rounded-2xl flex items-center gap-3 overflow-hidden">
+          <div className="w-14 h-14 md:w-12 md:h-12 rounded-xl bg-[#F4C443] flex items-center justify-center text-black shrink-0">
+            <Calendar className="h-7 w-7 md:h-6 md:w-6" />
           </div>
-          <div>
+          <div className="min-w-0">
             <p className="text-[10px] uppercase font-bold tracking-widest text-black/50">Hoy</p>
             <h3 className="text-2xl font-serif font-black">{countToday}</h3>
           </div>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-gray-100 flex items-center gap-3">
-          <div className="w-12 h-12 rounded-xl bg-black/5 flex items-center justify-center shrink-0">
-            <Users className="h-6 w-6 text-black/60" />
+        <div className="bg-white p-6 md:p-5 rounded-2xl border border-gray-100 flex items-center gap-3 overflow-hidden">
+          <div className="w-14 h-14 md:w-12 md:h-12 rounded-xl bg-black/5 flex items-center justify-center shrink-0">
+            <Users className="h-7 w-7 md:h-6 md:w-6 text-black/60" />
           </div>
-          <div>
+          <div className="min-w-0">
             <p className="text-[10px] uppercase font-bold tracking-widest text-black/50">Pacientes</p>
             <h3 className="text-2xl font-serif font-black">{patientCount}</h3>
           </div>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-gray-100 flex items-center gap-3">
-          <div className="w-12 h-12 rounded-xl bg-black/5 flex items-center justify-center shrink-0">
-            <Activity className="h-6 w-6 text-black/60" />
+        <div className="bg-white p-6 md:p-5 rounded-2xl border border-gray-100 flex items-center gap-3 overflow-hidden">
+          <div className="w-14 h-14 md:w-12 md:h-12 rounded-xl bg-black/5 flex items-center justify-center shrink-0">
+            <Activity className="h-7 w-7 md:h-6 md:w-6 text-black/60" />
           </div>
-          <div>
+          <div className="min-w-0">
             <p className="text-[10px] uppercase font-bold tracking-widest text-black/50">Pendientes</p>
             <h3 className="text-2xl font-serif font-black">{pendingTotal}</h3>
           </div>
         </div>
 
-        <div className="bg-white p-5 rounded-2xl border border-gray-100 flex items-center gap-3">
-          <div className="w-12 h-12 rounded-xl bg-rose-50 flex items-center justify-center shrink-0">
-            <Heart className="h-6 w-6 text-rose-400" />
+        <div className="bg-white p-6 md:p-5 rounded-2xl border border-gray-100 flex items-center gap-3 overflow-hidden">
+          <div className="w-14 h-14 md:w-12 md:h-12 rounded-xl bg-rose-50 flex items-center justify-center shrink-0">
+            <Heart className="h-7 w-7 md:h-6 md:w-6 text-rose-400" />
           </div>
-          <div>
+          <div className="min-w-0">
             <p className="text-[10px] uppercase font-bold tracking-widest text-black/50">Seguidores</p>
             <h3 className="text-2xl font-serif font-black">{followersCount}</h3>
           </div>
@@ -145,7 +145,7 @@ export default async function DoctorDashboard() {
       </div>
 
       {/* Bottom Grid */}
-      <div className="grid grid-cols-2 gap-4 pb-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pb-10">
         {/* Profile Card */}
         <div className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm">
           <h3 className="text-xs font-bold uppercase tracking-widest text-black/40 mb-4">Mi Perfil</h3>

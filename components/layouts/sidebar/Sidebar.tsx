@@ -21,14 +21,16 @@ import {
   FileText,
   FolderOpen,
   Bell,
-  BarChart3
+  BarChart3,
+  CalendarCheck,
+  Video
 } from "lucide-react"
 import { useState, useEffect } from "react"
 
 interface SidebarProps {
   userName: string
   userEmail: string
-  role: "PATIENT" | "DOCTOR" | "ADMIN"
+  role: "PATIENT" | "DOCTOR" | "ADMIN" | "SECRETARY"
   userAvatar?: string
 }
 
@@ -66,6 +68,7 @@ export default function Sidebar({ userName, userEmail, role, userAvatar }: Sideb
           { name: "Mis Turnos", href: "/patient/appointments", icon: Calendar },
           { name: "Mis Médicos", href: "/patient/my-doctors", icon: Heart },
           { name: "Historia Clínica", href: "/patient/medical-history", icon: FileText },
+          { name: "Controles", href: "/patient/follow-ups", icon: CalendarCheck },
           { name: "Documentos", href: "/patient/documents", icon: FolderOpen },
           { name: "Notificaciones", href: "/patient/notifications", icon: Bell },
           { name: "Mi Perfil", href: "/patient/profile", icon: User },
@@ -79,6 +82,7 @@ export default function Sidebar({ userName, userEmail, role, userAvatar }: Sideb
           { name: "Historias", href: "/doctor/medical-records", icon: FileText },
           { name: "Seguidores", href: "/doctor/followers", icon: Heart },
           { name: "Disponibilidad", href: "/doctor/availability", icon: Clock },
+          { name: "Telemedicina", href: "/doctor/telemedicine", icon: Video },
         ]
       case "ADMIN":
         return [
@@ -88,6 +92,13 @@ export default function Sidebar({ userName, userEmail, role, userAvatar }: Sideb
           { name: "Turnos", href: "/admin/appointments", icon: Calendar },
           { name: "Reportes", href: "/admin/reports", icon: BarChart3 },
           { name: "Pagos", href: "/admin/payments", icon: CreditCard },
+          { name: "Configuración", href: "/admin/settings", icon: Settings },
+        ]
+      case "SECRETARY":
+        return [
+          { name: "Inicio", href: "/admin/dashboard", icon: LayoutDashboard },
+          { name: "Pacientes", href: "/admin/patients", icon: Users },
+          { name: "Turnos", href: "/admin/appointments", icon: Calendar },
           { name: "Configuración", href: "/admin/settings", icon: Settings },
         ]
       default:

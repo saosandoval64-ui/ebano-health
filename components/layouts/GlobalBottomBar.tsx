@@ -61,8 +61,16 @@ const adminTabs: Tab[] = [
   { name: "Config", href: "/admin/settings", icon: Settings },
 ]
 
+const secretaryTabs: Tab[] = [
+  { name: "Inicio", href: "/admin/dashboard", icon: LayoutDashboard },
+  { name: "Pacientes", href: "/admin/patients", icon: Users },
+  { name: "Turnos", href: "/admin/appointments", icon: Calendar },
+  { name: "Config", href: "/admin/settings", icon: Settings },
+]
+
 function getTabsForPath(pathname: string) {
   if (pathname.startsWith("/admin")) return adminTabs
+  if (pathname.startsWith("/secretary")) return secretaryTabs
   if (pathname.startsWith("/doctor")) return doctorTabs
   if (pathname.startsWith("/patient")) return patientTabs
   return publicTabs

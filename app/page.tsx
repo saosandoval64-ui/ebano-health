@@ -57,7 +57,7 @@ export default function LandingPage() {
   ];
 
   return (
-    <div className="min-h-screen text-black font-sans antialiased flex flex-col justify-between selection:bg-[#E2CE7D] pb-20 md:pb-0">
+    <div className="min-h-screen text-black font-sans antialiased flex flex-col justify-between selection:bg-[#E2CE7D]">
       
       {/* ================= NAVBAR RESPONSIVO ================= */}
       <header className="w-full max-w-7xl mx-auto px-4 sm:px-8 py-4 sm:py-6 flex items-center justify-between gap-4 relative z-10">

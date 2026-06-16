@@ -12,31 +12,32 @@ declare module "next-auth" {
       id: string
       name: string
       email: string
-      role: "PATIENT" | "DOCTOR" | "ADMIN"
+      role: "PATIENT" | "DOCTOR" | "ADMIN" | "SECRETARY"
       image?: string | null
     }
   }
   interface User {
-    role?: "PATIENT" | "DOCTOR" | "ADMIN"
+    role?: "PATIENT" | "DOCTOR" | "ADMIN" | "SECRETARY"
   }
 }
 
 declare module "@auth/core/jwt" {
   interface JWT {
-    role?: "PATIENT" | "DOCTOR" | "ADMIN"
+    role?: "PATIENT" | "DOCTOR" | "ADMIN" | "SECRETARY"
     id?: string
   }
 }
 
 export interface SessionPayload {
   userId: string
-  role: "PATIENT" | "DOCTOR" | "ADMIN"
+  role: "PATIENT" | "DOCTOR" | "ADMIN" | "SECRETARY"
 }
 
 export const DASHBOARD_BY_ROLE: Record<string, string> = {
   PATIENT: "/patient/dashboard",
   DOCTOR: "/doctor/dashboard",
   ADMIN: "/admin/dashboard",
+  SECRETARY: "/admin/dashboard",
 }
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
@@ -110,7 +111,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     },
     async session({ session, token }) {
       if (session.user) {
-        session.user.role = token.role as "PATIENT" | "DOCTOR" | "ADMIN"
+        session.user.role = token.role as "PATIENT" | "DOCTOR" | "ADMIN" | "SECRETARY"
         session.user.id = token.id as string
       }
       return session

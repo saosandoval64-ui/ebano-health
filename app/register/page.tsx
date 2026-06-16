@@ -1,11 +1,11 @@
 "use client"
 
 import { useState } from "react"
-import { ArrowLeft, ShieldCheck, User, Stethoscope } from "lucide-react"
+import { ArrowLeft, ShieldCheck, User, Stethoscope, ClipboardList } from "lucide-react"
 import Link from "next/link"
 
 export default function RegisterPage() {
-  const [activeTab, setActiveTab] = useState<"patient" | "doctor">("patient")
+  const [activeTab, setActiveTab] = useState<"patient" | "doctor" | "secretary">("patient")
 
   return (
     <div className="min-h-screen text-black font-sans antialiased flex flex-col bg-white">
@@ -66,10 +66,21 @@ export default function RegisterPage() {
               <Stethoscope className="w-4 h-4" />
               Médico
             </button>
+            <button
+              onClick={() => setActiveTab("secretary")}
+              className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
+                activeTab === "secretary"
+                  ? "bg-black text-[#FDF6CD] shadow-md"
+                  : "text-black/50 hover:text-black/70"
+              }`}
+            >
+              <ClipboardList className="w-4 h-4" />
+              Secretaria
+            </button>
           </div>
 
           {/* Content */}
-          {activeTab === "patient" ? (
+          {activeTab === "patient" && (
             <Link
               href="/register/patient"
               className="block bg-white p-6 rounded-3xl shadow-xl hover:shadow-2xl transition-all active:scale-[0.98] border border-gray-100"
@@ -86,7 +97,9 @@ export default function RegisterPage() {
                 </div>
               </div>
             </Link>
-          ) : (
+          )}
+
+          {activeTab === "doctor" && (
             <Link
               href="/register/doctor"
               className="block bg-white p-6 rounded-3xl shadow-xl hover:shadow-2xl transition-all active:scale-[0.98] border border-gray-100"
@@ -105,12 +118,37 @@ export default function RegisterPage() {
             </Link>
           )}
 
+          {activeTab === "secretary" && (
+            <Link
+              href="/register/secretary"
+              className="block bg-white p-6 rounded-3xl shadow-xl hover:shadow-2xl transition-all active:scale-[0.98] border border-gray-100"
+            >
+              <div className="flex items-center gap-4">
+                <div className="w-14 h-14 rounded-2xl bg-black/5 flex items-center justify-center shrink-0">
+                  <ClipboardList className="w-7 h-7 text-black" />
+                </div>
+                <div className="flex-1">
+                  <h2 className="font-bold text-lg text-black">Soy Secretaria</h2>
+                  <p className="text-xs text-black/50 mt-0.5">
+                    Gestiona turnos y pacientes del consultorio.
+                  </p>
+                </div>
+              </div>
+            </Link>
+          )}
+
           {/* Already have account */}
           <div className="mt-6 text-center">
             <p className="text-xs text-black/50">
               ¿Ya tienes cuenta?{" "}
               <Link
-                href={activeTab === "patient" ? "/login/patient" : "/login/doctor"}
+                href={
+                  activeTab === "patient"
+                    ? "/login/patient"
+                    : activeTab === "doctor"
+                      ? "/login/doctor"
+                      : "/login/admin"
+                }
                 className="font-bold text-black hover:text-[#F4C443] transition-colors"
               >
                 Inicia sesión
