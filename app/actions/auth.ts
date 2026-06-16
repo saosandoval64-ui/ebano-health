@@ -33,6 +33,7 @@ export async function loginUser(formData: FormData) {
       PATIENT: "/patient/dashboard",
       DOCTOR: "/doctor/dashboard",
       ADMIN: "/admin/dashboard",
+      SECRETARY: "/admin/dashboard",
     }
 
     return {

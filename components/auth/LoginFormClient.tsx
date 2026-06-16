@@ -4,7 +4,7 @@ import { useState, useCallback } from "react"
 import { Loader2, AlertCircle } from "lucide-react"
 import { signIn } from "next-auth/react"
 
-type LoginRole = "patient" | "doctor" | "admin"
+type LoginRole = "patient" | "doctor" | "admin" | "secretary"
 
 type LoginFormClientProps = {
   role: LoginRole
@@ -18,6 +18,7 @@ const DASHBOARD_BY_ROLE: Record<LoginRole, string> = {
   patient: "/patient/dashboard",
   doctor: "/doctor/dashboard",
   admin: "/admin/dashboard",
+  secretary: "/admin/dashboard",
 }
 
 export default function LoginFormClient({ role, placeholders }: LoginFormClientProps) {

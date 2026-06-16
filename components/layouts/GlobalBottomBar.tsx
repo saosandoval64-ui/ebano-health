@@ -18,6 +18,7 @@ import {
   LayoutDashboard,
   X,
   UserPlus,
+  Video,
 } from "lucide-react"
 
 type Tab = {
@@ -49,7 +50,7 @@ const doctorTabs: Tab[] = [
   { name: "Inicio", href: "/doctor/dashboard", icon: LayoutDashboard },
   { name: "Pacientes", href: "/doctor/patients", icon: Users },
   { name: "Turnos", href: "/doctor/appointments", icon: Calendar },
-  { name: "Horarios", href: "/doctor/availability", icon: Clock },
+  { name: "Telemedicina", href: "/doctor/telemedicine", icon: Video },
   { name: "Salir", href: "/", icon: LogOut, isLogout: true },
 ]
 

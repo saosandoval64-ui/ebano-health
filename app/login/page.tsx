@@ -34,6 +34,9 @@ export default function LoginPage() {
       case "admin":
         router.replace("/login/admin")
         break
+      case "secretary":
+        router.replace("/login/secretary")
+        break
       case "patient":
       default:
         router.replace("/login/patient")

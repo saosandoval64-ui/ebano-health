@@ -41,7 +41,7 @@ export default function SecretaryRegisterPage() {
             <ArrowLeft className="w-5 h-5" />
           </Link>
           <Link
-            href="/login/admin"
+            href="/login/secretary"
             className="text-xs font-bold uppercase tracking-wider text-black/70 hover:text-black transition-colors"
           >
             Sign In
@@ -111,7 +111,7 @@ export default function SecretaryRegisterPage() {
             <div className="mt-6 pt-4 border-t border-gray-100 text-center">
               <p className="text-xs text-black/50">
                 ¿Ya tienes cuenta?{" "}
-                <Link href="/login/admin" className="font-bold text-black hover:text-[#F4C443] transition-colors">
+                <Link href="/login/secretary" className="font-bold text-black hover:text-[#F4C443] transition-colors">
                   Inicia sesión
                 </Link>
               </p>
