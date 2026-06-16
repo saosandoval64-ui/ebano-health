@@ -24,12 +24,12 @@ export default async function AdminDashboard() {
   })
 
   return (
-    <div className="max-w-5xl mx-auto px-5 md:px-8">
+    <div className="max-w-5xl mx-auto px-8">
       {/* Header */}
       <div className="flex items-center justify-between pt-8 pb-6">
         <div>
           <p className="text-xs font-bold text-black/40 uppercase tracking-widest mb-1">Administración</p>
-          <h1 className="text-2xl md:text-3xl font-serif font-black text-black tracking-tight">
+          <h1 className="text-3xl font-serif font-black text-black tracking-tight">
             Panel de Administración
           </h1>
         </div>
@@ -39,7 +39,7 @@ export default async function AdminDashboard() {
       </div>
 
       {/* Metrics Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-8">
+      <div className="grid grid-cols-4 gap-4 mb-8">
         <div className="bg-[#F4C443]/15 p-5 rounded-2xl flex items-center gap-3">
           <div className="w-12 h-12 rounded-xl bg-[#F4C443] flex items-center justify-center text-black shrink-0">
             <Stethoscope className="h-6 w-6" />
@@ -82,9 +82,9 @@ export default async function AdminDashboard() {
       </div>
 
       {/* Content Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pb-8">
+      <div className="grid grid-cols-3 gap-4 pb-8">
         {/* Recent Appointments */}
-        <div className="md:col-span-2 bg-white p-5 rounded-2xl border border-gray-100 shadow-sm">
+        <div className="col-span-2 bg-white p-5 rounded-2xl border border-gray-100 shadow-sm">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-sm font-serif font-black tracking-tight">Últimas Reservas</h2>
             <Link

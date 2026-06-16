@@ -37,12 +37,12 @@ export default async function PatientDashboard() {
   const upcomingCount = appointments.length
 
   return (
-    <div className="max-w-5xl mx-auto px-5 md:px-8">
+    <div className="max-w-5xl mx-auto px-8">
       {/* Header */}
       <div className="flex items-center justify-between pt-8 pb-8">
         <div>
           <p className="text-xs font-bold text-black/40 uppercase tracking-widest mb-1">Mi salud</p>
-          <h1 className="text-2xl md:text-3xl font-serif font-black text-black tracking-tight">
+          <h1 className="text-3xl font-serif font-black text-black tracking-tight">
             Hola, {user.name}
           </h1>
         </div>
@@ -59,7 +59,7 @@ export default async function PatientDashboard() {
       </div>
 
       {/* Quick Actions Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-10">
+      <div className="grid grid-cols-4 gap-4 mb-10">
         <Link href="/patient/appointments" className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center gap-3 text-center hover:shadow-md transition-shadow active:scale-[0.98]">
           <div className="w-12 h-12 rounded-xl bg-[#F4C443]/15 flex items-center justify-center">
             <Calendar className="w-6 h-6 text-[#F4C443]" />
@@ -104,7 +104,7 @@ export default async function PatientDashboard() {
       {/* Next Appointment */}
       {nextApp && (
         <div className="mb-10">
-          <div className="bg-gradient-to-br from-[#F4C443] to-[#F9A825] p-6 md:p-8 rounded-3xl text-black shadow-lg">
+            <div className="bg-gradient-to-br from-[#F4C443] to-[#F9A825] p-8 rounded-3xl text-black shadow-lg">
             <div className="flex items-center gap-2 mb-4">
               <Calendar className="w-4 h-4" />
               <span className="text-xs font-bold uppercase tracking-wider opacity-70">Tu próxima cita</span>
@@ -146,7 +146,7 @@ export default async function PatientDashboard() {
       )}
 
       {/* Bottom Info Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pb-10">
+      <div className="grid grid-cols-3 gap-4 pb-10">
         {/* Info Card */}
         <div className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm">
           <h3 className="text-xs font-bold uppercase tracking-widest text-black/40 mb-4">Tu información</h3>

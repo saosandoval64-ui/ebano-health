@@ -66,12 +66,12 @@ export default async function DoctorDashboard() {
   })
 
   return (
-    <div className="max-w-5xl mx-auto px-5 md:px-8">
+    <div className="max-w-5xl mx-auto px-8">
       {/* Header */}
       <div className="flex items-center justify-between pt-8 pb-8">
         <div>
           <p className="text-xs font-bold text-black/40 uppercase tracking-widest mb-1">Mi consultorio</p>
-          <h1 className="text-2xl md:text-3xl font-serif font-black text-black tracking-tight">
+          <h1 className="text-3xl font-serif font-black text-black tracking-tight">
             Dr. {user?.name}
           </h1>
         </div>
@@ -88,7 +88,7 @@ export default async function DoctorDashboard() {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-10">
+      <div className="grid grid-cols-4 gap-4 mb-10">
         <div className="bg-[#F4C443]/15 p-5 rounded-2xl flex items-center gap-3">
           <div className="w-12 h-12 rounded-xl bg-[#F4C443] flex items-center justify-center text-black shrink-0">
             <Calendar className="h-6 w-6" />
@@ -145,7 +145,7 @@ export default async function DoctorDashboard() {
       </div>
 
       {/* Bottom Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pb-10">
+      <div className="grid grid-cols-2 gap-4 pb-10">
         {/* Profile Card */}
         <div className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm">
           <h3 className="text-xs font-bold uppercase tracking-widest text-black/40 mb-4">Mi Perfil</h3>
