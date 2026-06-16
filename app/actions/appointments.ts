@@ -145,6 +145,23 @@ export async function completeAppointment(appointmentId: string) {
   }
 
   try {
+    const appointment = await db.appointment.findUnique({
+      where: { id: appointmentId },
+    })
+
+    if (!appointment) {
+      return { success: false, message: "Cita no encontrada." }
+    }
+
+    if (session.role === "DOCTOR") {
+      const docProfile = await db.doctorProfile.findUnique({
+        where: { userId: session.userId },
+      })
+      if (!docProfile || appointment.doctorId !== docProfile.id) {
+        return { success: false, message: "No autorizado." }
+      }
+    }
+
     await db.appointment.update({
       where: { id: appointmentId },
       data: { status: "COMPLETED" },
@@ -279,6 +296,107 @@ export async function saveDoctorAvailability(formData: FormData) {
   }
 }
 
+// Buscar paciente por email (para que el clinic admin reserve en nombre de un paciente)
+export async function searchPatientByEmail(email: string) {
+  const session = await getSessionPayload()
+  if (!session || session.role !== "CLINIC_ADMIN") {
+    return { success: false, message: "No autorizado.", patients: [] }
+  }
+
+  if (!email || email.length < 3) {
+    return { success: true, patients: [] }
+  }
+
+  try {
+    const patients = await db.user.findMany({
+      where: {
+        role: "PATIENT",
+        OR: [
+          { email: { contains: email, mode: "insensitive" } },
+          { name: { contains: email, mode: "insensitive" } },
+          { lastName: { contains: email, mode: "insensitive" } },
+        ],
+      },
+      select: {
+        id: true,
+        name: true,
+        lastName: true,
+        email: true,
+      },
+      take: 10,
+      orderBy: { name: "asc" },
+    })
+
+    return {
+      success: true,
+      patients: patients.map((p) => ({
+        id: p.id,
+        name: `${p.name} ${p.lastName || ""}`.trim(),
+        email: p.email,
+      })),
+    }
+  } catch (error) {
+    console.error("Error searching patients:", error)
+    return { success: false, message: "Error al buscar pacientes.", patients: [] }
+  }
+}
+
+// Reservar un turno (clinic admin en nombre de un paciente)
+export async function bookAppointmentOnBehalf(formData: FormData) {
+  const session = await getSessionPayload()
+  if (!session || session.role !== "CLINIC_ADMIN") {
+    return { success: false, message: "No autorizado." }
+  }
+
+  const doctorId = formData.get("doctorId") as string
+  const patientId = formData.get("patientId") as string
+  const dateStr = formData.get("date") as string
+  const timeStr = formData.get("time") as string
+
+  if (!doctorId || !patientId || !dateStr || !timeStr) {
+    return { success: false, message: "Faltan seleccionar datos del paciente, fecha u hora." }
+  }
+
+  try {
+    const patient = await db.user.findUnique({ where: { id: patientId } })
+    if (!patient || patient.role !== "PATIENT") {
+      return { success: false, message: "Paciente no válido." }
+    }
+
+    const dateTime = new Date(`${dateStr}T${timeStr}:00`)
+
+    const existing = await db.appointment.findFirst({
+      where: {
+        doctorId,
+        dateTime,
+        status: { in: ["RESERVED", "PENDING"] },
+      },
+    })
+
+    if (existing) {
+      return { success: false, message: "Este horario ya ha sido reservado. Por favor elige otro." }
+    }
+
+    await db.appointment.create({
+      data: {
+        patientId,
+        doctorId,
+        dateTime,
+        status: "RESERVED",
+      },
+    })
+
+    revalidatePath(`/especialistas/${doctorId}`)
+    revalidatePath(`/clinic-admin/doctors/${doctorId}`)
+    revalidatePath("/clinic-admin/doctors")
+
+    return { success: true, message: "¡Cita reservada con éxito!" }
+  } catch (error) {
+    console.error("Error booking appointment on behalf:", error)
+    return { success: false, message: "Ocurrió un error al reservar el turno." }
+  }
+}
+
 // --- Seguir/Dejar de seguir médicos ---
 
 export async function toggleFollowDoctor(doctorProfileId: string) {
@@ -406,6 +524,19 @@ export async function rescheduleAppointment(appointmentId: string, newDateTime: 
     })
 
     if (!appointment) return { success: false, message: "Cita no encontrada" }
+
+    if (session.role === "PATIENT" && appointment.patientId !== session.userId) {
+      return { success: false, message: "No autorizado." }
+    }
+
+    if (session.role === "DOCTOR") {
+      const docProfile = await db.doctorProfile.findUnique({
+        where: { userId: session.userId },
+      })
+      if (!docProfile || appointment.doctorId !== docProfile.id) {
+        return { success: false, message: "No autorizado." }
+      }
+    }
 
     // Check for conflicts
     const conflict = await db.appointment.findFirst({

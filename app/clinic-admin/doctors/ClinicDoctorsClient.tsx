@@ -2,8 +2,9 @@
 
 import { useState, useTransition } from "react"
 import { useRouter } from "next/navigation"
+import Link from "next/link"
 import { createClinicDoctor, updateClinicDoctor, deleteClinicDoctor } from "../../actions/clinic"
-import { Loader2, Plus, Edit2, Trash2, X } from "lucide-react"
+import { Loader2, Plus, Edit2, Trash2, X, ExternalLink, User } from "lucide-react"
 
 interface DoctorData {
   id: string
@@ -257,6 +258,21 @@ export default function ClinicDoctorsClient({ initialDoctors }: ClinicDoctorsCli
                     </td>
                     <td className="py-4 px-6 text-right">
                       <div className="flex items-center justify-end gap-2">
+                        <Link
+                          href={`/especialistas/${doc.id}`}
+                          target="_blank"
+                          className="h-8 w-8 rounded-lg border border-black/5 bg-white hover:bg-[#F4C443] hover:border-[#F4C443] hover:text-black flex items-center justify-center text-black/70 transition-all"
+                          title="Ver perfil público"
+                        >
+                          <ExternalLink className="h-3.5 w-3.5" />
+                        </Link>
+                        <Link
+                          href={`/clinic-admin/doctors/${doc.id}`}
+                          className="h-8 w-8 rounded-lg border border-black/5 bg-white hover:bg-black hover:text-[#FDF6CD] flex items-center justify-center text-black/70 transition-all"
+                          title="Ver detalles y reservar"
+                        >
+                          <User className="h-3.5 w-3.5" />
+                        </Link>
                         <button
                           onClick={() => handleOpenEdit(doc)}
                           className="h-8 w-8 rounded-lg border border-black/5 bg-white hover:bg-black hover:text-[#FDF6CD] flex items-center justify-center text-black/70 transition-all cursor-pointer"

@@ -33,6 +33,7 @@ export async function POST(request: NextRequest) {
       PATIENT: "/patient/dashboard",
       DOCTOR: "/doctor/dashboard",
       ADMIN: "/admin/dashboard",
+      CLINIC_ADMIN: "/admin/dashboard",
     }
 
     return NextResponse.json({ 

@@ -4,8 +4,6 @@ import { db } from "../../lib/db"
 import bcrypt from "bcryptjs"
 import { signIn } from "../../lib/auth"
 
-type RoleType = "PATIENT" | "DOCTOR" | "CLINIC_ADMIN"
-
 export async function registerPatient(formData: FormData) {
   const name = formData.get("nombre") as string
   const lastName = formData.get("apellido") as string

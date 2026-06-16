@@ -93,95 +93,85 @@ export default function DoctorRegisterPage() {
           <div className="bg-white p-6 sm:p-8 rounded-3xl shadow-xl">
             <form onSubmit={handleSubmit} ref={formRef} className="space-y-4">
               {/* Step 1: Datos básicos */}
-              {currentStep === 0 && (
-                <>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div className="space-y-1.5">
-                      <label className="text-[10px] font-bold uppercase tracking-wider text-black/50 block">Nombre</label>
-                      <input name="nombre" type="text" required placeholder="Dr. Juan" className="w-full rounded-xl border border-gray-200 bg-gray-50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all" />
-                    </div>
-                    <div className="space-y-1.5">
-                      <label className="text-[10px] font-bold uppercase tracking-wider text-black/50 block">Apellido</label>
-                      <input name="apellido" type="text" required placeholder="Pérez" className="w-full rounded-xl border border-gray-200 bg-gray-50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all" />
-                    </div>
+              <div style={{ display: currentStep === 0 ? 'block' : 'none' }} className="space-y-4">
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="space-y-1.5">
+                    <label className="text-[10px] font-bold uppercase tracking-wider text-black/50 block">Nombre</label>
+                    <input name="nombre" type="text" required placeholder="Dr. Juan" className="w-full rounded-xl border border-gray-200 bg-gray-50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all" />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold uppercase tracking-wider text-black/50 block">Correo Electrónico</label>
-                    <input name="email" type="email" required placeholder="dr.juan@ebano.com" className="w-full rounded-xl border border-gray-200 bg-gray-50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all" />
+                    <label className="text-[10px] font-bold uppercase tracking-wider text-black/50 block">Apellido</label>
+                    <input name="apellido" type="text" required placeholder="Pérez" className="w-full rounded-xl border border-gray-200 bg-gray-50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all" />
                   </div>
-                  <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold uppercase tracking-wider text-black/50 block">Contraseña</label>
-                    <input name="password" type="password" required placeholder="••••••••" className="w-full rounded-xl border border-gray-200 bg-gray-50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all" />
-                  </div>
-                  <button type="button" onClick={() => setCurrentStep(1)} className="w-full rounded-full bg-black hover:bg-black/80 text-[#FDF6CD] font-bold text-xs tracking-wider uppercase h-11 mt-2 transition-all active:scale-[0.98]">
-                    Siguiente
-                  </button>
-                </>
-              )}
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-black/50 block">Correo Electrónico</label>
+                  <input name="email" type="email" required placeholder="dr.juan@ebano.com" className="w-full rounded-xl border border-gray-200 bg-gray-50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all" />
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-black/50 block">Contraseña</label>
+                  <input name="password" type="password" required placeholder="••••••••" className="w-full rounded-xl border border-gray-200 bg-gray-50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all" />
+                </div>
+                <button type="button" onClick={() => setCurrentStep(1)} className="w-full rounded-full bg-black hover:bg-black/80 text-[#FDF6CD] font-bold text-xs tracking-wider uppercase h-11 mt-2 transition-all active:scale-[0.98]">
+                  Siguiente
+                </button>
+              </div>
 
               {/* Step 2: Datos médicos */}
-              {currentStep === 1 && (
-                <>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div className="space-y-1.5">
-                      <label className="text-[10px] font-bold uppercase tracking-wider text-black/50 block">Matrícula</label>
-                      <input name="matricula" type="text" required placeholder="MP 123456" className="w-full rounded-xl border border-gray-200 bg-gray-50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all" />
-                    </div>
-                    <div className="space-y-1.5">
-                      <label className="text-[10px] font-bold uppercase tracking-wider text-black/50 block">Especialidad</label>
-                      <select name="especialidad" required className="w-full rounded-xl border border-gray-200 bg-gray-50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all">
-                        <option value="">Seleccionar...</option>
-                        <option value="Cardiólogo">Cardiólogo</option>
-                        <option value="Dermatólogo">Dermatólogo</option>
-                        <option value="Endocrinólogo">Endocrinólogo</option>
-                        <option value="Gastroenterólogo">Gastroenterólogo</option>
-                        <option value="Neurólogo">Neurólogo</option>
-                        <option value="Oftalmólogo">Oftalmólogo</option>
-                        <option value="Otorrinolaringólogo">Otorrinolaringólogo</option>
-                        <option value="Psiquiatra">Psiquiatra</option>
-                        <option value="Traumatólogo">Traumatólogo</option>
-                        <option value="Urólogo">Urólogo</option>
-                        <option value="Médico General">Médico General</option>
-                        <option value="Pediatra">Pediatra</option>
-                      </select>
-                    </div>
+              <div style={{ display: currentStep === 1 ? 'block' : 'none' }} className="space-y-4">
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="space-y-1.5">
+                    <label className="text-[10px] font-bold uppercase tracking-wider text-black/50 block">Matrícula</label>
+                    <input name="matricula" type="text" required placeholder="MP 123456" className="w-full rounded-xl border border-gray-200 bg-gray-50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all" />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold uppercase tracking-wider text-black/50 block">Teléfono</label>
-                    <input name="telefono" type="tel" required placeholder="+54 9 11 1234" className="w-full rounded-xl border border-gray-200 bg-gray-50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all" />
+                    <label className="text-[10px] font-bold uppercase tracking-wider text-black/50 block">Especialidad</label>
+                    <select name="especialidad" required className="w-full rounded-xl border border-gray-200 bg-gray-50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all">
+                      <option value="">Seleccionar...</option>
+                      <option value="Cardiólogo">Cardiólogo</option>
+                      <option value="Dermatólogo">Dermatólogo</option>
+                      <option value="Endocrinólogo">Endocrinólogo</option>
+                      <option value="Gastroenterólogo">Gastroenterólogo</option>
+                      <option value="Neurólogo">Neurólogo</option>
+                      <option value="Oftalmólogo">Oftalmólogo</option>
+                      <option value="Otorrinolaringólogo">Otorrinolaringólogo</option>
+                      <option value="Psiquiatra">Psiquiatra</option>
+                      <option value="Traumatólogo">Traumatólogo</option>
+                      <option value="Urólogo">Urólogo</option>
+                      <option value="Médico General">Médico General</option>
+                      <option value="Pediatra">Pediatra</option>
+                    </select>
                   </div>
-                  <div className="flex gap-3 mt-2">
-                    <button type="button" onClick={() => setCurrentStep(0)} className="flex-1 rounded-full bg-black/5 text-black font-bold text-xs uppercase tracking-wider h-11 transition-all hover:bg-black/10">
-                      Atrás
-                    </button>
-                    <button type="button" onClick={() => setCurrentStep(2)} className="flex-1 rounded-full bg-black hover:bg-black/80 text-[#FDF6CD] font-bold text-xs tracking-wider uppercase h-11 transition-all active:scale-[0.98]">
-                      Siguiente
-                    </button>
-                  </div>
-                </>
-              )}
+                </div>
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-black/50 block">Teléfono</label>
+                  <input name="telefono" type="tel" required placeholder="+54 9 11 1234" className="w-full rounded-xl border border-gray-200 bg-gray-50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all" />
+                </div>
+                <div className="flex gap-3 mt-2">
+                  <button type="button" onClick={() => setCurrentStep(0)} className="flex-1 rounded-full bg-black/5 text-black font-bold text-xs uppercase tracking-wider h-11 transition-all hover:bg-black/10">
+                    Atrás
+                  </button>
+                  <button type="button" onClick={() => setCurrentStep(2)} className="flex-1 rounded-full bg-black hover:bg-black/80 text-[#FDF6CD] font-bold text-xs tracking-wider uppercase h-11 transition-all active:scale-[0.98]">
+                    Siguiente
+                  </button>
+                </div>
+              </div>
 
               {/* Step 3: Consultorio */}
-              {currentStep === 2 && (
-                <>
-                  <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold uppercase tracking-wider text-black/50 block">Consultorio / Clínica</label>
-                    <input name="consultorio" type="text" placeholder="Clínica San Juan" className="w-full rounded-xl border border-gray-200 bg-gray-50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all" />
-                  </div>
-                  <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold uppercase tracking-wider text-black/50 block">Dirección</label>
-                    <input name="direccion" type="text" placeholder="Av. Principal 123" className="w-full rounded-xl border border-gray-200 bg-gray-50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all" />
-                  </div>
-                  <div className="flex gap-3 mt-2">
-                    <button type="button" onClick={() => setCurrentStep(1)} className="flex-1 rounded-full bg-black/5 text-black font-bold text-xs uppercase tracking-wider h-11 transition-all hover:bg-black/10">
-                      Atrás
-                    </button>
-                    <button type="submit" disabled={isPending} className="flex-1 rounded-full bg-black hover:bg-black/80 text-[#FDF6CD] font-bold text-xs tracking-wider uppercase h-11 disabled:opacity-60 flex items-center justify-center gap-2 transition-all active:scale-[0.98]">
-                      {isPending ? (<><Loader2 className="h-4 w-4 animate-spin" /> Registrando...</>) : "Registrar Práctica"}
-                    </button>
-                  </div>
-                </>
-              )}
+              <div style={{ display: currentStep === 2 ? 'block' : 'none' }} className="space-y-4">
+                <div className="space-y-1.5">
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-black/50 block">Consultorio / Clínica</label>
+                  <input name="consultorio" type="text" placeholder="Clínica San Juan" className="w-full rounded-xl border border-gray-200 bg-gray-50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all" />
+                </div>
+                <div className="flex gap-3 mt-2">
+                  <button type="button" onClick={() => setCurrentStep(1)} className="flex-1 rounded-full bg-black/5 text-black font-bold text-xs uppercase tracking-wider h-11 transition-all hover:bg-black/10">
+                    Atrás
+                  </button>
+                  <button type="submit" disabled={isPending} className="flex-1 rounded-full bg-black hover:bg-black/80 text-[#FDF6CD] font-bold text-xs tracking-wider uppercase h-11 disabled:opacity-60 flex items-center justify-center gap-2 transition-all active:scale-[0.98]">
+                    {isPending ? (<><Loader2 className="h-4 w-4 animate-spin" /> Registrando...</>) : "Registrar Práctica"}
+                  </button>
+                </div>
+              </div>
 
               {message && (
                 <p className="text-red-500 text-xs font-bold text-center bg-red-50 border border-red-100 p-3 rounded-xl">{message}</p>
