@@ -70,7 +70,7 @@ export default function ClientAppointmentsList({ initialAppointments }: ClientAp
   const renderAppList = (list: AppointmentData[]) => {
     if (list.length === 0) {
       return (
-        <div className="p-10 border border-dashed border-black/10 rounded-[30px] text-center bg-white/20">
+        <div className="p-10 border border-dashed border-gray-200 rounded-2xl text-center bg-gray-50">
           <AlertCircle className="h-8 w-8 text-black/30 mx-auto mb-3" />
           <p className="text-sm font-medium text-black/45">No se encontraron citas en esta categoría.</p>
         </div>
@@ -86,7 +86,7 @@ export default function ClientAppointmentsList({ initialAppointments }: ClientAp
           return (
             <div 
               key={app.id} 
-              className="bg-white/40 border border-white/50 p-6 rounded-[28px] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 transition-all hover:bg-white/60"
+              className="bg-white border border-gray-100 p-6 rounded-2xl flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 transition-all hover:shadow-md"
             >
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 rounded-2xl bg-[#F4C443]/20 border border-[#F4C443]/30 flex items-center justify-center overflow-hidden shrink-0">

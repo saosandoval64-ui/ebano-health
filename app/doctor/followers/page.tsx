@@ -24,7 +24,7 @@ export default async function DoctorFollowersPage() {
   })
 
   return (
-    <div className="p-4 sm:p-6 md:p-8 max-w-7xl mx-auto space-y-8 animate-slideInUp">
+    <div className="max-w-5xl mx-auto px-8 pt-8 pb-8 mb-20 md:mb-0 space-y-8">
       <div>
         <h1 className="text-3xl md:text-4xl font-serif font-black text-black tracking-tight flex items-center gap-3">
           <Heart className="h-7 w-7 text-rose-400" /> Mis Seguidores
@@ -35,7 +35,7 @@ export default async function DoctorFollowersPage() {
       </div>
 
       {followers.length === 0 ? (
-        <div className="p-14 border-2 border-dashed border-black/10 rounded-[36px] text-center bg-white/20 space-y-3">
+        <div className="p-14 border-2 border-dashed border-gray-200 rounded-2xl text-center bg-gray-50 space-y-3">
           <Heart className="h-12 w-12 text-black/20 mx-auto" />
           <p className="text-sm font-bold text-black/40">Aún no tenés seguidores</p>
           <p className="text-xs text-black/30">

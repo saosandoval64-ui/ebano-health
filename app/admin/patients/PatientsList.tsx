@@ -188,11 +188,11 @@ export default function PatientsList({ initialPatients }: PatientsListProps) {
 
       {/* Tabla de Pacientes */}
       {patients.length === 0 ? (
-        <div className="p-12 border border-dashed border-black/10 rounded-[32px] text-center bg-white/20">
+        <div className="p-12 border border-dashed border-gray-200 rounded-2xl text-center bg-gray-50">
           <p className="text-sm font-medium text-black/40">No hay pacientes registrados.</p>
         </div>
       ) : (
-        <div className="bg-white/40 border border-white/50 rounded-[32px] overflow-hidden shadow-sm">
+        <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm">
           <div className="overflow-x-auto">
             <table className="w-full border-collapse text-left text-sm text-black">
               <thead>

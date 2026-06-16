@@ -7,7 +7,7 @@ export default async function AdminSettingsPage() {
   if (!user || user.role !== "ADMIN") return redirect("/login")
 
   return (
-    <div className="space-y-8 font-sans text-black">
+    <div className="max-w-5xl mx-auto px-8 pt-8 pb-8 mb-20 md:mb-0 space-y-8 font-sans text-black">
       {/* Encabezado */}
       <div className="space-y-1">
         <h1 className="text-3xl font-serif font-black tracking-tight">Configuración Global</h1>
@@ -22,7 +22,7 @@ export default async function AdminSettingsPage() {
         <div className="lg:col-span-2 space-y-6">
           
           {/* Google Calendar Sync */}
-          <div className="bg-white/40 border border-white/50 p-6 sm:p-8 rounded-[32px] shadow-sm space-y-6">
+          <div className="bg-white border border-gray-100 p-6 sm:p-8 rounded-2xl shadow-sm space-y-6">
             <h3 className="text-lg font-serif font-black text-black flex items-center gap-2">
               <Calendar className="h-5 w-5 text-[#F4C443]" /> Integración con Google Calendar
             </h3>
@@ -48,7 +48,7 @@ export default async function AdminSettingsPage() {
           </div>
 
           {/* Configuración del Sistema */}
-          <div className="bg-white/40 border border-white/50 p-6 sm:p-8 rounded-[32px] shadow-sm space-y-6">
+          <div className="bg-white border border-gray-100 p-6 sm:p-8 rounded-2xl shadow-sm space-y-6">
             <h3 className="text-lg font-serif font-black text-black flex items-center gap-2">
               <Server className="h-5 w-5 text-[#F4C443]" /> Configuración del Servidor
             </h3>

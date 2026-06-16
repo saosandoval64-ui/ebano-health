@@ -45,7 +45,7 @@ export default function PatientSettingsClient({ initialAvatar }: PatientSettings
   }
 
   return (
-    <div className="max-w-2xl mx-auto space-y-8 font-sans text-black">
+    <div className="max-w-5xl mx-auto px-8 pt-8 pb-8 mb-20 md:mb-0 space-y-8 font-sans text-black">
       {/* Header */}
       <div className="space-y-1">
         <h1 className="text-3xl font-serif font-black tracking-tight">Ajustes de Cuenta</h1>
@@ -55,7 +55,7 @@ export default function PatientSettingsClient({ initialAvatar }: PatientSettings
       </div>
 
       {/* Avatar Section */}
-      <div className="bg-white/40 border border-white/50 p-6 sm:p-8 rounded-3xl shadow-sm">
+      <div className="bg-white border border-gray-100 p-6 sm:p-8 rounded-2xl shadow-sm">
         <h3 className="text-sm font-bold uppercase tracking-widest text-black/40 mb-4">Mi Avatar</h3>
         <div className="flex items-center gap-4">
           <button
@@ -83,7 +83,7 @@ export default function PatientSettingsClient({ initialAvatar }: PatientSettings
       </div>
 
       {/* Password Section */}
-      <div className="bg-white/40 border border-white/50 p-6 sm:p-8 rounded-3xl shadow-sm space-y-5">
+      <div className="bg-white border border-gray-100 p-6 sm:p-8 rounded-2xl shadow-sm space-y-5">
         <div>
           <h3 className="text-sm font-bold uppercase tracking-widest text-black/40 mb-1 flex items-center gap-2">
             <Lock className="w-4 h-4 text-[#F4C443]" /> Seguridad y Contraseña

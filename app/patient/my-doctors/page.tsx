@@ -13,7 +13,7 @@ export default async function MyDoctorsPage() {
   const followed = await getFollowedDoctors()
 
   return (
-    <div className="p-4 sm:p-6 md:p-8 max-w-7xl mx-auto space-y-8 animate-slideInUp">
+    <div className="max-w-5xl mx-auto px-8 pt-8 pb-8 mb-20 md:mb-0 space-y-8">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-3xl md:text-4xl font-serif font-black text-black tracking-tight flex items-center gap-3">
@@ -32,7 +32,7 @@ export default async function MyDoctorsPage() {
       </div>
 
       {followed.length === 0 ? (
-        <div className="p-14 border-2 border-dashed border-black/10 rounded-[36px] text-center bg-white/20 space-y-4">
+        <div className="p-14 border-2 border-dashed border-gray-200 rounded-2xl text-center bg-gray-50 space-y-4">
           <Heart className="h-12 w-12 text-black/20 mx-auto" />
           <p className="text-sm font-bold text-black/40">No seguís a ningún médico todavía</p>
           <p className="text-xs text-black/30 max-w-sm mx-auto">
@@ -46,11 +46,11 @@ export default async function MyDoctorsPage() {
           </Link>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {followed.map((doc) => (
             <div
               key={doc.id}
-              className="group bg-white border border-gray-100 p-6 rounded-[32px] shadow-sm hover:shadow-lg hover:border-[#F4C443]/30 transition-all duration-300 flex flex-col"
+              className="group bg-white border border-gray-100 p-6 rounded-2xl shadow-sm hover:shadow-md hover:border-[#F4C443]/30 transition-all duration-300 flex flex-col"
             >
               <div className="flex items-center gap-4 mb-5">
                 <div className="w-14 h-14 rounded-2xl bg-[#F4C443]/10 flex items-center justify-center overflow-hidden">
