@@ -15,7 +15,7 @@ export default function NavbarClient() {
       <nav className="hidden md:flex items-center gap-10 text-xs font-bold uppercase tracking-widest text-black/80">
         <Link href="/" className="hover:text-black transition-colors">Home</Link>
         <Link href="/especialistas" className="pb-1 border-b-2 border-black transition-all">Especialistas</Link>
-        <Link href="/#contact" className="hover:text-black transition-colors">Contacto</Link>
+        <Link href="/contact" className="hover:text-black transition-colors">Contacto</Link>
       </nav>
 
       <div className="flex items-center gap-4 sm:gap-6">

@@ -107,19 +107,6 @@ function AccountModal({ onClose }: { onClose: () => void }) {
                 <p className="text-xs text-black/50">Administra tu agenda y pacientes</p>
               </div>
             </Link>
-            <Link
-              href="/login/admin"
-              onClick={onClose}
-              className="flex items-center gap-4 p-4 rounded-2xl border border-gray-100 hover:bg-black/5 transition-all active:scale-[0.98]"
-            >
-              <div className="w-12 h-12 rounded-xl bg-black/5 flex items-center justify-center">
-                <Settings className="w-6 h-6 text-black/40" />
-              </div>
-              <div>
-                <p className="font-bold text-black text-sm">Administrador</p>
-                <p className="text-xs text-black/50">Panel de administración del sistema</p>
-              </div>
-            </Link>
           </div>
         </div>
       </div>

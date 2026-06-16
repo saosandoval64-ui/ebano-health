@@ -55,7 +55,7 @@ export default async function PatientDashboard() {
       </div>
 
       {/* Quick Actions Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-8">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-10">
         <Link href="/patient/appointments" className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm flex flex-col items-center gap-3 text-center hover:shadow-md transition-shadow active:scale-[0.98]">
           <div className="w-12 h-12 rounded-xl bg-[#F4C443]/15 flex items-center justify-center">
             <Calendar className="w-6 h-6 text-[#F4C443]" />
@@ -99,7 +99,7 @@ export default async function PatientDashboard() {
 
       {/* Next Appointment */}
       {nextApp && (
-        <div className="mb-8">
+        <div className="mb-10">
           <div className="bg-gradient-to-br from-[#F4C443] to-[#F9A825] p-6 md:p-8 rounded-3xl text-black shadow-lg">
             <div className="flex items-center gap-2 mb-4">
               <Calendar className="w-4 h-4" />
@@ -142,7 +142,7 @@ export default async function PatientDashboard() {
       )}
 
       {/* Bottom Info Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pb-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pb-10">
         {/* Info Card */}
         <div className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm">
           <h3 className="text-xs font-bold uppercase tracking-widest text-black/40 mb-4">Tu información</h3>
@@ -186,7 +186,7 @@ export default async function PatientDashboard() {
           <h3 className="text-xs font-bold uppercase tracking-widest opacity-50 mb-2">¿Necesitas ayuda?</h3>
           <p className="text-xs opacity-70 mb-4">Nuestro equipo está disponible para ayudarte</p>
           <Link
-            href="/#contact"
+            href="/contact"
             className="inline-flex items-center justify-center gap-2 w-full px-4 py-2.5 bg-[#F4C443] text-black rounded-xl font-bold text-xs hover:bg-[#F4C443]/80 transition-all"
           >
             Contactar soporte

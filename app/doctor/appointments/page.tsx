@@ -24,7 +24,9 @@ export default async function DoctorAppointmentsPage() {
       doctorId: doctorProfile.id,
     },
     include: {
-      patient: true,
+      patient: {
+        select: { name: true, lastName: true, avatar: true, email: true, phone: true, insurance: true },
+      },
     },
     orderBy: {
       dateTime: "desc",

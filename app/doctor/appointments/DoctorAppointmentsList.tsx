@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react"
 import { completeAppointment, cancelAppointment } from "../../actions/appointments"
 import { Calendar, Clock, Check, X, Loader2, AlertCircle } from "lucide-react"
+import AvatarDisplay from "@/components/AvatarDisplay"
 
 interface AppointmentData {
   id: string
@@ -14,6 +15,7 @@ interface AppointmentData {
     phone: string | null
     email: string
     insurance: string | null
+    avatar?: string | null
   }
 }
 
@@ -82,8 +84,8 @@ export default function DoctorAppointmentsList({ initialAppointments }: DoctorAp
               className="bg-white/40 border border-white/50 p-6 rounded-[28px] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 transition-all hover:bg-white/60"
             >
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-[20px] bg-black text-[#FDF6CD] flex items-center justify-center font-bold text-base shrink-0">
-                  {app.patient.name.charAt(0)}
+                <div className="w-12 h-12 rounded-2xl bg-black/5 border border-black/10 flex items-center justify-center overflow-hidden shrink-0">
+                  <AvatarDisplay avatar={app.patient.avatar} name={`${app.patient.name} ${app.patient.lastName || ""}`} size="sm" />
                 </div>
                 <div className="space-y-1">
                   <h4 className="font-bold text-base text-black">

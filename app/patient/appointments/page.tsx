@@ -16,7 +16,9 @@ export default async function PatientAppointmentsPage() {
     include: {
       doctor: {
         include: {
-          user: true,
+          user: {
+            select: { name: true, lastName: true, avatar: true },
+          },
         },
       },
     },
