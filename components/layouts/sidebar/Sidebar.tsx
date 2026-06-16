@@ -17,7 +17,8 @@ import {
   Stethoscope,
   Heart,
   CreditCard,
-  Home
+  Home,
+  FileText
 } from "lucide-react"
 import { useState, useEffect } from "react"
 
@@ -61,6 +62,7 @@ export default function Sidebar({ userName, userEmail, role, userAvatar }: Sideb
           { name: "Inicio", href: "/patient/dashboard", icon: LayoutDashboard },
           { name: "Mis Turnos", href: "/patient/appointments", icon: Calendar },
           { name: "Mis Médicos", href: "/patient/my-doctors", icon: Heart },
+          { name: "Historia Clínica", href: "/patient/medical-history", icon: FileText },
           { name: "Mi Perfil", href: "/patient/profile", icon: User },
           { name: "Configuración", href: "/patient/settings", icon: Settings },
         ]
@@ -69,6 +71,7 @@ export default function Sidebar({ userName, userEmail, role, userAvatar }: Sideb
           { name: "Inicio", href: "/doctor/dashboard", icon: LayoutDashboard },
           { name: "Turnos", href: "/doctor/appointments", icon: Calendar },
           { name: "Pacientes", href: "/doctor/patients", icon: Users },
+          { name: "Historias", href: "/doctor/medical-records", icon: FileText },
           { name: "Seguidores", href: "/doctor/followers", icon: Heart },
           { name: "Disponibilidad", href: "/doctor/availability", icon: Clock },
         ]

@@ -1,8 +1,8 @@
 "use client"
 
 import { useState, useTransition } from "react"
-import { completeAppointment, cancelAppointment } from "../../actions/appointments"
-import { Calendar, Clock, Check, X, Loader2, AlertCircle } from "lucide-react"
+import { completeAppointment, cancelAppointment, rescheduleAppointment } from "../../actions/appointments"
+import { Calendar, Clock, Check, X, Loader2, AlertCircle, RefreshCw } from "lucide-react"
 import AvatarDisplay from "@/components/AvatarDisplay"
 
 interface AppointmentData {
@@ -13,7 +13,6 @@ interface AppointmentData {
     name: string
     lastName: string | null
     phone: string | null
-    email: string
     insurance: string | null
     avatar?: string | null
   }
@@ -28,6 +27,9 @@ export default function DoctorAppointmentsList({ initialAppointments }: DoctorAp
   const [isPending, startTransition] = useTransition()
   const [activeTab, setActiveTab] = useState<"PENDING" | "COMPLETED" | "CANCELLED">("PENDING")
   const [message, setMessage] = useState("")
+  const [rescheduleId, setRescheduleId] = useState<string | null>(null)
+  const [newDate, setNewDate] = useState("")
+  const [newTime, setNewTime] = useState("")
 
   const pendingApps = appointments.filter((app) => app.status === "RESERVED" && new Date(app.dateTime) >= new Date())
   const completedApps = appointments.filter((app) => app.status === "COMPLETED")
@@ -62,6 +64,28 @@ export default function DoctorAppointmentsList({ initialAppointments }: DoctorAp
     })
   }
 
+  const handleReschedule = (appId: string) => {
+    if (!newDate || !newTime) {
+      setMessage("Seleccioná fecha y hora nueva")
+      return
+    }
+    setMessage("")
+    startTransition(async () => {
+      const dateTime = new Date(`${newDate}T${newTime}:00`)
+      const result = await rescheduleAppointment(appId, dateTime)
+      if (result.success) {
+        setAppointments((prev) =>
+          prev.map((app) => (app.id === appId ? { ...app, dateTime: dateTime } : app))
+        )
+        setRescheduleId(null)
+        setNewDate("")
+        setNewTime("")
+      } else {
+        setMessage(result.message)
+      }
+    })
+  }
+
   const renderList = (list: AppointmentData[]) => {
     if (list.length === 0) {
       return (
@@ -77,6 +101,7 @@ export default function DoctorAppointmentsList({ initialAppointments }: DoctorAp
         {list.map((app) => {
           const appDate = new Date(app.dateTime)
           const isPendingItem = app.status === "RESERVED" && appDate >= new Date()
+          const isRescheduling = rescheduleId === app.id
 
           return (
             <div 
@@ -92,7 +117,7 @@ export default function DoctorAppointmentsList({ initialAppointments }: DoctorAp
                     {app.patient.name} {app.patient.lastName}
                   </h4>
                   <p className="text-xs text-black/50 font-bold uppercase tracking-wider">
-                    DNI: {app.patient.phone || "Sin teléfono"} | {app.patient.email}
+                    DNI: {app.patient.phone || "Sin teléfono"}
                   </p>
                   <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-black/60 pt-1 font-semibold">
                     <span className="flex items-center gap-1">
@@ -111,31 +136,71 @@ export default function DoctorAppointmentsList({ initialAppointments }: DoctorAp
                 </div>
               </div>
 
-              <div className="flex items-center justify-between sm:justify-end gap-3 border-t sm:border-t-0 pt-3 sm:pt-0 border-black/5">
-                {app.status === "COMPLETED" && (
-                  <span className="px-2.5 py-1 rounded-full text-[9px] font-extrabold uppercase tracking-widest bg-green-100 text-green-700">Completado</span>
-                )}
-                {app.status === "CANCELLED" && (
-                  <span className="px-2.5 py-1 rounded-full text-[9px] font-extrabold uppercase tracking-widest bg-red-100 text-red-700">Cancelado</span>
-                )}
-                
-                {isPendingItem && (
-                  <div className="flex items-center gap-2">
+              <div className="flex flex-col items-end gap-3 border-t sm:border-t-0 pt-3 sm:pt-0 border-black/5">
+                <div className="flex items-center gap-3">
+                  {app.status === "COMPLETED" && (
+                    <span className="px-2.5 py-1 rounded-full text-[9px] font-extrabold uppercase tracking-widest bg-green-100 text-green-700">Completado</span>
+                  )}
+                  {app.status === "CANCELLED" && (
+                    <span className="px-2.5 py-1 rounded-full text-[9px] font-extrabold uppercase tracking-widest bg-red-100 text-red-700">Cancelado</span>
+                  )}
+                  
+                  {isPendingItem && !isRescheduling && (
+                    <div className="flex items-center gap-2">
+                      <button
+                        disabled={isPending}
+                        onClick={() => handleComplete(app.id)}
+                        className="h-9 px-4 rounded-xl text-[10px] font-bold uppercase tracking-widest bg-[#F4C443] hover:bg-[#E5B534] text-black transition-all flex items-center gap-1 active:scale-95 disabled:opacity-50"
+                      >
+                        {isPending ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Check className="h-3.5 w-3.5" />}
+                        Finalizar
+                      </button>
+                      <button
+                        disabled={isPending}
+                        onClick={() => setRescheduleId(app.id)}
+                        className="h-9 px-4 rounded-xl text-[10px] font-bold uppercase tracking-widest bg-blue-50 hover:bg-blue-100 text-blue-600 transition-all flex items-center gap-1 active:scale-95 disabled:opacity-50"
+                      >
+                        <RefreshCw className="h-3.5 w-3.5" /> Reprogramar
+                      </button>
+                      <button
+                        disabled={isPending}
+                        onClick={() => handleCancel(app.id)}
+                        className="h-9 px-4 rounded-xl text-[10px] font-bold uppercase tracking-widest bg-transparent hover:bg-red-50 text-red-600 border border-red-200/50 hover:border-red-300 transition-all flex items-center gap-1 active:scale-95 disabled:opacity-50"
+                      >
+                        {isPending ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <X className="h-3.5 w-3.5" />}
+                        Cancelar
+                      </button>
+                    </div>
+                  )}
+                </div>
+
+                {/* Reschedule Form */}
+                {isRescheduling && (
+                  <div className="flex items-center gap-2 bg-blue-50 p-3 rounded-xl">
+                    <input
+                      type="date"
+                      value={newDate}
+                      onChange={(e) => setNewDate(e.target.value)}
+                      className="rounded-lg border border-blue-200 bg-white text-black h-9 px-3 text-xs outline-none focus:ring-2 focus:ring-blue-400"
+                    />
+                    <input
+                      type="time"
+                      value={newTime}
+                      onChange={(e) => setNewTime(e.target.value)}
+                      className="rounded-lg border border-blue-200 bg-white text-black h-9 px-3 text-xs outline-none focus:ring-2 focus:ring-blue-400"
+                    />
                     <button
+                      onClick={() => handleReschedule(app.id)}
                       disabled={isPending}
-                      onClick={() => handleComplete(app.id)}
-                      className="h-9 px-4 rounded-xl text-[10px] font-bold uppercase tracking-widest bg-[#F4C443] hover:bg-[#E5B534] text-black hover:text-white transition-all flex items-center gap-1 active:scale-95 disabled:opacity-50"
+                      className="h-9 px-3 bg-blue-500 text-white rounded-lg text-xs font-bold hover:bg-blue-600 transition-all"
                     >
-                      {isPending ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Check className="h-3.5 w-3.5" />}
-                      Finalizar
+                      {isPending ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : "OK"}
                     </button>
                     <button
-                      disabled={isPending}
-                      onClick={() => handleCancel(app.id)}
-                      className="h-9 px-4 rounded-xl text-[10px] font-bold uppercase tracking-widest bg-transparent hover:bg-red-50 text-red-600 hover:text-red-700 border border-red-200/50 hover:border-red-300 transition-all flex items-center gap-1 active:scale-95 disabled:opacity-50"
+                      onClick={() => setRescheduleId(null)}
+                      className="h-9 px-3 bg-gray-200 text-black/60 rounded-lg text-xs font-bold hover:bg-gray-300 transition-all"
                     >
-                      {isPending ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <X className="h-3.5 w-3.5" />}
-                      Cancelar
+                      X
                     </button>
                   </div>
                 )}

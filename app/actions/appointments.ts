@@ -393,3 +393,52 @@ export async function getDoctorFollowers() {
     return []
   }
 }
+
+// Reprogramar una cita
+export async function rescheduleAppointment(appointmentId: string, newDateTime: Date) {
+  try {
+    const session = await getSessionPayload()
+    if (!session) return { success: false, message: "No autorizado" }
+
+    const appointment = await db.appointment.findUnique({
+      where: { id: appointmentId },
+      include: { doctor: true },
+    })
+
+    if (!appointment) return { success: false, message: "Cita no encontrada" }
+
+    // Check for conflicts
+    const conflict = await db.appointment.findFirst({
+      where: {
+        doctorId: appointment.doctorId,
+        id: { not: appointmentId },
+        dateTime: newDateTime,
+        status: { not: "CANCELLED" },
+      },
+    })
+
+    if (conflict) return { success: false, message: "Ese horario ya está ocupado" }
+
+    await db.appointment.update({
+      where: { id: appointmentId },
+      data: { dateTime: newDateTime },
+    })
+
+    // Notify patient
+    await db.notification.create({
+      data: {
+        userId: appointment.patientId,
+        type: "APPOINTMENT_RESCHEDULED",
+        title: "Cita reprogramada",
+        message: `Tu cita ha sido reprogramada para el ${newDateTime.toLocaleDateString("es-ES")} a las ${String(newDateTime.getHours()).padStart(2, "0")}:${String(newDateTime.getMinutes()).padStart(2, "0")} hs`,
+        metadata: JSON.stringify({ appointmentId }),
+      },
+    })
+
+    revalidatePath("/doctor/appointments")
+    revalidatePath("/patient/appointments")
+    return { success: true, message: "Cita reprogramada" }
+  } catch {
+    return { success: false, message: "Error al reprogramar" }
+  }
+}

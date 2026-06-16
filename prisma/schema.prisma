@@ -45,6 +45,8 @@ model User {
   doctorProfile  DoctorProfile?
   appointmentsAsPatient Appointment[] @relation("PatientAppointments")
   followedDoctors FavoriteDoctor[]
+  medicalRecordsAsPatient MedicalRecord[]
+  notifications   Notification[]
 }
 
 model DoctorProfile {
@@ -64,6 +66,7 @@ model DoctorProfile {
   appointments  Appointment[] @relation("DoctorAppointments")
   availability  Availability[]
   followedBy    FavoriteDoctor[]
+  medicalRecords MedicalRecord[]
 }
 
 model Availability {
@@ -93,8 +96,67 @@ model Appointment {
   dateTime    DateTime          // Fecha y hora exacta del turno agendado
   status      AppointmentStatus @default(RESERVED) // Estado: RESERVED por defecto (Paso 7)
 
+  // Reprogramación
+  originalAppointmentId String?
+  rescheduledFrom       Appointment? @relation("RescheduledAppointments", fields: [originalAppointmentId], references: [id])
+  rescheduledAppointments Appointment[] @relation("RescheduledAppointments")
+
   createdAt   DateTime          @default(now())
   updatedAt   DateTime          @updatedAt
+
+  // Relaciones
+  medicalRecord MedicalRecord?
+}
+
+model MedicalRecord {
+  id          String   @id @default(cuid())
+  
+  patientId   String
+  patient     User     @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  
+  doctorId    String
+  doctor      DoctorProfile @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+
+  appointmentId String? @unique
+  appointment   Appointment? @relation(fields: [appointmentId], references: [id])
+
+  // Datos clínicos
+  consultationDate DateTime @default(now())
+  reason           String   // Motivo de consulta
+  diagnosis        String   // Diagnóstico
+  treatment        String?  // Tratamiento indicado
+  notes            String?  // Notas adicionales del médico
+  prescriptions    String?  // Medicamentos recetados
+  vitalSigns       String?  // Signos vitales (JSON: tension, temperatura, peso, etc.)
+  
+  // Seguimiento
+  followUpDate     DateTime? // Próxima cita de control
+  followUpNotes    String?   // Notas de seguimiento
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([patientId])
+  @@index([doctorId])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  type      String   // APPOINTMENT_REMINDER, APPOINTMENT_CONFIRMED, FOLLOW_UP, MEDICATION, GENERAL
+  title     String
+  message   String
+  read      Boolean  @default(false)
+  
+  // Datos extras (JSON)
+  metadata  String?  // appointmentId, patientId, etc.
+  
+  createdAt DateTime @default(now())
+
+  @@index([userId, read])
 }
 
 model FavoriteDoctor {
