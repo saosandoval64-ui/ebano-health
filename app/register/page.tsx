@@ -1,11 +1,11 @@
 "use client"
 
 import { useState } from "react"
-import { ArrowLeft, ShieldCheck, User, Stethoscope, ClipboardList } from "lucide-react"
+import { ArrowLeft, ShieldCheck, User, Stethoscope, Building2 } from "lucide-react"
 import Link from "next/link"
 
 export default function RegisterPage() {
-  const [activeTab, setActiveTab] = useState<"patient" | "doctor" | "secretary">("patient")
+  const [activeTab, setActiveTab] = useState<"patient" | "doctor" | "clinicadmin">("patient")
 
   return (
     <div className="min-h-screen text-black font-sans antialiased flex flex-col bg-white">
@@ -67,15 +67,15 @@ export default function RegisterPage() {
               Médico
             </button>
             <button
-              onClick={() => setActiveTab("secretary")}
+              onClick={() => setActiveTab("clinicadmin")}
               className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
-                activeTab === "secretary"
+                activeTab === "clinicadmin"
                   ? "bg-black text-[#FDF6CD] shadow-md"
                   : "text-black/50 hover:text-black/70"
               }`}
             >
-              <ClipboardList className="w-4 h-4" />
-              Secretaria
+              <Building2 className="w-4 h-4" />
+              Clínica
             </button>
           </div>
 
@@ -118,19 +118,19 @@ export default function RegisterPage() {
             </Link>
           )}
 
-          {activeTab === "secretary" && (
+          {activeTab === "clinicadmin" && (
             <Link
-              href="/register/secretary"
+              href="/register/clinic-admin"
               className="block bg-white p-6 rounded-3xl shadow-xl hover:shadow-2xl transition-all active:scale-[0.98] border border-gray-100"
             >
               <div className="flex items-center gap-4">
                 <div className="w-14 h-14 rounded-2xl bg-black/5 flex items-center justify-center shrink-0">
-                  <ClipboardList className="w-7 h-7 text-black" />
+                  <Building2 className="w-7 h-7 text-[#8B5A2B]" />
                 </div>
                 <div className="flex-1">
-                  <h2 className="font-bold text-lg text-black">Soy Secretaria</h2>
+                  <h2 className="font-bold text-lg text-black">Soy Clínica / Hospital</h2>
                   <p className="text-xs text-black/50 mt-0.5">
-                    Gestiona turnos y pacientes del consultorio.
+                    Registra tu clínica y gestiona tus médicos.
                   </p>
                 </div>
               </div>
@@ -147,7 +147,7 @@ export default function RegisterPage() {
                     ? "/login/patient"
                     : activeTab === "doctor"
                       ? "/login/doctor"
-                      : "/login/admin"
+                      : "/login/clinic-admin"
                 }
                 className="font-bold text-black hover:text-[#F4C443] transition-colors"
               >

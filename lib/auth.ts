@@ -12,32 +12,32 @@ declare module "next-auth" {
       id: string
       name: string
       email: string
-      role: "PATIENT" | "DOCTOR" | "ADMIN" | "SECRETARY"
+      role: "PATIENT" | "DOCTOR" | "ADMIN" | "CLINIC_ADMIN"
       image?: string | null
     }
   }
   interface User {
-    role?: "PATIENT" | "DOCTOR" | "ADMIN" | "SECRETARY"
+    role?: "PATIENT" | "DOCTOR" | "ADMIN" | "CLINIC_ADMIN"
   }
 }
 
 declare module "@auth/core/jwt" {
   interface JWT {
-    role?: "PATIENT" | "DOCTOR" | "ADMIN" | "SECRETARY"
+    role?: "PATIENT" | "DOCTOR" | "ADMIN" | "CLINIC_ADMIN"
     id?: string
   }
 }
 
 export interface SessionPayload {
   userId: string
-  role: "PATIENT" | "DOCTOR" | "ADMIN" | "SECRETARY"
+  role: "PATIENT" | "DOCTOR" | "ADMIN" | "CLINIC_ADMIN"
 }
 
 export const DASHBOARD_BY_ROLE: Record<string, string> = {
   PATIENT: "/patient/dashboard",
   DOCTOR: "/doctor/dashboard",
   ADMIN: "/admin/dashboard",
-  SECRETARY: "/admin/dashboard",
+  CLINIC_ADMIN: "/clinic-admin/dashboard",
 }
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
@@ -111,7 +111,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     },
     async session({ session, token }) {
       if (session.user) {
-        session.user.role = token.role as "PATIENT" | "DOCTOR" | "ADMIN" | "SECRETARY"
+        session.user.role = token.role as "PATIENT" | "DOCTOR" | "ADMIN" | "CLINIC_ADMIN"
         session.user.id = token.id as string
       }
       return session

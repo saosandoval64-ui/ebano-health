@@ -30,7 +30,7 @@ import { useState, useEffect } from "react"
 interface SidebarProps {
   userName: string
   userEmail: string
-  role: "PATIENT" | "DOCTOR" | "ADMIN" | "SECRETARY"
+  role: "PATIENT" | "DOCTOR" | "ADMIN" | "CLINIC_ADMIN"
   userAvatar?: string
 }
 
@@ -94,12 +94,13 @@ export default function Sidebar({ userName, userEmail, role, userAvatar }: Sideb
           { name: "Pagos", href: "/admin/payments", icon: CreditCard },
           { name: "Configuración", href: "/admin/settings", icon: Settings },
         ]
-      case "SECRETARY":
+      case "CLINIC_ADMIN":
         return [
-          { name: "Inicio", href: "/admin/dashboard", icon: LayoutDashboard },
-          { name: "Pacientes", href: "/admin/patients", icon: Users },
-          { name: "Turnos", href: "/admin/appointments", icon: Calendar },
-          { name: "Configuración", href: "/admin/settings", icon: Settings },
+          { name: "Panel", href: "/clinic-admin/dashboard", icon: LayoutDashboard },
+          { name: "Mi Clínica", href: "/clinic-admin/clinic", icon: Stethoscope },
+          { name: "Médicos", href: "/clinic-admin/doctors", icon: Users },
+          { name: "Turnos", href: "/clinic-admin/appointments", icon: Calendar },
+          { name: "Configuración", href: "/clinic-admin/settings", icon: Settings },
         ]
       default:
         return []

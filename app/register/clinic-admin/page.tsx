@@ -1,11 +1,11 @@
 "use client"
 
 import { useState, useTransition, useRef } from "react"
-import { registerSecretary } from "../../actions/register"
-import { ArrowLeft, Loader2, ShieldCheck, ClipboardList } from "lucide-react"
+import { registerClinicAdmin } from "../../actions/register"
+import { ArrowLeft, Loader2, ShieldCheck, Building2 } from "lucide-react"
 import Link from "next/link"
 
-export default function SecretaryRegisterPage() {
+export default function ClinicAdminRegisterPage() {
   const [isPending, startTransition] = useTransition()
   const [message, setMessage] = useState("")
   const [successMessage, setSuccessMessage] = useState("")
@@ -18,11 +18,11 @@ export default function SecretaryRegisterPage() {
     setMessage("")
     setSuccessMessage("")
     startTransition(async () => {
-      const result = await registerSecretary(formData)
+      const result = await registerClinicAdmin(formData)
       if (result.success) {
         setSuccessMessage(result.message)
         formRef.current?.reset()
-        window.location.replace(result.redirectTo || "/admin/dashboard")
+        window.location.replace(result.redirectTo || "/clinic-admin/dashboard")
       } else {
         setMessage(result.message)
       }
@@ -31,7 +31,6 @@ export default function SecretaryRegisterPage() {
 
   return (
     <div className="min-h-screen text-black font-sans antialiased flex flex-col bg-white">
-      {/* Yellow Hero Section */}
       <div className="relative bg-[#F4C443] pt-8 pb-20 px-6 rounded-b-[40px]">
         <div className="flex items-center justify-between mb-8">
           <Link
@@ -41,7 +40,7 @@ export default function SecretaryRegisterPage() {
             <ArrowLeft className="w-5 h-5" />
           </Link>
           <Link
-            href="/login/secretary"
+            href="/login/clinic-admin"
             className="text-xs font-bold uppercase tracking-wider text-black/70 hover:text-black transition-colors"
           >
             Sign In
@@ -53,27 +52,29 @@ export default function SecretaryRegisterPage() {
             <img src="/avatars/avatar-4.svg" alt="Ébano" className="w-full h-full object-cover" />
           </div>
           <h1 className="text-3xl font-serif font-black text-black tracking-tight mb-1">
-            Registro de Secretaria
+            Registro de Clínica
           </h1>
           <p className="text-sm text-black/60 font-medium">
-            Portal de Secretaria Ébano Health
+            Registra tu clínica u hospital
           </p>
         </div>
       </div>
 
-      {/* Form Card */}
       <main className="flex-1 -mt-10 px-4 pb-8 relative z-10">
         <div className="w-full max-w-md mx-auto">
           <div className="bg-white p-6 sm:p-8 rounded-3xl shadow-xl">
-            {/* Role Badge */}
             <div className="inline-flex items-center gap-2 bg-black/5 px-4 py-2 rounded-2xl mb-6">
-              <ClipboardList className="w-4 h-4 text-black" />
+              <Building2 className="w-4 h-4 text-[#8B5A2B]" />
               <span className="text-xs font-bold uppercase tracking-wider text-black/70">
-                Cuenta de Secretaria
+                Cuenta de Clínica
               </span>
             </div>
 
             <form onSubmit={handleSubmit} ref={formRef} className="space-y-4">
+              <div className="space-y-1.5">
+                <label className="text-[10px] font-bold uppercase tracking-wider text-black/50 block">Nombre de la Clínica</label>
+                <input name="clinica" type="text" required placeholder="Clínica San José" className="w-full rounded-xl border border-gray-200 bg-gray-50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all" />
+              </div>
               <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-1.5">
                   <label className="text-[10px] font-bold uppercase tracking-wider text-black/50 block">Nombre</label>
@@ -86,7 +87,7 @@ export default function SecretaryRegisterPage() {
               </div>
               <div className="space-y-1.5">
                 <label className="text-[10px] font-bold uppercase tracking-wider text-black/50 block">Correo Electrónico</label>
-                <input name="email" type="email" required placeholder="secretaria@ebano.com" className="w-full rounded-xl border border-gray-200 bg-gray-50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all" />
+                <input name="email" type="email" required placeholder="clinica@ebano.com" className="w-full rounded-xl border border-gray-200 bg-gray-50 focus:bg-white h-11 px-4 text-sm outline-none focus:ring-2 focus:ring-[#F4C443] transition-all" />
               </div>
               <div className="space-y-1.5">
                 <label className="text-[10px] font-bold uppercase tracking-wider text-black/50 block">Contraseña</label>
@@ -111,7 +112,7 @@ export default function SecretaryRegisterPage() {
             <div className="mt-6 pt-4 border-t border-gray-100 text-center">
               <p className="text-xs text-black/50">
                 ¿Ya tienes cuenta?{" "}
-                <Link href="/login/secretary" className="font-bold text-black hover:text-[#F4C443] transition-colors">
+                <Link href="/login/clinic-admin" className="font-bold text-black hover:text-[#F4C443] transition-colors">
                   Inicia sesión
                 </Link>
               </p>

@@ -4,7 +4,7 @@ import { db } from "../../lib/db"
 import bcrypt from "bcryptjs"
 import { signIn } from "../../lib/auth"
 
-type RoleType = "PATIENT" | "DOCTOR" | "SECRETARY"
+type RoleType = "PATIENT" | "DOCTOR" | "CLINIC_ADMIN"
 
 export async function registerPatient(formData: FormData) {
   const name = formData.get("nombre") as string
@@ -116,44 +116,61 @@ export async function registerDoctor(formData: FormData) {
   }
 }
 
-export async function registerSecretary(formData: FormData) {
+export async function registerClinicAdmin(formData: FormData) {
   const name = formData.get("nombre") as string
   const lastName = formData.get("apellido") as string
   const email = formData.get("email") as string
   const password = formData.get("password") as string
   const phone = formData.get("telefono") as string
+  const clinicName = formData.get("clinica") as string
 
-  if (!email || !password || !name) {
+  if (!email || !password || !name || !clinicName) {
     return { success: false, message: "Faltan datos obligatorios." }
   }
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10)
 
-    await db.user.create({
+    const user = await db.user.create({
       data: {
         name,
         lastName,
         email,
         password: hashedPassword,
         phone: phone || null,
-        role: "SECRETARY",
+        role: "CLINIC_ADMIN",
+      },
+    })
+
+    // Crear la clínica asociada
+    const slug = clinicName
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "")
+
+    await db.clinic.create({
+      data: {
+        name: clinicName,
+        slug: `${slug}-${user.id.slice(0, 6)}`,
+        adminId: user.id,
       },
     })
 
     await signIn("credentials", {
       email,
       password,
-      expectedRole: "SECRETARY",
+      expectedRole: "CLINIC_ADMIN",
       redirect: false,
     })
 
-    return { success: true, message: "Registro de secretaria exitoso.", redirectTo: "/admin/dashboard" }
+    return { success: true, message: "Registro de clínica exitoso.", redirectTo: "/clinic-admin/dashboard" }
   } catch (error: any) {
     if (error?.message?.includes("redirect") || error?.digest?.includes("NEXT_REDIRECT")) {
-      return { success: true, message: "Registro de secretaria exitoso.", redirectTo: "/admin/dashboard" }
+      return { success: true, message: "Registro de clínica exitoso.", redirectTo: "/clinic-admin/dashboard" }
     }
-    console.error("Error al registrar secretaria:", error)
+    console.error("Error al registrar clínica:", error)
     return {
       success: false,
       message: "Error en el servidor. El correo ya podría estar registrado."

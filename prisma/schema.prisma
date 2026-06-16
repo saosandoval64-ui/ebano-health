@@ -11,7 +11,7 @@ enum Role {
   PATIENT
   DOCTOR
   ADMIN
-  SECRETARY
+  CLINIC_ADMIN
 }
 
 enum AppointmentStatus {
@@ -44,6 +44,7 @@ model User {
 
   // Relaciones
   doctorProfile  DoctorProfile?
+  clinic         Clinic?  // Si es CLINIC_ADMIN, la clínica que administra
   appointmentsAsPatient Appointment[] @relation("PatientAppointments")
   followedDoctors FavoriteDoctor[]
   medicalRecordsAsPatient MedicalRecord[]
@@ -60,6 +61,10 @@ model DoctorProfile {
   license     String   // Matrícula médica profesional
   bio         String?  // Breve descripción o presentación
   imageUrl    String?  // Foto del profesional
+
+  // Clínica asociada (opcional - null = consultorio individual)
+  clinicId    String?
+  clinic      Clinic?  @relation(fields: [clinicId], references: [id], onDelete: SetNull)
 
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -187,6 +192,28 @@ model MedicalDocument {
   uploadedAt  DateTime @default(now())
 
   @@index([patientId])
+}
+
+model Clinic {
+  id          String   @id @default(cuid())
+  name        String   // Nombre de la clínica u hospital
+  slug        String   @unique // URL-friendly: "clinica-san-jose"
+  description String?  // Descripción de la clínica
+  logo        String?  // Logo de la clínica
+  phone       String?  // Teléfono de contacto
+  email       String?  // Email de contacto
+  address     String?  // Dirección física
+  website     String?  // Sitio web
+
+  // Admin de la clínica (CLINIC_ADMIN)
+  adminId     String   @unique
+  admin       User     @relation(fields: [adminId], references: [id], onDelete: Cascade)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relaciones
+  doctors     DoctorProfile[]
 }
 
 model ContactForm {

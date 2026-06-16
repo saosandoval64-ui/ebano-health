@@ -1,8 +1,8 @@
-import { ShieldCheck, ClipboardList, ArrowLeft } from "lucide-react"
+import { ShieldCheck, Building2, ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import LoginFormClient from "../../../components/auth/LoginFormClient"
 
-export default function SecretaryLoginPage() {
+export default function ClinicAdminLoginPage() {
   return (
     <div className="min-h-screen text-black font-sans antialiased flex flex-col bg-white">
       <div className="relative bg-[#F4C443] pt-8 pb-20 px-6 rounded-b-[40px]">
@@ -14,7 +14,7 @@ export default function SecretaryLoginPage() {
             <ArrowLeft className="w-5 h-5" />
           </Link>
           <span className="text-xs font-bold uppercase tracking-wider text-black/40">
-            Secretaria
+            Clínica
           </span>
         </div>
 
@@ -23,10 +23,10 @@ export default function SecretaryLoginPage() {
             <img src="/avatars/avatar-4.svg" alt="Ébano" className="w-full h-full object-cover" />
           </div>
           <h1 className="text-3xl font-serif font-black text-black tracking-tight mb-1">
-            Panel Secretaria
+            Panel Clínica
           </h1>
           <p className="text-sm text-black/60 font-medium">
-            Portal de Secretaria Ébano Health
+            Gestión de clínica u hospital
           </p>
         </div>
       </div>
@@ -35,21 +35,21 @@ export default function SecretaryLoginPage() {
         <div className="w-full max-w-md mx-auto">
           <div className="bg-white p-6 sm:p-8 rounded-3xl shadow-xl">
             <div className="inline-flex items-center gap-2 bg-black/5 px-4 py-2 rounded-2xl mb-6">
-              <ClipboardList className="w-4 h-4 text-black" />
+              <Building2 className="w-4 h-4 text-[#8B5A2B]" />
               <span className="text-xs font-bold uppercase tracking-wider text-black/70">
-                Panel de Secretaria
+                Portal de Clínica
               </span>
             </div>
 
             <LoginFormClient
-              role="secretary"
-              placeholders={{ email: "secretaria@ebano.com" }}
+              role="clinicadmin"
+              placeholders={{ email: "clinica@ebano.com" }}
             />
           </div>
 
           <div className="mt-6 text-center">
             <p className="text-xs text-black/40 font-medium">
-              Acceso para personal administrativo y secretarias.
+              Acceso para administradores de clínicas y hospitales.
             </p>
           </div>
         </div>
