@@ -20,14 +20,14 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   const avatar = normalizeAvatar(user.avatar)
 
   return (
-    <div className="min-h-screen text-black font-sans flex flex-row selection:bg-[#E2CE7D]">
+    <div className="min-h-screen text-black font-sans flex flex-col md:flex-row selection:bg-[#E2CE7D]">
       <Sidebar
         userName={`${user.name} ${user.lastName || ""}`}
         userEmail={user.email}
         role="ADMIN"
         userAvatar={avatar}
       />
-      <main className="flex-1 overflow-y-auto h-screen">
+      <main className="flex-1 overflow-y-auto min-h-screen md:h-screen pb-20 md:pb-0">
         {children}
       </main>
     </div>

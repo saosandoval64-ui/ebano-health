@@ -91,7 +91,7 @@ export default function Sidebar({ userName, userEmail, role, userAvatar }: Sideb
   return (
     <>
       {/* Sidebar - Desktop only */}
-      <aside className="flex sticky top-0 left-0 h-screen w-[72px] md:w-[88px] bg-[#F4C443] flex-col items-center py-6 shrink-0">
+      <aside className="hidden md:flex sticky top-0 left-0 h-screen w-[88px] bg-[#F4C443] flex-col items-center py-6 shrink-0">
         {/* Logo */}
         <Link href="/" className="mb-6 flex flex-col items-center gap-1">
           <div className="w-12 h-12 rounded-xl overflow-hidden shadow-md">
