@@ -19,7 +19,7 @@ export default function RegisterPage() {
             <ArrowLeft className="w-5 h-5" />
           </Link>
           <Link
-            href="/login/patient"
+            href="/login"
             className="text-xs font-bold uppercase tracking-wider text-black/70 hover:text-black transition-colors"
           >
             Sign In
@@ -142,13 +142,7 @@ export default function RegisterPage() {
             <p className="text-xs text-black/50">
               ¿Ya tienes cuenta?{" "}
               <Link
-                href={
-                  activeTab === "patient"
-                    ? "/login/patient"
-                    : activeTab === "doctor"
-                      ? "/login/doctor"
-                      : "/login/clinic-admin"
-                }
+                href="/login"
                 className="font-bold text-black hover:text-[#F4C443] transition-colors"
               >
                 Inicia sesión
