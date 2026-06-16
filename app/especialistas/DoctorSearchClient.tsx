@@ -220,20 +220,7 @@ export default function DoctorSearchClient({ doctors, clinics }: DoctorSearchCli
     [filteredDoctors]
   )
 
-  const clinicDoctors = useMemo(
-    () => filteredDoctors.filter((d) => !!d.doctorProfile?.clinicId),
-    [filteredDoctors]
-  )
-
-  const activeClinicIds = useMemo(
-    () => new Set(clinicDoctors.map((d) => d.doctorProfile?.clinicId).filter(Boolean)),
-    [clinicDoctors]
-  )
-
-  const visibleClinics = useMemo(
-    () => filteredClinics.filter((c) => activeClinicIds.has(c.id)),
-    [filteredClinics, activeClinicIds]
-  )
+  const visibleClinics = filteredClinics
 
   const totalCount = filteredDoctors.length
 

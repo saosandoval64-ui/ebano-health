@@ -4,6 +4,7 @@ import { redirect } from "next/navigation"
 import { Stethoscope, Users, Calendar, Building2, ArrowRight, Activity, Plus } from "lucide-react"
 import Link from "next/link"
 import ClinicFormClient from "../clinic/ClinicFormClient"
+import AvatarDisplay from "@/components/AvatarDisplay"
 
 export default async function ClinicAdminDashboard() {
   const session = await auth()
@@ -20,6 +21,11 @@ export default async function ClinicAdminDashboard() {
     },
   })
 
+  const user = await db.user.findUnique({
+    where: { id: session.user.id },
+    select: { avatar: true, name: true },
+  })
+
   if (!clinic) {
     return (
       <div className="max-w-5xl mx-auto px-8 pt-8 pb-8">
@@ -30,8 +36,8 @@ export default async function ClinicAdminDashboard() {
               Panel de Administración
             </h1>
           </div>
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#F4C443] to-[#F9A825] flex items-center justify-center shadow-lg">
-            <Building2 className="w-6 h-6 text-black" />
+          <div className="w-12 h-12 rounded-2xl overflow-hidden shadow-lg">
+            <AvatarDisplay avatar={user?.avatar} name={user?.name || "Admin"} size="sm" />
           </div>
         </div>
 
@@ -87,8 +93,8 @@ export default async function ClinicAdminDashboard() {
             Panel de Administración
           </h1>
         </div>
-        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#F4C443] to-[#F9A825] flex items-center justify-center shadow-lg">
-          <Building2 className="w-6 h-6 text-black" />
+        <div className="w-12 h-12 rounded-2xl overflow-hidden shadow-lg">
+          <AvatarDisplay avatar={user?.avatar} name={user?.name || "Admin"} size="sm" />
         </div>
       </div>
 
@@ -148,16 +154,21 @@ export default async function ClinicAdminDashboard() {
                 return (
                   <div key={app.id} className="flex items-center justify-between gap-3 p-3 rounded-xl hover:bg-black/5 transition-colors">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-[#F4C443]/20 flex items-center justify-center font-bold text-black text-xs shrink-0">
-                        {app.patient.name.charAt(0)}
+                      <div className="w-10 h-10 rounded-xl overflow-hidden shrink-0">
+                        <AvatarDisplay avatar={app.patient.avatar} name={app.patient.name} size="sm" />
                       </div>
                       <div className="min-w-0">
                         <p className="font-bold text-xs text-black truncate">
                           {app.patient.name} {app.patient.lastName}
                         </p>
-                        <p className="text-[9px] uppercase font-bold tracking-widest text-black/40">
-                          Dr. {app.doctor.user.name} · {app.doctor.specialty}
-                        </p>
+                        <div className="flex items-center gap-1.5">
+                          <div className="w-4 h-4 rounded overflow-hidden">
+                            <AvatarDisplay avatar={app.doctor.user.avatar} name={app.doctor.user.name} size="sm" />
+                          </div>
+                          <p className="text-[9px] uppercase font-bold tracking-widest text-black/40">
+                            Dr. {app.doctor.user.name} · {app.doctor.specialty}
+                          </p>
+                        </div>
                       </div>
                     </div>
                     <div className="text-right shrink-0">
