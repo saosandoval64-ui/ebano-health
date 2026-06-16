@@ -18,7 +18,10 @@ import {
   Heart,
   CreditCard,
   Home,
-  FileText
+  FileText,
+  FolderOpen,
+  Bell,
+  BarChart3
 } from "lucide-react"
 import { useState, useEffect } from "react"
 
@@ -63,6 +66,8 @@ export default function Sidebar({ userName, userEmail, role, userAvatar }: Sideb
           { name: "Mis Turnos", href: "/patient/appointments", icon: Calendar },
           { name: "Mis Médicos", href: "/patient/my-doctors", icon: Heart },
           { name: "Historia Clínica", href: "/patient/medical-history", icon: FileText },
+          { name: "Documentos", href: "/patient/documents", icon: FolderOpen },
+          { name: "Notificaciones", href: "/patient/notifications", icon: Bell },
           { name: "Mi Perfil", href: "/patient/profile", icon: User },
           { name: "Configuración", href: "/patient/settings", icon: Settings },
         ]
@@ -81,6 +86,7 @@ export default function Sidebar({ userName, userEmail, role, userAvatar }: Sideb
           { name: "Médicos", href: "/admin/doctors", icon: Stethoscope },
           { name: "Pacientes", href: "/admin/patients", icon: Users },
           { name: "Turnos", href: "/admin/appointments", icon: Calendar },
+          { name: "Reportes", href: "/admin/reports", icon: BarChart3 },
           { name: "Pagos", href: "/admin/payments", icon: CreditCard },
           { name: "Configuración", href: "/admin/settings", icon: Settings },
         ]

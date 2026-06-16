@@ -104,7 +104,7 @@ export default async function PatientDashboard() {
       {/* Next Appointment */}
       {nextApp && (
         <div className="mb-10">
-            <div className="bg-gradient-to-br from-[#F4C443] to-[#F9A825] p-8 rounded-3xl text-black shadow-lg">
+            <div className="bg-gradient-to-br from-[#F4C443] to-[#F9A825] p-8 rounded-3xl text-black shadow-lg overflow-hidden">
             <div className="flex items-center gap-2 mb-4">
               <Calendar className="w-4 h-4" />
               <span className="text-xs font-bold uppercase tracking-wider opacity-70">Tu próxima cita</span>

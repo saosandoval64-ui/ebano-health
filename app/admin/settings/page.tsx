@@ -7,7 +7,7 @@ export default async function AdminSettingsPage() {
   if (!user || user.role !== "ADMIN") return redirect("/login")
 
   return (
-    <div className="max-w-5xl mx-auto px-8 pt-8 pb-8 mb-20 md:mb-0 space-y-8 font-sans text-black">
+    <div className="max-w-5xl mx-auto px-8 pt-8 pb-8 space-y-8 font-sans text-black">
       {/* Encabezado */}
       <div className="space-y-1">
         <h1 className="text-3xl font-serif font-black tracking-tight">Configuración Global</h1>

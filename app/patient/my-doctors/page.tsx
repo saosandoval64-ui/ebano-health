@@ -13,7 +13,7 @@ export default async function MyDoctorsPage() {
   const followed = await getFollowedDoctors()
 
   return (
-    <div className="max-w-5xl mx-auto px-8 pt-8 pb-8 mb-20 md:mb-0 space-y-8">
+    <div className="max-w-5xl mx-auto px-8 pt-8 pb-8 space-y-8">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-3xl md:text-4xl font-serif font-black text-black tracking-tight flex items-center gap-3">
@@ -50,7 +50,7 @@ export default async function MyDoctorsPage() {
           {followed.map((doc) => (
             <div
               key={doc.id}
-              className="group bg-white border border-gray-100 p-6 rounded-2xl shadow-sm hover:shadow-md hover:border-[#F4C443]/30 transition-all duration-300 flex flex-col"
+              className="group bg-white border border-gray-100 p-6 rounded-2xl shadow-sm hover:shadow-md hover:border-[#F4C443]/30 transition-all duration-300 flex flex-col overflow-hidden"
             >
               <div className="flex items-center gap-4 mb-5">
                 <div className="w-14 h-14 rounded-2xl bg-[#F4C443]/10 flex items-center justify-center overflow-hidden">

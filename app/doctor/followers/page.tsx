@@ -24,7 +24,7 @@ export default async function DoctorFollowersPage() {
   })
 
   return (
-    <div className="max-w-5xl mx-auto px-8 pt-8 pb-8 mb-20 md:mb-0 space-y-8">
+    <div className="max-w-5xl mx-auto px-8 pt-8 pb-8 space-y-8">
       <div>
         <h1 className="text-3xl md:text-4xl font-serif font-black text-black tracking-tight flex items-center gap-3">
           <Heart className="h-7 w-7 text-rose-400" /> Mis Seguidores

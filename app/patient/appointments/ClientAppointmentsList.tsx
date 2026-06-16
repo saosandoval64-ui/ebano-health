@@ -86,7 +86,7 @@ export default function ClientAppointmentsList({ initialAppointments }: ClientAp
           return (
             <div 
               key={app.id} 
-              className="bg-white border border-gray-100 p-6 rounded-2xl flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 transition-all hover:shadow-md"
+              className="bg-white border border-gray-100 p-6 rounded-2xl flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 transition-all hover:shadow-md overflow-hidden"
             >
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 rounded-2xl bg-[#F4C443]/20 border border-[#F4C443]/30 flex items-center justify-center overflow-hidden shrink-0">

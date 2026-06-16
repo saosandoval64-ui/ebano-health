@@ -118,7 +118,7 @@ export default function GlobalBottomBar() {
   const pathname = usePathname()
   const [showAccount, setShowAccount] = useState(false)
 
-  if (pathname.startsWith("/login") || pathname.startsWith("/register")) {
+  if (pathname === "/" || pathname.startsWith("/login") || pathname.startsWith("/register") || pathname.startsWith("/features") || pathname.startsWith("/contact") || pathname.startsWith("/especialistas")) {
     return null
   }
 

@@ -45,7 +45,7 @@ export default function PatientSettingsClient({ initialAvatar }: PatientSettings
   }
 
   return (
-    <div className="max-w-5xl mx-auto px-8 pt-8 pb-8 mb-20 md:mb-0 space-y-8 font-sans text-black">
+    <div className="max-w-5xl mx-auto px-8 pt-8 pb-8 space-y-8 font-sans text-black">
       {/* Header */}
       <div className="space-y-1">
         <h1 className="text-3xl font-serif font-black tracking-tight">Ajustes de Cuenta</h1>

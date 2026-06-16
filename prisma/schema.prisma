@@ -46,6 +46,7 @@ model User {
   appointmentsAsPatient Appointment[] @relation("PatientAppointments")
   followedDoctors FavoriteDoctor[]
   medicalRecordsAsPatient MedicalRecord[]
+  medicalDocuments MedicalDocument[]
   notifications   Notification[]
 }
 
@@ -67,6 +68,7 @@ model DoctorProfile {
   availability  Availability[]
   followedBy    FavoriteDoctor[]
   medicalRecords MedicalRecord[]
+  uploadedDocuments MedicalDocument[]
 }
 
 model Availability {
@@ -169,6 +171,21 @@ model FavoriteDoctor {
   doctor  DoctorProfile @relation(fields: [doctorId], references: [id], onDelete: Cascade)
 
   @@unique([patientId, doctorId])
+}
+
+model MedicalDocument {
+  id          String   @id @default(cuid())
+  patientId   String
+  patient     User     @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  doctorId    String?
+  doctor      DoctorProfile? @relation(fields: [doctorId], references: [id])
+  title       String
+  description String?
+  fileUrl     String
+  fileType    String   // "lab_result", "imaging", "prescription", "other"
+  uploadedAt  DateTime @default(now())
+
+  @@index([patientId])
 }
 
 model ContactForm {
