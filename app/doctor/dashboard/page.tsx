@@ -40,7 +40,7 @@ export default async function DoctorDashboard() {
       doctorId: doctorProfile.id,
       dateTime: { gte: startOfToday, lte: endOfToday },
     },
-    include: { patient: true },
+    include: { patient: { select: { name: true, lastName: true, phone: true, insurance: true, avatar: true } } },
     orderBy: { dateTime: "asc" },
   })
 
@@ -68,7 +68,7 @@ export default async function DoctorDashboard() {
   return (
     <div className="max-w-5xl mx-auto px-5 md:px-8">
       {/* Header */}
-      <div className="flex items-center justify-between pt-8 pb-6">
+      <div className="flex items-center justify-between pt-8 pb-8">
         <div>
           <p className="text-xs font-bold text-black/40 uppercase tracking-widest mb-1">Mi consultorio</p>
           <h1 className="text-2xl md:text-3xl font-serif font-black text-black tracking-tight">
@@ -83,7 +83,7 @@ export default async function DoctorDashboard() {
       </div>
 
       {/* Day Selector */}
-      <div className="mb-8">
+      <div className="mb-10">
         <DaySelector />
       </div>
 

@@ -32,7 +32,7 @@ type Tab = {
 const publicTabs: Tab[] = [
   { name: "Inicio", href: "/", icon: Home },
   { name: "Especialistas", href: "/especialistas", icon: Search },
-  { name: "Contacto", href: "/#contact", icon: Phone },
+  { name: "Contacto", href: "/contact", icon: Phone },
   { name: "Mi Cuenta", href: "#account", icon: User, isAccount: true },
   { name: "Registrarse", href: "/register", icon: UserPlus, isAction: true },
 ]

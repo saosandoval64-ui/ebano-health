@@ -91,9 +91,18 @@ export default function Sidebar({ userName, userEmail, role, userAvatar }: Sideb
   return (
     <>
       {/* Sidebar - Desktop only */}
-      <aside className="hidden md:flex sticky top-0 left-0 h-screen w-[72px] bg-[#F4C443] flex-col items-center py-5 shrink-0">
+      <aside className="hidden md:flex sticky top-0 left-0 h-screen w-[88px] bg-[#F4C443] flex-col items-center py-6 shrink-0">
+        {/* Logo */}
+        <Link href="/" className="mb-6 flex flex-col items-center gap-1">
+          <div className="w-12 h-12 rounded-xl overflow-hidden shadow-md">
+            <img src="/avatars/avatar-4.svg" alt="Ébano" className="w-full h-full object-cover" />
+          </div>
+          <span className="text-[11px] font-serif font-black text-black leading-none">Ébano</span>
+          <span className="text-[7px] font-bold uppercase tracking-[0.15em] text-black/50 leading-none">Health</span>
+        </Link>
+
         {/* Navigation */}
-        <nav className="flex-1 flex flex-col items-center gap-1.5 w-full">
+        <nav className="flex-1 flex flex-col items-center gap-2 w-full">
           {navLinks.map((link) => {
             const isActive = pathname === link.href || pathname.startsWith(link.href + "/")
             return (
@@ -102,7 +111,7 @@ export default function Sidebar({ userName, userEmail, role, userAvatar }: Sideb
                 href={link.href}
                 title={link.name}
                 className={`
-                  w-11 h-11 rounded-xl flex items-center justify-center
+                  w-12 h-12 rounded-xl flex items-center justify-center
                   transition-all duration-200
                   ${isActive
                     ? "bg-black text-[#F4C443] shadow-md"
@@ -120,7 +129,7 @@ export default function Sidebar({ userName, userEmail, role, userAvatar }: Sideb
         <Link
           href="/"
           title="Volver al inicio"
-          className="w-11 h-11 rounded-xl flex items-center justify-center text-black/60 hover:bg-black/10 hover:text-black transition-all mb-2"
+          className="w-12 h-12 rounded-xl flex items-center justify-center text-black/60 hover:bg-black/10 hover:text-black transition-all mb-3"
         >
           <Home className="w-5 h-5" />
         </Link>
@@ -128,7 +137,7 @@ export default function Sidebar({ userName, userEmail, role, userAvatar }: Sideb
         {/* User Avatar */}
         <button
           onClick={() => setIsAvatarModalOpen(true)}
-          className="w-11 h-11 rounded-xl bg-white/30 flex items-center justify-center overflow-hidden mb-2 hover:bg-white/50 transition-all"
+          className="w-12 h-12 rounded-xl bg-white/30 flex items-center justify-center overflow-hidden mb-3 hover:bg-white/50 transition-all"
         >
           {avatar ? (
             <img src={normalizeAvatar(avatar)} alt={userName} className="w-full h-full object-cover" />
@@ -141,7 +150,7 @@ export default function Sidebar({ userName, userEmail, role, userAvatar }: Sideb
         <button
           onClick={handleLogout}
           title="Cerrar sesión"
-          className="w-11 h-11 rounded-xl flex items-center justify-center text-black/50 hover:bg-red-100 hover:text-red-600 transition-all"
+          className="w-12 h-12 rounded-xl flex items-center justify-center text-black/50 hover:bg-red-100 hover:text-red-600 transition-all"
         >
           <LogOut className="w-4 h-4" />
         </button>

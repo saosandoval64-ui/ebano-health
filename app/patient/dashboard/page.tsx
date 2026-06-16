@@ -23,7 +23,11 @@ export default async function PatientDashboard() {
     },
     include: {
       doctor: {
-        include: { user: true },
+        include: {
+          user: {
+            select: { name: true, lastName: true, avatar: true },
+          },
+        },
       },
     },
     orderBy: { dateTime: "asc" },
@@ -35,7 +39,7 @@ export default async function PatientDashboard() {
   return (
     <div className="max-w-5xl mx-auto px-5 md:px-8">
       {/* Header */}
-      <div className="flex items-center justify-between pt-8 pb-6">
+      <div className="flex items-center justify-between pt-8 pb-8">
         <div>
           <p className="text-xs font-bold text-black/40 uppercase tracking-widest mb-1">Mi salud</p>
           <h1 className="text-2xl md:text-3xl font-serif font-black text-black tracking-tight">
@@ -50,7 +54,7 @@ export default async function PatientDashboard() {
       </div>
 
       {/* Day Selector */}
-      <div className="mb-8">
+      <div className="mb-10">
         <DaySelector />
       </div>
 
@@ -106,8 +110,8 @@ export default async function PatientDashboard() {
               <span className="text-xs font-bold uppercase tracking-wider opacity-70">Tu próxima cita</span>
             </div>
             <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-2xl bg-black/10 flex items-center justify-center shrink-0">
-                <Stethoscope className="w-7 h-7 text-black" />
+              <div className="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center overflow-hidden shrink-0">
+                <AvatarDisplay avatar={nextApp.doctor.user.avatar} name={`${nextApp.doctor.user.name} ${nextApp.doctor.user.lastName || ""}`} size="sm" />
               </div>
               <div className="flex-1 min-w-0">
                 <h3 className="text-xl font-black truncate">

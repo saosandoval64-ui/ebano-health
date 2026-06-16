@@ -33,7 +33,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col text-foreground bg-white">
         <AuthProvider>
-          <div className="min-h-screen flex flex-col">
+          <div className="min-h-screen flex flex-col md:pb-0 pb-16">
             <PageTransition>{children}</PageTransition>
           </div>
           <GlobalBottomBar />
