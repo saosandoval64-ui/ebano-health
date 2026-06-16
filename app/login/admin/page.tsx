@@ -1,6 +1,7 @@
 import { ShieldCheck, Briefcase, ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import LoginFormClient from "../../../components/auth/LoginFormClient"
+import RoleChooser from "../../../components/auth/RoleChooser"
 
 export default function AdminLoginPage() {
   return (
@@ -52,12 +53,7 @@ export default function AdminLoginPage() {
 
           </div>
 
-          {/* Info */}
-          <div className="mt-6 text-center">
-            <p className="text-xs text-black/40 font-medium">
-              Acceso administrativo separado del portal principal.
-            </p>
-          </div>
+          <RoleChooser current="/login/admin" />
         </div>
       </main>
 

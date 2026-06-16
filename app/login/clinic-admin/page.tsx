@@ -1,6 +1,7 @@
 import { ShieldCheck, Building2, ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import LoginFormClient from "../../../components/auth/LoginFormClient"
+import RoleChooser from "../../../components/auth/RoleChooser"
 
 export default function ClinicAdminLoginPage() {
   return (
@@ -47,11 +48,7 @@ export default function ClinicAdminLoginPage() {
             />
           </div>
 
-          <div className="mt-6 text-center">
-            <p className="text-xs text-black/40 font-medium">
-              Acceso para administradores de clínicas y hospitales.
-            </p>
-          </div>
+          <RoleChooser current="/login/clinic-admin" />
         </div>
       </main>
 

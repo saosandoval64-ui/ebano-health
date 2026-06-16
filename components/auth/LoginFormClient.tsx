@@ -21,6 +21,13 @@ const DASHBOARD_BY_ROLE: Record<LoginRole, string> = {
   clinicadmin: "/clinic-admin/dashboard",
 }
 
+const DB_ROLE_MAP: Record<LoginRole, string> = {
+  patient: "PATIENT",
+  doctor: "DOCTOR",
+  admin: "ADMIN",
+  clinicadmin: "CLINIC_ADMIN",
+}
+
 export default function LoginFormClient({ role, placeholders }: LoginFormClientProps) {
   const [isPending, setIsPending] = useState(false)
   const [message, setMessage] = useState("")
@@ -38,7 +45,7 @@ export default function LoginFormClient({ role, placeholders }: LoginFormClientP
       const result = await signIn("credentials", {
         email,
         password,
-        expectedRole: role.toUpperCase(),
+        expectedRole: DB_ROLE_MAP[role],
         redirect: false,
       })
 
@@ -49,7 +56,6 @@ export default function LoginFormClient({ role, placeholders }: LoginFormClientP
         return
       }
 
-      // Login exitoso - redirigir al dashboard del rol
       window.location.href = DASHBOARD_BY_ROLE[role]
     } catch {
       setMessage("Error de conexión. Intenta de nuevo.")

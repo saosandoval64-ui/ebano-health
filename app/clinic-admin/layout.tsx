@@ -24,7 +24,7 @@ export default async function ClinicAdminLayout({ children }: { children: React.
       <Sidebar
         userName={`${user.name} ${user.lastName || ""}`}
         userEmail={user.email}
-        role="ADMIN"
+        role="CLINIC_ADMIN"
         userAvatar={avatar}
       />
       <main className="flex-1 min-h-screen md:h-screen overflow-y-auto pb-24 md:pb-0">

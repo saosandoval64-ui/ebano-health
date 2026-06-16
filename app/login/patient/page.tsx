@@ -1,6 +1,7 @@
 import { X, ShieldCheck, User, ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import LoginFormClient from "../../../components/auth/LoginFormClient"
+import RoleChooser from "../../../components/auth/RoleChooser"
 
 export default function PatientLoginPage() {
   return (
@@ -55,27 +56,7 @@ export default function PatientLoginPage() {
 
           </div>
 
-          {/* Links */}
-          <div className="mt-6 space-y-3 text-center">
-            <p className="text-sm text-black/60">
-              ¿No tienes cuenta?{" "}
-              <Link
-                href="/register/patient"
-                className="font-bold text-black hover:text-[#F4C443] transition-colors"
-              >
-                Regístrate aquí
-              </Link>
-            </p>
-            <p className="text-sm text-black/60">
-              ¿Eres médico?{" "}
-              <Link
-                href="/login/doctor"
-                className="font-semibold text-black hover:text-[#F4C443] transition-colors"
-              >
-                Inicia sesión aquí
-              </Link>
-            </p>
-          </div>
+          <RoleChooser current="/login/patient" />
         </div>
       </main>
 

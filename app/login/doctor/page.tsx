@@ -1,6 +1,7 @@
 import { ShieldCheck, Stethoscope, ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import LoginFormClient from "../../../components/auth/LoginFormClient"
+import RoleChooser from "../../../components/auth/RoleChooser"
 
 export default function DoctorLoginPage() {
   return (
@@ -55,27 +56,7 @@ export default function DoctorLoginPage() {
 
           </div>
 
-          {/* Links */}
-          <div className="mt-6 space-y-3 text-center">
-            <p className="text-sm text-black/60">
-              ¿No tienes cuenta?{" "}
-              <Link
-                href="/register/doctor"
-                className="font-bold text-black hover:text-[#F4C443] transition-colors"
-              >
-                Regístrate aquí
-              </Link>
-            </p>
-            <p className="text-sm text-black/60">
-              ¿Eres paciente?{" "}
-              <Link
-                href="/login/patient"
-                className="font-semibold text-black hover:text-[#F4C443] transition-colors"
-              >
-                Inicia sesión aquí
-              </Link>
-            </p>
-          </div>
+          <RoleChooser current="/login/doctor" />
         </div>
       </main>
 
