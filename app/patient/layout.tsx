@@ -27,7 +27,7 @@ export default async function PatientLayout({ children }: { children: React.Reac
         role="PATIENT"
         userAvatar={avatar}
       />
-      <main className="flex-1 overflow-y-auto min-h-screen md:h-screen pb-24 md:pb-0 md:pl-3">
+      <main className="flex-1 overflow-y-auto min-h-screen md:h-screen pb-24 md:pb-0">
         {children}
       </main>
     </div>

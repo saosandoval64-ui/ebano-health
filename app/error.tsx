@@ -2,7 +2,7 @@
 
 export default function RootError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   return (
-    <div className="min-h-screen bg-[#FDF6CD] flex items-center justify-center p-8 font-sans">
+    <div className="min-h-screen bg-white flex items-center justify-center p-8 font-sans">
       <div className="max-w-md text-center space-y-6">
         <h1 className="text-6xl font-serif font-black text-black">Oops</h1>
         <p className="text-black/60 text-sm">

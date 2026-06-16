@@ -136,7 +136,7 @@ export default function DoctorsCrud({ initialDoctors }: DoctorsCrudProps) {
       {/* Formulario Modal flotante */}
       {showForm && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-[#FDF6CD] border border-black/10 rounded-[32px] w-full max-w-lg p-6 sm:p-8 relative shadow-2xl overflow-y-auto max-h-[90vh] text-black">
+          <div className="bg-white border border-black/10 rounded-[32px] w-full max-w-lg p-6 sm:p-8 relative shadow-2xl overflow-y-auto max-h-[90vh] text-black">
             <button
               onClick={() => setShowForm(false)}
               className="absolute top-4 right-4 h-8 w-8 rounded-full bg-black/5 hover:bg-black/10 flex items-center justify-center"

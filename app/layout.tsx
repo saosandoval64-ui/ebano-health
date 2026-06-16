@@ -31,16 +31,7 @@ export default function RootLayout({
         <link rel="icon" href="/avatars/avatar-4.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/avatars/avatar-4.svg" />
       </head>
-      <body className="min-h-full flex flex-col text-foreground"
-        style={{
-          backgroundColor: "#FDF6CD",
-          backgroundImage: "url('/fondo.png')",
-          backgroundBlendMode: "overlay",
-          backgroundAttachment: "scroll",
-          backgroundRepeat: "repeat",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}>
+      <body className="min-h-full flex flex-col text-foreground bg-white">
         <AuthProvider>
           <div className="min-h-screen flex flex-col">
             <PageTransition>{children}</PageTransition>

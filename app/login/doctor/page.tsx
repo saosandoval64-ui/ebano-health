@@ -4,7 +4,7 @@ import LoginFormClient from "../../../components/auth/LoginFormClient"
 
 export default function DoctorLoginPage() {
   return (
-    <div className="min-h-screen text-black font-sans antialiased flex flex-col bg-[#FDF6CD]">
+    <div className="min-h-screen text-black font-sans antialiased flex flex-col bg-white">
       {/* Yellow Hero Section */}
       <div className="relative bg-[#F4C443] pt-8 pb-20 px-6 rounded-b-[40px]">
         <div className="flex items-center justify-between mb-8">
