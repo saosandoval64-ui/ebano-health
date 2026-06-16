@@ -67,6 +67,7 @@ export default function LandingPage() {
 
         <nav className="hidden md:flex items-center gap-10 text-xs font-bold uppercase tracking-widest text-black/80">
           <Link href="/" className="pb-1 border-b-2 border-black transition-all">Home</Link>
+          <Link href="/features" className="hover:text-black transition-colors">Funciones</Link>
           <Link href="/especialistas" className="hover:text-black transition-colors">Especialistas</Link>
           <Link href="/contact" className="hover:text-black transition-colors">Contacto</Link>
         </nav>
