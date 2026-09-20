@@ -227,6 +227,17 @@ export async function deleteClinicDoctor(userId: string) {
       return { success: false, message: "No autorizado para eliminar este médico." }
     }
 
+    const [records, docs] = await Promise.all([
+      db.medicalRecord.count({ where: { doctorId: doctorProfile.id } }),
+      db.medicalDocument.count({ where: { doctorId: doctorProfile.id } }),
+    ])
+    if (records + docs > 0) {
+      return {
+        success: false,
+        message: "No se puede eliminar: el médico tiene historia clínica o documentos asociados a pacientes.",
+      }
+    }
+
     await db.user.delete({ where: { id: userId } })
 
     revalidatePath("/clinic-admin/doctors")

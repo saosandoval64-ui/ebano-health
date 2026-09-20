@@ -118,6 +118,31 @@ export async function deleteUser(userId: string) {
   }
 
   try {
+    const target = await db.user.findUnique({
+      where: { id: userId },
+      include: { doctorProfile: true },
+    })
+    if (!target) return { success: false, message: "Usuario no encontrado." }
+
+    // Evitar borrado en cascada silencioso de historia clínica / documentos.
+    // El esquema tiene onDelete: Cascade en MedicalRecord/MedicalDocument/
+    // Appointment, así que eliminar el User destruiría ese historial de forma
+    // permanente e irreversible. Para un SaaS médico eso no debe pasar con
+    // un solo clic: se bloquea y se pide desactivar en vez de borrar.
+    const [recordsAsPatient, docsAsPatient, recordsAsDoctor, docsAsDoctor] = await Promise.all([
+      db.medicalRecord.count({ where: { patientId: userId } }),
+      db.medicalDocument.count({ where: { patientId: userId } }),
+      target.doctorProfile ? db.medicalRecord.count({ where: { doctorId: target.doctorProfile.id } }) : 0,
+      target.doctorProfile ? db.medicalDocument.count({ where: { doctorId: target.doctorProfile.id } }) : 0,
+    ])
+
+    if (recordsAsPatient + docsAsPatient + recordsAsDoctor + docsAsDoctor > 0) {
+      return {
+        success: false,
+        message: "No se puede eliminar: tiene historia clínica o documentos asociados. Se debe conservar ese historial por razones médicas/legales.",
+      }
+    }
+
     await db.user.delete({
       where: { id: userId },
     })

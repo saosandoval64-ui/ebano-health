@@ -83,7 +83,10 @@ export async function bookAppointment(formData: FormData) {
     revalidatePath("/patient/appointments")
 
     return { success: true, message: "¡Cita reservada con éxito!" }
-  } catch (error) {
+  } catch (error: unknown) {
+    if (error && typeof error === "object" && "code" in error && (error as { code: string }).code === "P2002") {
+      return { success: false, message: "Este horario ya ha sido reservado. Por favor elige otro." }
+    }
     console.error("Error booking appointment:", error)
     return { success: false, message: "Ocurrió un error al reservar el turno." }
   }
@@ -391,7 +394,10 @@ export async function bookAppointmentOnBehalf(formData: FormData) {
     revalidatePath("/clinic-admin/doctors")
 
     return { success: true, message: "¡Cita reservada con éxito!" }
-  } catch (error) {
+  } catch (error: unknown) {
+    if (error && typeof error === "object" && "code" in error && (error as { code: string }).code === "P2002") {
+      return { success: false, message: "Este horario ya ha sido reservado. Por favor elige otro." }
+    }
     console.error("Error booking appointment on behalf:", error)
     return { success: false, message: "Ocurrió un error al reservar el turno." }
   }
@@ -569,7 +575,10 @@ export async function rescheduleAppointment(appointmentId: string, newDateTime: 
     revalidatePath("/doctor/appointments")
     revalidatePath("/patient/appointments")
     return { success: true, message: "Cita reprogramada" }
-  } catch {
+  } catch (error: unknown) {
+    if (error && typeof error === "object" && "code" in error && (error as { code: string }).code === "P2002") {
+      return { success: false, message: "Ese horario ya está ocupado" }
+    }
     return { success: false, message: "Error al reprogramar" }
   }
 }
