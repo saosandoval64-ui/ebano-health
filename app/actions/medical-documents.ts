@@ -8,6 +8,20 @@ export async function getPatientDocuments(patientId: string) {
   const session = await auth()
   if (!session?.user) return []
 
+  if (session.user.role === "PATIENT" && session.user.id !== patientId) return []
+
+  if (session.user.role === "DOCTOR") {
+    const doctorProfile = await db.doctorProfile.findUnique({ where: { userId: session.user.id } })
+    if (!doctorProfile) return []
+    const hasRelation = await db.appointment.findFirst({
+      where: { doctorId: doctorProfile.id, patientId },
+      select: { id: true },
+    })
+    if (!hasRelation) return []
+  }
+
+  if (session.user.role !== "PATIENT" && session.user.role !== "DOCTOR" && session.user.role !== "ADMIN") return []
+
   return db.medicalDocument.findMany({
     where: { patientId },
     include: {
@@ -36,6 +50,14 @@ export async function uploadDocument(data: {
   })
   if (!doctorProfile) {
     return { success: false, message: "Perfil de médico no encontrado" }
+  }
+
+  const hasRelation = await db.appointment.findFirst({
+    where: { doctorId: doctorProfile.id, patientId: data.patientId },
+    select: { id: true },
+  })
+  if (!hasRelation) {
+    return { success: false, message: "No tenés citas registradas con este paciente" }
   }
 
   try {
@@ -70,6 +92,14 @@ export async function uploadDocument(data: {
 export async function deleteDocument(id: string) {
   const session = await auth()
   if (!session?.user || session.user.role !== "DOCTOR") {
+    return { success: false, message: "No autorizado" }
+  }
+
+  const doctorProfile = await db.doctorProfile.findUnique({ where: { userId: session.user.id } })
+  const existing = doctorProfile
+    ? await db.medicalDocument.findUnique({ where: { id }, select: { doctorId: true } })
+    : null
+  if (!doctorProfile || !existing || existing.doctorId !== doctorProfile.id) {
     return { success: false, message: "No autorizado" }
   }
 

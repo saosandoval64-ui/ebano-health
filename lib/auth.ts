@@ -3,7 +3,6 @@ import Google from "next-auth/providers/google"
 import Credentials from "next-auth/providers/credentials"
 import { db } from "./db"
 import bcrypt from "bcryptjs"
-import { cookies } from "next/headers"
 import { normalizeAvatar } from "./avatar"
 
 declare module "next-auth" {
@@ -132,6 +131,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
  * usando la session de NextAuth, con fallback a cookie manual.
  */
 export async function getSessionPayload(): Promise<SessionPayload | null> {
+  // Única fuente de verdad: la sesión JWT firmada de NextAuth.
+  // (Se eliminó el fallback de cookie manual "session": no estaba firmada
+  // ni verificada, por lo que cualquiera podía forjarla y escalar a ADMIN.)
   const session = await auth()
   if (session?.user) {
     return {
@@ -139,24 +141,6 @@ export async function getSessionPayload(): Promise<SessionPayload | null> {
       role: session.user.role,
     }
   }
-  
-  // Fallback: leer cookie de sesión manual (compatibilidad con Server Actions)
-  const cookieStore = await cookies()
-  const sessionCookie = cookieStore.get("session")?.value
-  if (sessionCookie) {
-    try {
-      const sessionData = JSON.parse(Buffer.from(sessionCookie, "base64").toString("utf-8"))
-      if (sessionData.userId && sessionData.role) {
-        return {
-          userId: sessionData.userId,
-          role: sessionData.role,
-        }
-      }
-    } catch {
-      // Cookie inválida, ignorar
-    }
-  }
-  
   return null
 }
 
