@@ -2,7 +2,7 @@ import { auth } from "../../../lib/auth"
 import { db } from "../../../lib/db"
 import { redirect } from "next/navigation"
 import Link from "next/link"
-import { FileText, FlaskConical, Image, Pill, ArrowRight } from "lucide-react"
+import { FileText, FlaskConical, Image, Pill, ArrowRight, Download } from "lucide-react"
 
 const fileTypeConfig: Record<string, { label: string; icon: typeof FileText; color: string }> = {
   lab_result: { label: "Análisis clínico", icon: FlaskConical, color: "text-purple-500" },
@@ -63,9 +63,9 @@ export default async function PatientDocumentsPage() {
                     <Icon className={`w-5 h-5 ${config.color}`} />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between mb-1">
+                    <div className="flex items-center justify-between mb-1 gap-3">
                       <h3 className="font-bold text-base text-black">{doc.title}</h3>
-                      <span className="text-[10px] text-black/40 font-bold uppercase tracking-wider">
+                      <span className="text-[10px] text-black/40 font-bold uppercase tracking-wider shrink-0">
                         {uploadedDate.toLocaleDateString("es-ES", { day: "numeric", month: "long", year: "numeric" })}
                       </span>
                     </div>
@@ -75,11 +75,23 @@ export default async function PatientDocumentsPage() {
                     {doc.description && (
                       <p className="text-xs text-black/60 mb-2">{doc.description}</p>
                     )}
-                    {doc.doctor && (
-                      <p className="text-[10px] text-black/40 font-bold">
-                        Dr. {doc.doctor.user.name} {doc.doctor.user.lastName}
-                      </p>
-                    )}
+                    <div className="flex items-center justify-between gap-3 mt-2">
+                      {doc.doctor && (
+                        <p className="text-[10px] text-black/40 font-bold">
+                          Dr. {doc.doctor.user.name} {doc.doctor.user.lastName}
+                        </p>
+                      )}
+                      {doc.fileUrl && (
+                        <a
+                          href={doc.fileUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-black/60 hover:text-black transition-colors ml-auto"
+                        >
+                          <Download className="w-3.5 h-3.5" /> Abrir documento
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
