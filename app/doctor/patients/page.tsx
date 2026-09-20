@@ -1,10 +1,19 @@
 import { db } from "../../../lib/db"
 import { getCurrentUser } from "../../../lib/auth"
 import { redirect } from "next/navigation"
-import { Prisma } from "@prisma/client"
 import PatientListClient from "./PatientListClient"
 
-type PatientInfo = Prisma.UserGetPayload<{}> & { lastAppointment: Date }
+type PatientInfo = {
+  id: string
+  name: string
+  lastName: string | null
+  email: string
+  dni: string | null
+  phone: string | null
+  birthDate: Date | null
+  insurance: string | null
+  lastAppointment: Date
+}
 
 export default async function DoctorPatientsPage() {
   const user = await getCurrentUser()
@@ -27,7 +36,18 @@ export default async function DoctorPatientsPage() {
       doctorId: doctorProfile.id,
     },
     include: {
-      patient: true,
+      patient: {
+        select: {
+          id: true,
+          name: true,
+          lastName: true,
+          email: true,
+          dni: true,
+          phone: true,
+          birthDate: true,
+          insurance: true,
+        },
+      },
     },
     orderBy: {
       dateTime: "desc",

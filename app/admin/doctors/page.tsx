@@ -9,7 +9,12 @@ export default async function AdminDoctorsPage() {
 
   const doctors = await db.user.findMany({
     where: { role: "DOCTOR" },
-    include: {
+    select: {
+      id: true,
+      name: true,
+      lastName: true,
+      email: true,
+      phone: true,
       doctorProfile: true,
     },
     orderBy: {

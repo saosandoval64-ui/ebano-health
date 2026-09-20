@@ -20,8 +20,21 @@ export default async function ClinicAdminDoctorsPage() {
         clinicId: clinic.id,
       },
     },
-    include: {
-      doctorProfile: true,
+    select: {
+      id: true,
+      name: true,
+      lastName: true,
+      email: true,
+      phone: true,
+      doctorProfile: {
+        select: {
+          id: true,
+          specialty: true,
+          license: true,
+          bio: true,
+          imageUrl: true,
+        },
+      },
     },
     orderBy: {
       name: "asc",

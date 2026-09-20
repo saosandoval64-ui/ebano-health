@@ -18,7 +18,13 @@ export default async function DoctorPage({ params }: SpecialistPageProps) {
 
   const doctor = await db.user.findUnique({
     where: { id },
-    include: { doctorProfile: true }
+    select: {
+      id: true,
+      name: true,
+      lastName: true,
+      avatar: true,
+      doctorProfile: true,
+    },
   })
 
   if (!doctor || !doctor.doctorProfile) {

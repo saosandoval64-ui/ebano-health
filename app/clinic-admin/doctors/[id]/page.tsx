@@ -25,7 +25,11 @@ export default async function ClinicAdminDoctorProfilePage({ params }: DoctorPro
 
   const doctor = await db.user.findUnique({
     where: { id },
-    include: {
+    select: {
+      id: true,
+      name: true,
+      lastName: true,
+      avatar: true,
       doctorProfile: {
         include: {
           availability: {

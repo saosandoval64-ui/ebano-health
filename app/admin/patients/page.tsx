@@ -9,6 +9,16 @@ export default async function AdminPatientsPage() {
 
   const patients = await db.user.findMany({
     where: { role: "PATIENT" },
+    select: {
+      id: true,
+      name: true,
+      lastName: true,
+      email: true,
+      phone: true,
+      dni: true,
+      insurance: true,
+      birthDate: true,
+    },
     orderBy: {
       name: "asc",
     },

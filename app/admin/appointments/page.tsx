@@ -9,10 +9,11 @@ export default async function AdminAppointmentsPage() {
 
   const appointments = await db.appointment.findMany({
     include: {
-      patient: true,
+      patient: { select: { name: true, lastName: true } },
       doctor: {
-        include: {
-          user: true,
+        select: {
+          specialty: true,
+          user: { select: { name: true, lastName: true } },
         },
       },
     },

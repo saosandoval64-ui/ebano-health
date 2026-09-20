@@ -9,25 +9,47 @@ export default async function EspecialistasPage() {
   const [doctors, clinics] = await Promise.all([
     db.user.findMany({
       where: { role: "DOCTOR" },
-      include: {
+      select: {
+        id: true,
+        name: true,
+        lastName: true,
+        avatar: true,
         doctorProfile: {
-          include: {
+          select: {
+            specialty: true,
+            bio: true,
+            clinicId: true,
             _count: { select: { followedBy: true } },
             availability: { where: { isActive: true }, orderBy: { dayOfWeek: "asc" } },
-            clinic: true,
+            clinic: { select: { id: true, name: true, logo: true, address: true, phone: true } },
           },
         },
       },
       orderBy: { name: "asc" },
     }),
     db.clinic.findMany({
-      include: {
+      select: {
+        id: true,
+        name: true,
+        logo: true,
+        address: true,
+        phone: true,
+        email: true,
+        website: true,
+        description: true,
         doctors: {
-          include: {
+          select: {
             user: {
-              include: {
+              select: {
+                id: true,
+                name: true,
+                lastName: true,
+                avatar: true,
                 doctorProfile: {
-                  include: {
+                  select: {
+                    specialty: true,
+                    bio: true,
+                    clinicId: true,
                     _count: { select: { followedBy: true } },
                     availability: { where: { isActive: true }, orderBy: { dayOfWeek: "asc" } },
                   },
