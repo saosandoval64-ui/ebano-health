@@ -25,7 +25,7 @@ import {
   CalendarCheck,
   Video
 } from "lucide-react"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 
 interface SidebarProps {
   userName: string
@@ -37,12 +37,11 @@ interface SidebarProps {
 export default function Sidebar({ userName, userEmail, role, userAvatar }: SidebarProps) {
   const pathname = usePathname()
   const [isAvatarModalOpen, setIsAvatarModalOpen] = useState(false)
+  // El avatar se inicializa desde el prop; cuando el prop cambia (ej. después
+  // de un router.refresh()), el padre puede pasar key={userAvatar} para
+  // reinicializar el componente y obtener el nuevo valor.
   const [avatar, setAvatar] = useState(userAvatar)
   const { updateAvatar } = useAvatarUpdate()
-
-  useEffect(() => {
-    setAvatar(userAvatar)
-  }, [userAvatar])
 
   const handleAvatarSelect = async (selectedAvatar: string) => {
     const success = await updateAvatar(selectedAvatar)
@@ -80,6 +79,7 @@ export default function Sidebar({ userName, userEmail, role, userAvatar }: Sideb
           { name: "Turnos", href: "/doctor/appointments", icon: Calendar },
           { name: "Pacientes", href: "/doctor/patients", icon: Users },
           { name: "Historias", href: "/doctor/medical-records", icon: FileText },
+          { name: "Documentos", href: "/doctor/documents", icon: FolderOpen },
           { name: "Seguidores", href: "/doctor/followers", icon: Heart },
           { name: "Disponibilidad", href: "/doctor/availability", icon: Clock },
           { name: "Telemedicina", href: "/doctor/telemedicine", icon: Video },

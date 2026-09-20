@@ -12,6 +12,7 @@
     "@auth/prisma-adapter": "^2.11.2",
     "@hookform/resolvers": "^5.4.0",
     "@prisma/client": "^6.19.3",
+    "@supabase/supabase-js": "^2.116.0",
     "axios": "^1.16.1",
     "bcryptjs": "^3.0.3",
     "class-variance-authority": "^0.7.1",
