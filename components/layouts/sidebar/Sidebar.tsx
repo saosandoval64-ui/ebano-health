@@ -23,7 +23,8 @@ import {
   Bell,
   BarChart3,
   CalendarCheck,
-  Video
+  Video,
+  MessageSquare
 } from "lucide-react"
 import { useState } from "react"
 
@@ -69,6 +70,7 @@ export default function Sidebar({ userName, userEmail, role, userAvatar }: Sideb
           { name: "Historia Clínica", href: "/patient/medical-history", icon: FileText },
           { name: "Controles", href: "/patient/follow-ups", icon: CalendarCheck },
           { name: "Documentos", href: "/patient/documents", icon: FolderOpen },
+          { name: "Mensajes", href: "/mensajes", icon: MessageSquare },
           { name: "Notificaciones", href: "/patient/notifications", icon: Bell },
           { name: "Mi Perfil", href: "/patient/profile", icon: User },
           { name: "Configuración", href: "/patient/settings", icon: Settings },
@@ -80,6 +82,7 @@ export default function Sidebar({ userName, userEmail, role, userAvatar }: Sideb
           { name: "Pacientes", href: "/doctor/patients", icon: Users },
           { name: "Historias", href: "/doctor/medical-records", icon: FileText },
           { name: "Documentos", href: "/doctor/documents", icon: FolderOpen },
+          { name: "Mensajes", href: "/mensajes", icon: MessageSquare },
           { name: "Seguidores", href: "/doctor/followers", icon: Heart },
           { name: "Disponibilidad", href: "/doctor/availability", icon: Clock },
           { name: "Telemedicina", href: "/doctor/telemedicine", icon: Video },
