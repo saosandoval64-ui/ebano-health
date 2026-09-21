@@ -17,10 +17,15 @@ export default async function AdminDashboard() {
   const recentAppointments = await db.appointment.findMany({
     take: 5,
     include: {
-      patient: true,
-      doctor: { include: { user: true } },
+      patient: { select: { name: true, lastName: true } },
+      doctor: {
+        select: {
+          specialty: true,
+          user: { select: { name: true, lastName: true } },
+        },
+      },
     },
-    orderBy: { createdAt: "desc" },
+    orderBy: { dateTime: "desc" },
   })
 
   return (
