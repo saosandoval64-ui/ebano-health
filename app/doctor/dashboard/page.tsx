@@ -4,7 +4,7 @@ import { redirect } from "next/navigation"
 import TodayAppointmentsList from "./TodayAppointmentsList"
 import { Calendar, Users, Activity, Heart, ArrowRight, Clock, User } from "lucide-react"
 import AvatarDisplay from "@/components/AvatarDisplay"
-import DaySelector from "@/components/DaySelector"
+
 import Link from "next/link"
 
 export default async function DoctorDashboard() {
@@ -80,11 +80,6 @@ export default async function DoctorDashboard() {
             <AvatarDisplay avatar={user?.avatar} name={user?.name || ""} size="sm" />
           </div>
         </Link>
-      </div>
-
-      {/* Day Selector */}
-      <div className="mb-10">
-        <DaySelector />
       </div>
 
       {/* Stats Grid */}
